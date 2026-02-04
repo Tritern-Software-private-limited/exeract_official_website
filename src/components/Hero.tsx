@@ -176,7 +176,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
               </div>
             </div>
 
-            {/* Floating Badge */}
+            {/* Floating Badge
             <motion.div
               animate={{
                 y: [0, -10, 0]
@@ -199,7 +199,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                   1,240 leads processed
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         </div>
       </div>
