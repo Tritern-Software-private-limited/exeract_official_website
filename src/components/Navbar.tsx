@@ -58,12 +58,12 @@ export function Navbar() {
                 {link.name}
               </a>
             ))}
-            <a
+            {/* <a
               href="#/admin"
               className="bg-navy text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:bg-navy-light transition-colors text-sm xl:text-base whitespace-nowrap"
             >
               Admin
-            </a>
+            </a> */}
             <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 text-sm xl:text-base whitespace-nowrap">
               Start Free Trial
             </button>
