@@ -3,9 +3,9 @@ export const CONTENT_KEY = 'exeract_page_content';
 export const INITIAL_CONTENT = {
   hero: {
     badge: 'New: Advanced Keyword Intelligence 2.0',
-    headline: 'Stop Wasting Hours on Manual Lead Verification',
+    headline: 'Qualify Your Target Companies at Scale',
     subheadline:
-    'Exeract automatically verifies your leads against keywords with 95% accuracy. Upload, verify, and close deals 10x faster.',
+    'Upload your company lists, define your ICP keywords, and let Exeract handle the qualification. Cut research time and scale targeting the right companies.',
     primaryCta: 'Start Free Trial',
     secondaryCta: 'See How It Works',
     trustBadges: [
@@ -16,7 +16,7 @@ export const INITIAL_CONTENT = {
   },
   howItWorks: {
     sectionTitle: 'How It Works',
-    heading: 'Verify thousands of leads in minutes',
+    heading: 'Qualify thousands of Companies in minutes',
     description:
     'Stop manually checking websites. Our automated workflow handles the heavy lifting so you can focus on closing deals.',
     steps: [
@@ -28,18 +28,18 @@ export const INITIAL_CONTENT = {
     {
       title: 'Set Your Keywords',
       description:
-      'Define the exact criteria that qualify a lead for your business. Use boolean logic and negative keywords for precision.'
+      'Define the exact criteria that qualify a target company for your business. Use boolean logic and negative keywords for precision.'
     },
     {
       title: 'Get Confidence Scores',
       description:
-      'Receive instant verification results with detailed confidence ratings. Export clean, verified lists ready for your sales team.'
+      'Receive instant qualified results with detailed confidence ratings. Export clean, verified lists ready for your sales team.'
     }]
 
   },
   features: {
     sectionTitle: 'Why Exeract?',
-    heading: 'Built for high-velocity sales teams',
+    heading: 'Built for high-velocity growth teams',
     description:
     'Manual lead verification is slow, error-prone, and expensive. Exeract replaces the grunt work with intelligent automation, helping you scale your outreach without scaling your headcount.',
     features: [
