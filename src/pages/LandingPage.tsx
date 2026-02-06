@@ -84,19 +84,19 @@ export function LandingPage() {
                 Ready to Verify Leads{' '}
                 <span className="text-primary">10x Faster?</span>
               </h2>
-              {/* <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
                 Join 500+ teams who trust Exeract for lead verification. Start
                 your free trial today.
-              </p> */}
+              </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-base sm:text-lg shadow-lg shadow-primary/25 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 flex items-center justify-center">
                     Start Your Free Trial
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </button>
-                {/* <p className="text-sm text-gray-500 mt-2 sm:mt-0 sm:ml-6">
+                <p className="text-sm text-gray-500 mt-2 sm:mt-0 sm:ml-6">
                   No credit card required
-                </p> */}
+                </p>
               </div>
             </motion.div>
           </div>
