@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Zap, BrainCircuit, FileSpreadsheet, Edit2 } from 'lucide-react';
-import { content, INITIAL_CONTENT } from '../utils/content';
+import { content, type ContentType } from '../utils/content';
+import { SectionLoader } from './SectionLoader';
 const icons = [ShieldCheck, Zap, BrainCircuit, FileSpreadsheet];
 const colors = [
 'text-emerald-500',
@@ -14,15 +15,55 @@ interface FeaturesProps {
   onEdit?: () => void;
 }
 export function Features({ isAdmin, onEdit }: FeaturesProps) {
-  const [data, setData] = useState(INITIAL_CONTENT.features);
+  const [data, setData] = useState<ContentType['features'] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    content.getContent().then((next) => setData(next.features));
+    let active = true;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const next = await content.getContent();
+        if (!active) return;
+        setData(next.features);
+        setError(null);
+      } catch (err) {
+        if (!active) return;
+        setError('Failed to load content');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.features));
+      content.getContent().then((next) => setData(next.features)).catch(() => {});
     };
     window.addEventListener('contentUpdated', handleUpdate);
-    return () => window.removeEventListener('contentUpdated', handleUpdate);
+    return () => {
+      active = false;
+      window.removeEventListener('contentUpdated', handleUpdate);
+    };
   }, []);
+  if (loading) {
+    return (
+      <section id="features" className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLoader label="Loading features" />
+        </div>
+      </section>
+    );
+  }
+  if (error || !data) {
+    return (
+      <section id="features" className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-sm text-gray-500">
+            Unable to load features content.
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="features" className="py-24 bg-white relative">
       {isAdmin && onEdit &&

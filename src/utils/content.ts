@@ -1,5 +1,3 @@
-export const CONTENT_KEY = 'exeract_page_content';
-
 export const INITIAL_CONTENT = {
   hero: {
     badge: 'New: Advanced Keyword Intelligence 2.0',
@@ -118,24 +116,29 @@ export const INITIAL_CONTENT = {
   }
 };
 
+export type ContentType = typeof INITIAL_CONTENT;
+
+let cachedContent: ContentType | null = null;
+let inFlight: Promise<ContentType> | null = null;
+
 export const content = {
   getContent: async () => {
-    try {
+    if (cachedContent) return cachedContent;
+    if (inFlight) return inFlight;
+    inFlight = (async () => {
       const response = await fetch('/.netlify/functions/content-get');
       if (!response.ok) throw new Error('Failed to load content');
       const data = await response.json();
-      if (data?.content) {
-        localStorage.setItem(CONTENT_KEY, JSON.stringify(data.content));
-        return data.content;
+      if (!data?.content || typeof data.content !== 'object') {
+        throw new Error('Invalid content response');
       }
-      return INITIAL_CONTENT;
-    } catch {
-      const stored = localStorage.getItem(CONTENT_KEY);
-      if (!stored) {
-        localStorage.setItem(CONTENT_KEY, JSON.stringify(INITIAL_CONTENT));
-        return INITIAL_CONTENT;
-      }
-      return JSON.parse(stored);
+      cachedContent = data.content as ContentType;
+      return cachedContent;
+    })();
+    try {
+      return await inFlight;
+    } finally {
+      inFlight = null;
     }
   },
 
@@ -150,7 +153,7 @@ export const content = {
     });
 
     if (!response.ok) throw new Error('Failed to save content');
-    localStorage.setItem(CONTENT_KEY, JSON.stringify(newContent));
+    cachedContent = newContent;
     // Dispatch a custom event so components can update immediately
     window.dispatchEvent(new Event('contentUpdated'));
     return newContent;

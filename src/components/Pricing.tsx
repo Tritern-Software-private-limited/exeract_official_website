@@ -1,21 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Edit2 } from 'lucide-react';
-import { content, INITIAL_CONTENT } from '../utils/content';
+import { content, type ContentType } from '../utils/content';
+import { SectionLoader } from './SectionLoader';
 interface PricingProps {
   isAdmin?: boolean;
   onEdit?: () => void;
 }
 export function Pricing({ isAdmin, onEdit }: PricingProps) {
-  const [data, setData] = useState(INITIAL_CONTENT.pricing);
+  const [data, setData] = useState<ContentType['pricing'] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    content.getContent().then((next) => setData(next.pricing));
+    let active = true;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const next = await content.getContent();
+        if (!active) return;
+        setData(next.pricing);
+        setError(null);
+      } catch (err) {
+        if (!active) return;
+        setError('Failed to load content');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.pricing));
+      content.getContent().then((next) => setData(next.pricing)).catch(() => {});
     };
     window.addEventListener('contentUpdated', handleUpdate);
-    return () => window.removeEventListener('contentUpdated', handleUpdate);
+    return () => {
+      active = false;
+      window.removeEventListener('contentUpdated', handleUpdate);
+    };
   }, []);
+  if (loading) {
+    return (
+      <section id="pricing" className="py-24 bg-navy text-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <SectionLoader label="Loading pricing" />
+        </div>
+      </section>
+    );
+  }
+  if (error || !data) {
+    return (
+      <section id="pricing" className="py-24 bg-navy text-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center text-sm text-gray-300">
+            Unable to load pricing content.
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section
       id="pricing"

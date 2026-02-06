@@ -1,21 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Play, Edit2 } from 'lucide-react';
-import { content, INITIAL_CONTENT } from '../utils/content';
+import { content, type ContentType } from '../utils/content';
+import { SectionLoader } from './SectionLoader';
 interface HeroProps {
   isAdmin?: boolean;
   onEdit?: () => void;
 }
 export function Hero({ isAdmin, onEdit }: HeroProps) {
-  const [data, setData] = useState(INITIAL_CONTENT.hero);
+  const [data, setData] = useState<ContentType['hero'] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    content.getContent().then((next) => setData(next.hero));
+    let active = true;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const next = await content.getContent();
+        if (!active) return;
+        setData(next.hero);
+        setError(null);
+      } catch (err) {
+        if (!active) return;
+        setError('Failed to load content');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.hero));
+      content.getContent().then((next) => setData(next.hero)).catch(() => {});
     };
     window.addEventListener('contentUpdated', handleUpdate);
-    return () => window.removeEventListener('contentUpdated', handleUpdate);
+    return () => {
+      active = false;
+      window.removeEventListener('contentUpdated', handleUpdate);
+    };
   }, []);
+  if (loading) {
+    return (
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
+          <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-3xl opacity-50" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/10 blur-3xl opacity-50" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLoader label="Loading hero content" minHeightClassName="min-h-[320px]" />
+        </div>
+      </section>
+    );
+  }
+  if (error || !data) {
+    return (
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-sm text-gray-500">
+            Unable to load hero content.
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
       {isAdmin && onEdit &&

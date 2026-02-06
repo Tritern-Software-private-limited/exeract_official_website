@@ -1,26 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Save, Layout, List, DollarSign, Info, Type, X } from 'lucide-react';
-import { content, INITIAL_CONTENT } from '../utils/content';
+import { content, type ContentType, INITIAL_CONTENT } from '../utils/content';
+import { SectionLoader } from './SectionLoader';
 import { auth } from '../utils/auth';
-type ContentType = typeof INITIAL_CONTENT;
 type ContentTab = 'hero' | 'howItWorks' | 'features' | 'pricing' | 'footer';
 interface ContentEditorProps {
   initialTab?: ContentTab;
   onClose?: () => void;
 }
 export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
-  const [data, setData] = useState<ContentType>(INITIAL_CONTENT);
+  const [data, setData] = useState<ContentType | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<ContentTab>(initialTab || 'hero');
   const [isSaving, setIsSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   useEffect(() => {
-    content.getContent().then(setData);
+    let active = true;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const next = await content.getContent();
+        if (!active) return;
+        setData(next);
+        setError(null);
+      } catch (err) {
+        if (!active) return;
+        setError('Failed to load content');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
   }, []);
   useEffect(() => {
     if (initialTab) setActiveTab(initialTab);
   }, [initialTab]);
   const handleSave = async () => {
+    if (!data) return;
     setIsSaving(true);
     try {
       await content.saveContent(data, auth.getToken() || undefined);
@@ -36,9 +57,9 @@ export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
   value: any) =>
   {
     setData((prev) => ({
-      ...prev,
+      ...(prev || INITIAL_CONTENT),
       [section]: {
-        ...prev[section],
+        ...(prev ? prev[section] : INITIAL_CONTENT[section]),
         [field]: value
       }
     }));
@@ -51,8 +72,9 @@ export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
   value: any) =>
   {
     setData((prev) => {
+      const safePrev = prev || INITIAL_CONTENT;
       const newSection = {
-        ...prev[section]
+        ...safePrev[section]
       };
       const newArray = [...(newSection as any)[arrayName]];
       if (field) {
@@ -65,7 +87,7 @@ export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
       }
       ;(newSection as any)[arrayName] = newArray;
       return {
-        ...prev,
+        ...safePrev,
         [section]: newSection
       };
     });
@@ -97,6 +119,22 @@ export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
     icon: Type
   }];
 
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <SectionLoader label="Loading content editor" minHeightClassName="min-h-[240px]" />
+      </div>
+    );
+  }
+  if (error || !data) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden p-6">
+        <div className="text-center text-sm text-gray-500">
+          Unable to load content editor.
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       {onClose &&

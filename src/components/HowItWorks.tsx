@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { UploadCloud, Search, BarChart3, ArrowRight, Edit2 } from 'lucide-react';
-import { content, INITIAL_CONTENT } from '../utils/content';
+import { content, type ContentType } from '../utils/content';
+import { SectionLoader } from './SectionLoader';
 const icons = [UploadCloud, Search, BarChart3];
 const colors = [
 'bg-blue-50 text-blue-600',
@@ -13,15 +14,55 @@ interface HowItWorksProps {
   onEdit?: () => void;
 }
 export function HowItWorks({ isAdmin, onEdit }: HowItWorksProps) {
-  const [data, setData] = useState(INITIAL_CONTENT.howItWorks);
+  const [data, setData] = useState<ContentType['howItWorks'] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    content.getContent().then((next) => setData(next.howItWorks));
+    let active = true;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const next = await content.getContent();
+        if (!active) return;
+        setData(next.howItWorks);
+        setError(null);
+      } catch (err) {
+        if (!active) return;
+        setError('Failed to load content');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.howItWorks));
+      content.getContent().then((next) => setData(next.howItWorks)).catch(() => {});
     };
     window.addEventListener('contentUpdated', handleUpdate);
-    return () => window.removeEventListener('contentUpdated', handleUpdate);
+    return () => {
+      active = false;
+      window.removeEventListener('contentUpdated', handleUpdate);
+    };
   }, []);
+  if (loading) {
+    return (
+      <section id="how-it-works" className="py-16 sm:py-24 bg-gray-50 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLoader label="Loading how it works" />
+        </div>
+      </section>
+    );
+  }
+  if (error || !data) {
+    return (
+      <section id="how-it-works" className="py-16 sm:py-24 bg-gray-50 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-sm text-gray-500">
+            Unable to load how-it-works content.
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="how-it-works" className="py-16 sm:py-24 bg-gray-50 relative">
       {isAdmin && onEdit &&

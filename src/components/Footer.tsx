@@ -1,20 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import { Twitter, Linkedin, Github, Mail, Edit2 } from 'lucide-react';
-import { content, INITIAL_CONTENT } from '../utils/content';
+import { content, type ContentType } from '../utils/content';
+import { SectionLoader } from './SectionLoader';
 interface FooterProps {
   isAdmin?: boolean;
   onEdit?: () => void;
 }
 export function Footer({ isAdmin, onEdit }: FooterProps) {
-  const [data, setData] = useState(INITIAL_CONTENT.footer);
+  const [data, setData] = useState<ContentType['footer'] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    content.getContent().then((next) => setData(next.footer));
+    let active = true;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const next = await content.getContent();
+        if (!active) return;
+        setData(next.footer);
+        setError(null);
+      } catch (err) {
+        if (!active) return;
+        setError('Failed to load content');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.footer));
+      content.getContent().then((next) => setData(next.footer)).catch(() => {});
     };
     window.addEventListener('contentUpdated', handleUpdate);
-    return () => window.removeEventListener('contentUpdated', handleUpdate);
+    return () => {
+      active = false;
+      window.removeEventListener('contentUpdated', handleUpdate);
+    };
   }, []);
+  if (loading) {
+    return (
+      <footer className="bg-navy text-gray-300 pt-20 pb-10 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLoader label="Loading footer" />
+        </div>
+      </footer>
+    );
+  }
+  if (error || !data) {
+    return (
+      <footer className="bg-navy text-gray-300 pt-20 pb-10 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-sm text-gray-400">
+            Unable to load footer content.
+          </div>
+        </div>
+      </footer>
+    );
+  }
   return (
     <footer className="bg-navy text-gray-300 pt-20 pb-10 relative">
       {isAdmin && onEdit &&
