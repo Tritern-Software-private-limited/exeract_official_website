@@ -45,7 +45,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/10 blur-3xl opacity-50" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLoader label="Loading hero content" minHeightClassName="min-h-[320px]" />
+          <SectionLoader label="Loading" minHeightClassName="min-h-[320px]" />
         </div>
       </section>
     );
