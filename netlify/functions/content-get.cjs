@@ -9,7 +9,13 @@ let cachedClient = null;
 async function getClient() {
   if (cachedClient) return cachedClient;
   if (!MONGODB_URI) throw new Error("Missing MONGODB_URI");
-  const client = new MongoClient(MONGODB_URI, {});
+  if (!MONGODB_DB) throw new Error("Missing MONGODB_DB");
+  if (!CONTENT_COLLECTION) throw new Error("Missing CONTENT_COLLECTION");
+  const client = new MongoClient(MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+    connectTimeoutMS: 5000,
+    socketTimeoutMS: 5000,
+  });
   await client.connect();
   cachedClient = client;
   return client;
@@ -35,6 +41,7 @@ exports.handler = async () => {
       body: JSON.stringify({ content }),
     };
   } catch (error) {
+    console.error("content-get failed:", error);
     return {
       statusCode: 500,
       headers: { "content-type": "application/json; charset=utf-8" },
