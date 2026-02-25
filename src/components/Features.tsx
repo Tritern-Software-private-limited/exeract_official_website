@@ -36,7 +36,17 @@ export function Features({ isAdmin, onEdit }: FeaturesProps) {
     };
     load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.features)).catch(() => {});
+      content
+        .getContent()
+        .then((next) => {
+          if (!active) return;
+          setData(next.features);
+          setError(null);
+        })
+        .catch(() => {
+          if (!active) return;
+          setError('Failed to load content');
+        });
     };
     window.addEventListener('contentUpdated', handleUpdate);
     return () => {
@@ -159,13 +169,13 @@ export function Features({ isAdmin, onEdit }: FeaturesProps) {
 
               <div className="space-y-3 sm:space-y-4 font-mono text-xs sm:text-sm">
                 <div className="flex items-start text-green-400">
-                  <span className="mr-2 flex-shrink-0">➜</span>
+                  <span className="mr-2 flex-shrink-0">-&gt;</span>
                   <span className="break-words">
                     Initializing verification protocols...
                   </span>
                 </div>
                 <div className="flex items-start text-blue-400">
-                  <span className="mr-2 flex-shrink-0">ℹ</span>
+                  <span className="mr-2 flex-shrink-0">i</span>
                   <span className="break-words">
                     Loading batch: 5,000 leads
                   </span>
@@ -231,3 +241,4 @@ export function Features({ isAdmin, onEdit }: FeaturesProps) {
     </section>);
 
 }
+

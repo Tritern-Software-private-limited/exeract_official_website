@@ -22,7 +22,8 @@ function verifyAuth(event) {
   const authHeader = event.headers?.authorization || event.headers?.Authorization || "";
   const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
   if (!token) throw new Error("Unauthorized");
-  jwt.verify(token, JWT_SECRET);
+  const payload = jwt.verify(token, JWT_SECRET);
+  if (payload?.role !== "admin") throw new Error("Forbidden");
 }
 
 exports.handler = async (event) => {

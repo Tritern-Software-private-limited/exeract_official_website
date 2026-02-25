@@ -230,7 +230,7 @@ export function BlogIndexPage() {
             {filteredPosts.length > pageSize &&
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <span className="text-sm text-gray-500">
-                  Showing {pageStart + 1}–{Math.min(pageStart + pageSize, filteredPosts.length)} of {filteredPosts.length}
+                  Showing {pageStart + 1}-{Math.min(pageStart + pageSize, filteredPosts.length)} of {filteredPosts.length}
                 </span>
                 <div className="flex items-center gap-2">
                   <button
@@ -262,3 +262,4 @@ export function BlogIndexPage() {
     </div>
   );
 }
+

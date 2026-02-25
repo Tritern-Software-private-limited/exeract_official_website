@@ -29,7 +29,17 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
     };
     load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.pricing)).catch(() => {});
+      content
+        .getContent()
+        .then((next) => {
+          if (!active) return;
+          setData(next.pricing);
+          setError(null);
+        })
+        .catch(() => {
+          if (!active) return;
+          setError('Failed to load content');
+        });
     };
     window.addEventListener('contentUpdated', handleUpdate);
     return () => {

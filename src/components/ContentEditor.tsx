@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Save, Layout, List, DollarSign, Info, Type, X } from 'lucide-react';
+import { Save, Layout, List, DollarSign, Info, Type, X, type LucideIcon } from 'lucide-react';
 import { content, type ContentType, INITIAL_CONTENT } from '../utils/content';
 import { SectionLoader } from './SectionLoader';
 import { auth } from '../utils/auth';
@@ -54,7 +53,7 @@ export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
   const updateField = (
   section: keyof ContentType,
   field: string,
-  value: any) =>
+  value: unknown) =>
   {
     setData((prev) => ({
       ...(prev || INITIAL_CONTENT),
@@ -69,30 +68,37 @@ export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
   arrayName: string,
   index: number,
   field: string | null,
-  value: any) =>
+  value: unknown) =>
   {
     setData((prev) => {
       const safePrev = prev || INITIAL_CONTENT;
-      const newSection = {
-        ...safePrev[section]
-      };
-      const newArray = [...(newSection as any)[arrayName]];
+      const sectionData = safePrev[section] as Record<string, unknown>;
+      const existingArray = sectionData[arrayName];
+      if (!Array.isArray(existingArray)) return safePrev;
+      const newArray = [...existingArray];
       if (field) {
+        const currentValue =
+          typeof newArray[index] === 'object' && newArray[index] !== null
+            ? (newArray[index] as Record<string, unknown>)
+            : {};
         newArray[index] = {
-          ...newArray[index],
+          ...currentValue,
           [field]: value
         };
       } else {
         newArray[index] = value;
       }
-      ;(newSection as any)[arrayName] = newArray;
+      const newSection = {
+        ...sectionData,
+        [arrayName]: newArray
+      };
       return {
         ...safePrev,
-        [section]: newSection
+        [section]: newSection as ContentType[typeof section]
       };
     });
   };
-  const tabs = [
+  const tabs: Array<{id: ContentTab;label: string;icon: LucideIcon;}> = [
   {
     id: 'hero',
     label: 'Hero Section',
@@ -151,9 +157,9 @@ export function ContentEditor({ initialTab, onClose }: ContentEditorProps) {
       <div className="border-b border-gray-100 bg-gray-50 overflow-x-auto">
         <div className="flex">
           {tabs.map((tab) =>
-          <button
+            <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
+            onClick={() => setActiveTab(tab.id)}
             className={`px-6 py-4 flex items-center whitespace-nowrap text-sm font-medium transition-colors ${activeTab === tab.id ? 'bg-white text-primary border-b-2 border-primary' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'}`}>
 
               <tab.icon size={16} className="mr-2" />

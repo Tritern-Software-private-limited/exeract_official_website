@@ -28,7 +28,17 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
     };
     load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.footer)).catch(() => {});
+      content
+        .getContent()
+        .then((next) => {
+          if (!active) return;
+          setData(next.footer);
+          setError(null);
+        })
+        .catch(() => {
+          if (!active) return;
+          setError('Failed to load content');
+        });
     };
     window.addEventListener('contentUpdated', handleUpdate);
     return () => {

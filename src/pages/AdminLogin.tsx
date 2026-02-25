@@ -98,7 +98,7 @@ export function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
-                  placeholder="••••••••"
+                  placeholder="********"
                   required />
 
               </div>
@@ -124,7 +124,7 @@ export function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
               href="/"
               className="text-sm text-gray-500 hover:text-primary transition-colors">
 
-              ← Back to Landing Page
+              &lt;- Back to Landing Page
             </a>
           </div>
         </div>
@@ -132,3 +132,4 @@ export function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
     </div>);
 
 }
+

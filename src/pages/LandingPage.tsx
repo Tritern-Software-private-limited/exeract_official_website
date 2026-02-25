@@ -58,7 +58,7 @@ export function LandingPage() {
         />
         <Features isAdmin={isAdmin} onEdit={() => openContentEditor('features')} />
         <Pricing isAdmin={isAdmin} onEdit={() => openContentEditor('pricing')} />
-        <BlogPreview isAdmin={isAdmin} />
+        <BlogPreview />
 
         {/* Final CTA */}
         <section className="py-16 sm:py-24 bg-white relative overflow-hidden">

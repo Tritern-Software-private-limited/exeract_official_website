@@ -120,6 +120,8 @@ export type ContentType = typeof INITIAL_CONTENT;
 
 let cachedContent: ContentType | null = null;
 let inFlight: Promise<ContentType> | null = null;
+const cloneInitialContent = (): ContentType =>
+  JSON.parse(JSON.stringify(INITIAL_CONTENT)) as ContentType;
 
 export const content = {
   getContent: async () => {
@@ -127,6 +129,10 @@ export const content = {
     if (inFlight) return inFlight;
     inFlight = (async () => {
       const response = await fetch('/.netlify/functions/content-get');
+      if (response.status === 404) {
+        cachedContent = cloneInitialContent();
+        return cachedContent;
+      }
       if (!response.ok) throw new Error('Failed to load content');
       const data = await response.json();
       if (!data?.content || typeof data.content !== 'object') {

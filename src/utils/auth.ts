@@ -2,6 +2,22 @@
 export const AUTH_TOKEN_KEY = 'exeract_auth_token';
 export const BLOG_POSTS_KEY = 'exeract_blog_posts';
 
+interface JwtPayload {
+  exp?: number;
+}
+
+const decodeJwtPayload = (token: string): JwtPayload | null => {
+  const parts = token.split('.');
+  if (parts.length < 2) return null;
+  const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+  const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, '=');
+  try {
+    return JSON.parse(window.atob(padded)) as JwtPayload;
+  } catch {
+    return null;
+  }
+};
+
 // Initial blog posts data
 export const INITIAL_POSTS = [
 {
@@ -73,7 +89,18 @@ export const auth = {
   },
 
   isAuthenticated: (): boolean => {
-    return !!localStorage.getItem(AUTH_TOKEN_KEY);
+    const token = localStorage.getItem(AUTH_TOKEN_KEY);
+    if (!token) return false;
+    const payload = decodeJwtPayload(token);
+    if (!payload) {
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      return false;
+    }
+    if (typeof payload.exp === 'number' && Date.now() >= payload.exp * 1000) {
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      return false;
+    }
+    return true;
   },
 
   // Blog data helpers (Mongo via Netlify functions)
@@ -90,7 +117,7 @@ export const auth = {
     }
   },
 
-  savePost: async (post: any) => {
+  savePost: async (post: Record<string, unknown>) => {
     const token = auth.getToken();
     const response = await fetch('/.netlify/functions/posts-save', {
       method: 'POST',

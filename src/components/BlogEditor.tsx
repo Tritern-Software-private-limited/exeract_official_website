@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Save, X, Image as ImageIcon, Calendar, User, Tag } from 'lucide-react';
+import { Save, X, Image as ImageIcon, User, Tag } from 'lucide-react';
 interface BlogPost {
   id?: string;
   title: string;
@@ -32,6 +32,7 @@ export function BlogEditor({ post, onSave, onCancel }: BlogEditorProps) {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   useEffect(() => {
     if (post) {
       setFormData(post);
@@ -49,15 +50,18 @@ export function BlogEditor({ post, onSave, onCancel }: BlogEditorProps) {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    setSubmitError('');
     setIsSubmitting(true);
-    // Simulate network delay
-    setTimeout(() => {
-      onSave(formData);
+    try {
+      await Promise.resolve(onSave(formData));
+    } catch {
+      setSubmitError('Failed to save post. Please try again.');
+    } finally {
       setIsSubmitting(false);
-    }, 800);
+    }
   };
   return (
     <motion.div
@@ -239,6 +243,9 @@ export function BlogEditor({ post, onSave, onCancel }: BlogEditorProps) {
 
         {/* Actions */}
         <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          {submitError &&
+          <p className="mr-auto text-xs text-red-500">{submitError}</p>
+          }
           <button
             type="button"
             onClick={onCancel}

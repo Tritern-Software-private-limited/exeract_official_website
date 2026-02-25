@@ -35,7 +35,17 @@ export function HowItWorks({ isAdmin, onEdit }: HowItWorksProps) {
     };
     load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.howItWorks)).catch(() => {});
+      content
+        .getContent()
+        .then((next) => {
+          if (!active) return;
+          setData(next.howItWorks);
+          setError(null);
+        })
+        .catch(() => {
+          if (!active) return;
+          setError('Failed to load content');
+        });
     };
     window.addEventListener('contentUpdated', handleUpdate);
     return () => {

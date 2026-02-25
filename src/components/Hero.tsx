@@ -29,7 +29,17 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
     };
     load();
     const handleUpdate = () => {
-      content.getContent().then((next) => setData(next.hero)).catch(() => {});
+      content
+        .getContent()
+        .then((next) => {
+          if (!active) return;
+          setData(next.hero);
+          setError(null);
+        })
+        .catch(() => {
+          if (!active) return;
+          setError('Failed to load content');
+        });
     };
     window.addEventListener('contentUpdated', handleUpdate);
     return () => {
