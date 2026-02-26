@@ -107,10 +107,10 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
             }}
             className="text-center lg:text-left">
 
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary-dark text-sm font-medium mb-6 border border-primary/20">
+            {/*<div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary-dark text-sm font-medium mb-6 border border-primary/20">
               <span className="flex h-2 w-2 rounded-full bg-primary mr-2"></span>
               {data.badge}
-            </div>
+            </div>*/}
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-navy leading-tight mb-6">
               {data.headline}
