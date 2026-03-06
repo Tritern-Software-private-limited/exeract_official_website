@@ -12,10 +12,7 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
   const navLinks = [
-    {
-      name: 'Product',
-      href: '#features',
-    },
+    
     {
       name: 'How it Works',
       href: '#how-it-works',
@@ -41,9 +38,9 @@ export function Navbar() {
             onClick={() => window.scrollTo(0, 0)}
           >
             <img
-              src="https://cdn.magicpatterns.com/uploads/ciB7mkXdBuarc6YwTvSQat/Group_99.png"
+              src="./src/exeract-logo-color.svg"
               alt="Exeract Logo"
-              className="h-8 lg:h-10 w-auto"
+              className="h-8 lg:h-12 w-auto"
             />
           </div>
 
@@ -64,9 +61,9 @@ export function Navbar() {
             >
               Admin
             </a> */}
-            <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 text-sm xl:text-base whitespace-nowrap">
+            <a href="https://calendly.com/aravindhan-tritern/30min"><button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 text-sm xl:text-base whitespace-nowrap">
               Start Free Trial
-            </button>
+            </button></a>
           </div>
 
           {/* Mobile Menu Button */}

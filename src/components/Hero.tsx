@@ -121,17 +121,18 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
-              <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg shadow-lg shadow-primary/25 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 flex items-center justify-center">
+              <a href="https://calendly.com/aravindhan-tritern/30min"><button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg shadow-lg shadow-primary/25 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 flex items-center justify-center">
                 {data.primaryCta}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </button>
+              </button></a>
 
-              <a
+
+              {/* <a
                 href="/#how-it-works"
                 className="w-full sm:w-auto px-8 py-4 bg-white text-navy border border-gray-200 rounded-xl font-bold text-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 flex items-center justify-center group">
                 <Play className="mr-2 h-5 w-5 text-primary fill-primary group-hover:scale-110 transition-transform" />
                 {data.secondaryCta}
-              </a>
+              </a> */}
             </div>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-sm text-gray-500">
@@ -177,7 +178,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                   <div className="flex items-center justify-between p-3 sm:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                     <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
                       <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm sm:text-base flex-shrink-0">
-                        98
+                        95
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="h-2 w-20 sm:w-24 bg-gray-800 rounded-full mb-2" />

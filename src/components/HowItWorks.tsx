@@ -147,11 +147,11 @@ export function HowItWorks({ isAdmin, onEdit }: HowItWorksProps) {
           })}
         </div>
 
-        <div className="mt-16 text-center">
+        {/* <div className="mt-16 text-center">
           <button className="inline-flex items-center text-primary font-bold hover:text-primary-dark transition-colors">
             See detailed documentation <ArrowRight className="ml-2 h-4 w-4" />
           </button>
-        </div>
+        </div> */}
       </div>
     </section>);
 
