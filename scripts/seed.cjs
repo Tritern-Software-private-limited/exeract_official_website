@@ -167,8 +167,8 @@ async function run() {
   if (!MONGODB_URI) {
     throw new Error("Missing MONGODB_URI");
   }
-
-  const client = new MongoClient("mongodb+srv://triternsoft_db_user:X8xWGxY5mBdBOQln@cluster0.dytjruj.mongodb.net", {});
+  const MONGODB_URI = process.env.MONGODB_URI;
+  const client = new MongoClient(MONGODB_URI, {});
   await client.connect();
   const db = client.db(MONGODB_DB);
 
