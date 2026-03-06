@@ -84,7 +84,7 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
           <div className="col-span-2 lg:col-span-2">
             <div className="flex items-center mb-6">
               <img
-                src="./src/exeract-logo-white.svg"
+                src="/exeract-logo-white.svg"
                 alt="Exeract Logo"
                 className="h-8 w-auto brightness-0 invert" />
 

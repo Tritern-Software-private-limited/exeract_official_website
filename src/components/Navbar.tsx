@@ -38,7 +38,7 @@ export function Navbar() {
             onClick={() => window.scrollTo(0, 0)}
           >
             <img
-              src="./src/exeract-logo-color.svg"
+              src="/exeract-logo-color.svg"
               alt="Exeract Logo"
               className="h-8 lg:h-12 w-auto"
             />
