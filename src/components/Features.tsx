@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ShieldCheck, Zap, BrainCircuit, FileSpreadsheet, Edit2 } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
 import { SectionLoader } from './SectionLoader';
+import { FeaturesVisual } from './FeaturesVisual';
 const icons = [ShieldCheck, Zap, BrainCircuit, FileSpreadsheet];
 const colors = [
 'text-emerald-500',
@@ -137,104 +138,13 @@ export function Features({ isAdmin, onEdit }: FeaturesProps) {
           </motion.div>
 
           <motion.div
-            initial={{
-              opacity: 0,
-              scale: 0.95
-            }}
-            whileInView={{
-              opacity: 1,
-              scale: 1
-            }}
-            viewport={{
-              once: true
-            }}
-            transition={{
-              duration: 0.6
-            }}
-            className="relative mt-12 lg:mt-0">
-
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl transform rotate-3 scale-105 opacity-50 blur-lg" />
-            <div className="relative bg-navy rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-800 overflow-hidden">
-              {/* Abstract UI Representation */}
-              <div className="flex items-center justify-between mb-6 sm:mb-8 border-b border-gray-700 pb-4">
-                <div className="flex space-x-2">
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500" />
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500" />
-                </div>
-                <div className="text-gray-400 text-xs font-mono hidden sm:block">
-                  exeract_cli_v2.0
-                </div>
-              </div>
-
-              <div className="space-y-3 sm:space-y-4 font-mono text-xs sm:text-sm">
-                <div className="flex items-start text-green-400">
-                  <span className="mr-2 flex-shrink-0">-&gt;</span>
-                  <span className="break-words">
-                    Initializing verification protocols...
-                  </span>
-                </div>
-                <div className="flex items-start text-blue-400">
-                  <span className="mr-2 flex-shrink-0">i</span>
-                  <span className="break-words">
-                    Loading batch: 5,000 leads
-                  </span>
-                </div>
-                <div className="flex items-start text-gray-400">
-                  <span className="mr-2 flex-shrink-0">...</span>
-                  <span className="break-words">
-                    Analyzing keywords: "SaaS", "B2B", "Enterprise"
-                  </span>
-                </div>
-
-                <div className="py-3 sm:py-4">
-                  <div className="w-full bg-gray-800 rounded-full h-2 mb-2">
-                    <div
-                      className="bg-gradient-to-r from-primary to-secondary h-2 rounded-full"
-                      style={{
-                        width: '78%'
-                      }} />
-
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Progress: 78%</span>
-                    <span>Est. time: 12s</span>
-                  </div>
-                </div>
-
-                <div className="bg-gray-800/50 rounded p-3 sm:p-4 border-l-2 border-primary">
-                  <div className="text-gray-300 mb-1 break-words">
-                    Match Found:{' '}
-                    <span className="text-white font-bold">acme-corp.com</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 sm:gap-4 text-xs">
-                    <span className="text-green-400 whitespace-nowrap">
-                      Confidence: 98%
-                    </span>
-                    <span className="text-blue-400 whitespace-nowrap">
-                      Keywords: 4/5
-                    </span>
-                  </div>
-                </div>
-
-                <div className="bg-gray-800/50 rounded p-3 sm:p-4 border-l-2 border-red-500 opacity-75">
-                  <div className="text-gray-300 mb-1 break-words">
-                    Match Failed:{' '}
-                    <span className="text-white font-bold">
-                      generic-shop.net
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 sm:gap-4 text-xs">
-                    <span className="text-red-400 whitespace-nowrap">
-                      Confidence: 12%
-                    </span>
-                    <span className="text-gray-500 whitespace-nowrap">
-                      Irrelevant content
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative mt-12 lg:mt-0"
+          >
+            <FeaturesVisual />
           </motion.div>
         </div>
       </div>

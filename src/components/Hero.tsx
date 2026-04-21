@@ -161,101 +161,19 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
             }}
             className="relative mt-12 lg:mt-0">
 
-            <div className="relative rounded-2xl bg-white shadow-2xl border border-gray-100 p-2 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary" />
-              <div className="bg-navy-light/5 rounded-xl p-4 sm:p-6">
-                {/* Mock Dashboard UI */}
-                <div className="flex items-center justify-between mb-4 sm:mb-6">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400" />
-                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-400" />
-                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400" />
-                  </div>
-                  <div className="h-2 w-24 sm:w-32 bg-gray-200 rounded-full" />
-                </div>
-
-                <div className="space-y-3 sm:space-y-4">
-                  <div className="flex items-center justify-between p-3 sm:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                    <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm sm:text-base flex-shrink-0">
-                        95
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="h-2 w-20 sm:w-24 bg-gray-800 rounded-full mb-2" />
-                        <div className="h-2 w-12 sm:w-16 bg-gray-300 rounded-full" />
-                      </div>
-                    </div>
-                    <div className="px-2 sm:px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold whitespace-nowrap ml-2">
-                      Verified
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between p-3 sm:p-4 bg-white rounded-lg shadow-sm border border-gray-100 opacity-90">
-                    <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary font-bold text-sm sm:text-base flex-shrink-0">
-                        85
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="h-2 w-24 sm:w-28 bg-gray-800 rounded-full mb-2" />
-                        <div className="h-2 w-16 sm:w-20 bg-gray-300 rounded-full" />
-                      </div>
-                    </div>
-                    <div className="px-2 sm:px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold whitespace-nowrap ml-2">
-                      Review
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between p-3 sm:p-4 bg-white rounded-lg shadow-sm border border-gray-100 opacity-75">
-                    <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 font-bold text-sm sm:text-base flex-shrink-0">
-                        12
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="h-2 w-16 sm:w-20 bg-gray-800 rounded-full mb-2" />
-                        <div className="h-2 w-10 sm:w-12 bg-gray-300 rounded-full" />
-                      </div>
-                    </div>
-                    <div className="px-2 sm:px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold whitespace-nowrap ml-2">
-                      Rejected
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                  <div className="text-xs text-gray-500 truncate max-w-full">
-                    Processing: batch_leads_2024.csv
-                  </div>
-                  <div className="h-2 w-20 sm:w-24 bg-primary/20 rounded-full overflow-hidden flex-shrink-0">
-                    <div className="h-full w-2/3 bg-primary rounded-full" />
-                  </div>
-                </div>
-              </div>
+            <div className="relative select-none" onContextMenu={e => e.preventDefault()}>
+              <video
+                src="/exeract-header-fc.webm"
+                autoPlay
+                loop
+                muted
+                playsInline
+                disablePictureInPicture
+                draggable={false}
+                onContextMenu={e => e.preventDefault()}
+                className="w-full h-auto pointer-events-none"
+              />
             </div>
-
-            {/* Floating Badge
-            <motion.div
-              animate={{
-                y: [0, -10, 0]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut'
-              }}
-              className="hidden md:flex absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border border-gray-100 items-center space-x-3">
-
-              <div className="bg-green-100 p-2 rounded-lg">
-                <CheckCircle className="h-6 w-6 text-green-600" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-navy">
-                  Verification Complete
-                </div>
-                <div className="text-xs text-gray-500">
-                  1,240 leads processed
-                </div>
-              </div>
-            </motion.div> */}
           </motion.div>
         </div>
       </div>
