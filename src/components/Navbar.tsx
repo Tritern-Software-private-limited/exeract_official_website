@@ -61,7 +61,7 @@ export function Navbar() {
             >
               Admin
             </a> */}
-            <a href="https://calendly.com/aravindhan-tritern/30min"><button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 text-sm xl:text-base whitespace-nowrap">
+            <a href="https://app.exeract.com/signup"><button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 text-sm xl:text-base whitespace-nowrap">
               Start Free Trial
             </button></a>
           </div>
@@ -115,9 +115,11 @@ export function Navbar() {
                 >
                   Admin
                 </a>
-                <button className="w-full text-center bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 rounded-lg shadow-lg shadow-primary/20">
-                  Start Free Trial
-                </button>
+                 <a href="https://app.exeract.com/signup" className="block w-full">
+                  <button className="w-full text-center bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 rounded-lg shadow-lg shadow-primary/20">
+                    Start Free Trial
+                  </button>
+                </a>
               </div>
             </div>
           </motion.div>

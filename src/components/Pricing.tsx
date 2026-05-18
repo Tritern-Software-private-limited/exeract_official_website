@@ -49,7 +49,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
   }, []);
   if (loading) {
     return (
-      <section id="pricing" className="py-24 bg-navy text-white relative overflow-hidden">
+      <section id="pricing" className="py-24 bg-[#F8FAFF] text-navy relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <SectionLoader label="Loading pricing" />
         </div>
@@ -58,9 +58,9 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
   }
   if (error || !data) {
     return (
-      <section id="pricing" className="py-24 bg-navy text-white relative overflow-hidden">
+      <section id="pricing" className="py-24 bg-[#F8FAFF] text-navy relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center text-sm text-gray-300">
+          <div className="text-center text-sm text-gray-500">
             Unable to load pricing content.
           </div>
         </div>
@@ -70,7 +70,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
   return (
     <section
       id="pricing"
-      className="py-24 bg-navy text-white relative overflow-hidden">
+      className="py-24 bg-[#F8FAFF] text-navy relative overflow-hidden">
       {isAdmin && onEdit &&
       <div className="absolute top-4 right-4 z-10">
           <button
@@ -84,113 +84,99 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
       }
 
       {/* Background Glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-base font-semibold text-primary uppercase tracking-wide mb-2">
+          {/* <h2 className="text-base font-semibold text-primary uppercase tracking-wide mb-2">
             Pricing
-          </h2>
+          </h2> */}
           <h3 className="text-3xl md:text-4xl font-bold mb-4">
-            Simple, transparent pricing
+            {data.sectionTitle || 'Exeract Pricing Plans'}
           </h3>
-          <p className="text-lg text-gray-400">
-            Choose the plan that fits your volume. No hidden fees, cancel
-            anytime.
+          <p className="text-lg text-gray-500">
+            {data.subtitle || 'Stop wasting hours on manual verification. Scale your research pipelines with structured LLM execution.'}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {data.plans.map((plan, index) =>
           <motion.div
             key={plan.name}
-            initial={{
-              opacity: 0,
-              y: 20
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0
-            }}
-            viewport={{
-              once: true
-            }}
-            transition={{
-              duration: 0.5,
-              delay: index * 0.1
-            }}
-            className={`relative rounded-2xl p-6 sm:p-8 ${plan.popular ? 'bg-white text-navy shadow-2xl lg:scale-105 z-10' : 'bg-navy-light border border-gray-700 text-white'}`}>
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className={`relative rounded-2xl p-6 sm:p-8 flex flex-col ${plan.popular ? 'bg-gradient-to-br from-primary to-secondary text-white shadow-xl lg:scale-105 z-20' : 'bg-white text-navy shadow-sm hover:shadow-md border border-gray-100 transition-all z-10'}`}>
+              
+              {plan.popular && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] uppercase tracking-wider font-extrabold bg-white/20 text-white self-start mb-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  Recommended
+                </span>
+              )}
 
-              {plan.popular &&
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <span className="bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
-                    MOST POPULAR
-                  </span>
-                </div>
-            }
-
-              <h3
-              className={`text-xl font-bold mb-2 ${plan.popular ? 'text-navy' : 'text-white'}`}>
-
+              <h3 className={`text-xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-navy'}`}>
                 {plan.name}
               </h3>
-              <div className="flex items-baseline mb-4">
-                <span
-                className={`text-4xl font-bold ${plan.popular ? 'text-navy' : 'text-white'}`}>
-
-                  {plan.price}
-                </span>
-                <span
-                className={`ml-1 text-sm ${plan.popular ? 'text-gray-500' : 'text-gray-400'}`}>
-
-                  {plan.period}
-                </span>
-              </div>
-              <p
-              className={`text-sm mb-8 ${plan.popular ? 'text-gray-600' : 'text-gray-400'}`}>
-
+              <p className={`text-[13px] mb-6 min-h-[50px] leading-relaxed ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>
                 {plan.description}
               </p>
 
-              <ul className="space-y-4 mb-8">
+              <div className="flex items-baseline mb-6">
+                <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-navy'}`}>
+                  {plan.price}
+                </span>
+                <span className={`ml-1 text-sm ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>
+                  {plan.period}
+                </span>
+              </div>
+
+              <div className={`p-4 rounded-xl mb-6 ${plan.popular ? 'bg-white/10' : 'bg-[#F4F9FF]'}`}>
+                <p className={`text-sm font-bold ${plan.popular ? 'text-white' : 'text-primary'}`}>{plan.creditsTitle || '100 Credits / month'}</p>
+                <p className={`text-xs mt-1 ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>{plan.creditsDesc || '(Approx. 580 company checks)'}</p>
+              </div>
+
+              <ul className="space-y-4 mb-8 flex-grow">
                 {plan.features.map((feature, i) =>
-              <li key={i} className="flex items-start">
-                    <Check
-                  className={`h-5 w-5 mr-3 flex-shrink-0 ${plan.popular ? 'text-primary' : 'text-primary'}`} />
-
-                    <span
-                  className={`text-sm ${plan.popular ? 'text-gray-700' : 'text-gray-300'}`}>
-
+                  <li key={i} className="flex items-start">
+                    <div className={`h-5 w-5 rounded-full mr-3 flex-shrink-0 flex items-center justify-center ${plan.popular ? 'bg-white/20' : 'bg-green-100'}`}>
+                      <Check className={`h-3 w-3 ${plan.popular ? 'text-white' : 'text-green-600'}`} />
+                    </div>
+                    <span className={`text-sm leading-tight ${plan.popular ? 'text-white' : 'text-gray-600'}`}>
                       {feature}
                     </span>
                   </li>
-              )}
+                )}
               </ul>
 
-              <button
-              className={`w-full py-3 px-4 rounded-xl font-bold transition-all duration-200 ${plan.popular ? 'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:opacity-90' : 'bg-gray-700 text-white hover:bg-gray-600'}`}>
+              <a 
+                href={plan.price === 'Custom' ? 'https://calendly.com/aravindhan-tritern/30min' : 'https://app.exeract.com/signup'}
+                className="w-full mt-auto block"
+              >
+                <button
+                  className={`w-full py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${
+                    plan.popular 
+                      ? 'bg-white text-secondary hover:shadow-lg hover:bg-gray-50' 
+                      : 'bg-white text-primary border border-gray-200 hover:border-primary hover:bg-[#F4F9FF]'
+                  }`}>
+                  {plan.ctaText || (plan.price === 'Custom' ? 'Contact Sales' : 'Start Free Trial')}
+                </button>
+              </a>
 
-                {plan.price === 'Custom' ? 'Contact Sales' : 'Start Free Trial'}
-              </button>
-
-              {plan.popular &&
-            <p className="text-xs text-center text-gray-500 mt-4">
-                  Limited spots available for this tier
-                </p>
-            }
             </motion.div>
           )}
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-gray-400 flex items-center justify-center gap-2">
+        {/* <div className="mt-16 text-center">
+          <p className="text-gray-500 flex items-center justify-center gap-2">
             Need a custom volume plan?{' '}
             <a href="#" className="text-primary hover:underline">
               Contact our sales team
             </a>
           </p>
-        </div>
+        </div> */}
       </div>
     </section>);
 

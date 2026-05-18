@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Twitter, Linkedin, Github, Mail, Edit2 } from 'lucide-react';
+import { Twitter, Linkedin, Instagram, Facebook, Mail, Edit2 } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
 import { SectionLoader } from './SectionLoader';
 interface FooterProps {
@@ -94,25 +94,36 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://x.com/exeract2169"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors p-2 -m-2"
-                aria-label="Twitter">
-
+                aria-label="X (formerly Twitter)">
                 <Twitter size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/exeract/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors p-2 -m-2"
                 aria-label="LinkedIn">
-
                 <Linkedin size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/_exeract/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors p-2 -m-2"
-                aria-label="GitHub">
-
-                <Github size={20} />
+                aria-label="Instagram">
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61586690438511"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors p-2 -m-2"
+                aria-label="Facebook">
+                <Facebook size={20} />
               </a>
             </div>
           </div>

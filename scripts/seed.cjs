@@ -72,50 +72,66 @@ const INITIAL_CONTENT = {
     ],
   },
   pricing: {
+    sectionTitle: 'Exeract Pricing Plans',
+    subtitle: 'Stop wasting hours on manual verification. Scale your research pipelines with structured LLM execution.',
     plans: [
-      {
-        name: "Starter",
-        price: "$49",
-        period: "/month",
-        description: "Perfect for small teams getting started with automation.",
-        features: [
-          "1,000 verifications/month",
-          "Basic keyword matching",
-          "CSV export",
-          "Email support",
-          "Single user",
-        ],
-      },
-      {
-        name: "Professional",
-        price: "$149",
-        period: "/month",
-        description: "For growing businesses that need scale and precision.",
-        popular: true,
-        features: [
-          "10,000 verifications/month",
-          "Advanced keyword intelligence",
-          "API access",
-          "Priority support",
-          "Custom integrations",
-          "5 team members",
-        ],
-      },
-      {
-        name: "Enterprise",
-        price: "Custom",
-        period: "",
-        description: "Tailored solutions for large-scale lead operations.",
-        features: [
-          "Unlimited verifications",
-          "Dedicated account manager",
-          "Custom AI training",
-          "SLA guarantee",
-          "White-label options",
-          "SSO & Advanced Security",
-        ],
-      },
-    ],
+    {
+      name: 'Free',
+      price: '$0',
+      period: '/month',
+      description: 'Perfect for validating schemas and testing the execution engine.',
+      creditsTitle: '100 Credits / month',
+      creditsDesc: '(Approx. 580 company checks)',
+      ctaText: 'Get Started',
+      features: [
+      'Full access to the core engine',
+      'Standard data qualification',
+      'CSV data export']
+    },
+    {
+      name: 'Personal',
+      price: '$15',
+      period: '/month',
+      description: 'For researchers scaling their daily manual website checks.',
+      creditsTitle: '500 Credits / month',
+      creditsDesc: '(Approx. 2,900 company checks)',
+      ctaText: 'Get Started',
+      features: [
+      'Full access to the core engine',
+      'Standard data qualification',
+      'CSV data export',
+      'Priority queue processing']
+    },
+    {
+      name: 'Professional',
+      price: '$39',
+      period: '/month',
+      description: 'For high-volume data qualification with contact enrichment.',
+      popular: true,
+      creditsTitle: '1,000 Credits / month',
+      creditsDesc: '(Approx. 5,800 company checks)',
+      ctaText: 'Get Started',
+      features: [
+      'Full access to the core engine',
+      'Social media links in report',
+      'CSV data export',
+      'Priority queue processing']
+    },
+    {
+      name: 'Enterprise',
+      price: 'Custom',
+      period: 'Pricing',
+      description: 'For data teams needing specific integrations and massive scale.',
+      creditsTitle: 'Custom Credit Volume',
+      creditsDesc: 'Tailored to your needs',
+      ctaText: 'Contact Sales',
+      features: [
+      'Custom schema builds',
+      'Social media links included',
+      'API & Webhook access',
+      'Dedicated infrastructure',
+      'BYOK (Bring Your Own Key)']
+    }]
   },
   footer: {
     description:

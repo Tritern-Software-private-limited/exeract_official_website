@@ -37,7 +37,12 @@ exports.handler = async () => {
     const { _id, createdAt, updatedAt, ...content } = doc;
     return {
       statusCode: 200,
-      headers: { "content-type": "application/json; charset=utf-8" },
+      headers: { 
+        "content-type": "application/json; charset=utf-8",
+        "cache-control": "no-cache, no-store, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0"
+      },
       body: JSON.stringify({ content }),
     };
   } catch (error) {
