@@ -1,21 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, User } from 'lucide-react';
-import { auth } from '../utils/auth';
-interface BlogPost {
-  id?: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  date: string;
-  author: string;
-  category: string;
-}
+import { blog, BlogPost } from '../utils/blog';
 export function BlogPreview() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const loadPosts = useCallback(async () => {
-    const allPosts = await auth.getPosts();
+    const allPosts = await blog.getPosts();
     setPosts(allPosts.slice(0, 3));
   }, []);
   useEffect(() => {
@@ -70,7 +60,7 @@ export function BlogPreview() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {posts.map((post, index) =>
           <motion.article
-            key={post.id || index}
+            key={post.slug || index}
             initial={{
               opacity: 0,
               y: 20
@@ -112,7 +102,7 @@ export function BlogPreview() {
                   </div>
 
                   <a
-                    href={post.id ? `/blog/${encodeURIComponent(post.id)}` : '#'}
+                    href={post.slug ? `/blog/${encodeURIComponent(post.slug)}` : '#'}
                     className="text-xl font-bold text-navy mb-3 hover:text-primary transition-colors">
                     {post.title}
                   </a>
@@ -121,7 +111,7 @@ export function BlogPreview() {
                   </p>
 
                   <a
-                href={post.id ? `/blog/${encodeURIComponent(post.id)}` : '#'}
+                href={post.slug ? `/blog/${encodeURIComponent(post.slug)}` : '#'}
                 className="inline-flex items-center text-sm font-bold text-primary hover:text-primary-dark mt-auto">
 
                     Read More <ArrowRight className="ml-1 h-3 w-3" />

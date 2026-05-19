@@ -2,21 +2,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { auth } from '../utils/auth';
-
-interface BlogPost {
-  id?: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  date: string;
-  author: string;
-  category: string;
-}
+import { blog, BlogPost } from '../utils/blog';
 
 export function BlogPostPage() {
-  const postId = useMemo(() => {
+  const slug = useMemo(() => {
     const path = window.location.pathname;
     const parts = path.split('/').filter(Boolean);
     return parts.length >= 2 ? decodeURIComponent(parts[1]) : '';
@@ -26,12 +15,11 @@ export function BlogPostPage() {
 
   useEffect(() => {
     let mounted = true;
-    auth
-      .getPosts()
-      .then((posts: BlogPost[]) => {
+    blog
+      .getPostBySlug(slug)
+      .then((match) => {
         if (!mounted) return;
-        const match = posts.find((item) => item.id === postId) || null;
-        setPost(match);
+        setPost(match || null);
       })
       .finally(() => {
         if (mounted) setLoading(false);
@@ -39,7 +27,7 @@ export function BlogPostPage() {
     return () => {
       mounted = false;
     };
-  }, [postId]);
+  }, [slug]);
 
   return (
     <div className="min-h-screen bg-white font-sans text-navy selection:bg-primary/20 selection:text-navy overflow-x-hidden">

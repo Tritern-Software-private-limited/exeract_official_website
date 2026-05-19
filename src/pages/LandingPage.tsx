@@ -6,24 +6,15 @@ import { Features } from '../components/Features';
 import { Pricing } from '../components/Pricing';
 import { BlogPreview } from '../components/BlogPreview';
 import { Footer } from '../components/Footer';
-import { ContentEditor } from '../components/ContentEditor';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { auth } from '../utils/auth';
-type ContentTab = 'hero' | 'howItWorks' | 'features' | 'pricing' | 'footer';
 export function LandingPage() {
-  const isAdmin = auth.isAuthenticated();
-  const [contentEditorTab, setContentEditorTab] = useState<ContentTab | null>(
-    null
-  );
-  const openContentEditor = (tab: ContentTab) => setContentEditorTab(tab);
-  const closeContentEditor = () => setContentEditorTab(null);
   return (
     <div className="min-h-screen bg-white font-sans text-navy selection:bg-primary/20 selection:text-navy overflow-x-hidden">
       <Navbar />
 
       <main>
-        <Hero isAdmin={isAdmin} onEdit={() => openContentEditor('hero')} />
+        <Hero />
 
         {/* Social Proof Banner */}
         {/* <div className="py-12 border-y border-gray-100 bg-gray-50/50">
@@ -52,12 +43,9 @@ export function LandingPage() {
           </div>
         </div> */}
 
-        <HowItWorks
-          isAdmin={isAdmin}
-          onEdit={() => openContentEditor('howItWorks')}
-        />
-        <Features isAdmin={isAdmin} onEdit={() => openContentEditor('features')} />
-        <Pricing isAdmin={isAdmin} onEdit={() => openContentEditor('pricing')} />
+        <HowItWorks />
+        <Features />
+        <Pricing />
         <BlogPreview />
 
         {/* Final CTA */}
@@ -103,18 +91,9 @@ export function LandingPage() {
         </section>
       </main>
 
-      <Footer isAdmin={isAdmin} onEdit={() => openContentEditor('footer')} />
+      <Footer />
 
-      {contentEditorTab &&
-      <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-4xl max-h-[90vh] overflow-auto">
-            <ContentEditor
-            initialTab={contentEditorTab}
-            onClose={closeContentEditor} />
 
-          </div>
-        </div>
-      }
     </div>
     
   );

@@ -87,7 +87,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           {/* <h2 className="text-base font-semibold text-primary uppercase tracking-wide mb-2">
             Pricing
@@ -100,7 +100,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch pt-10">
           {data.plans.map((plan, index) =>
           <motion.div
             key={plan.name}
@@ -110,19 +110,23 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className={`relative rounded-2xl p-6 sm:p-8 flex flex-col ${plan.popular ? 'bg-gradient-to-br from-primary to-secondary text-white shadow-xl lg:scale-105 z-20' : 'bg-white text-navy shadow-sm hover:shadow-md border border-gray-100 transition-all z-10'}`}>
               
-              {plan.popular && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] uppercase tracking-wider font-extrabold bg-white/20 text-white self-start mb-4">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  Recommended
-                </span>
+              <div className="flex justify-between items-start mb-4 gap-2">
+                <h3 className={`text-xl font-bold ${plan.popular ? 'text-white' : 'text-navy'}`}>
+                  {plan.name}
+                </h3>
+                {plan.popular && (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] uppercase tracking-wider font-bold bg-white/10 text-white border border-white/20 shrink-0">
+                    <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white/80 animate-pulse" />
+                    Recommended
+                  </span>
+                )}
+              </div>
+              
+              {plan.description && (
+                <p className={`text-[13px] mb-6 leading-relaxed ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>
+                  {plan.description}
+                </p>
               )}
-
-              <h3 className={`text-xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-navy'}`}>
-                {plan.name}
-              </h3>
-              <p className={`text-[13px] mb-6 min-h-[50px] leading-relaxed ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>
-                {plan.description}
-              </p>
 
               <div className="flex items-baseline mb-6">
                 <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-navy'}`}>

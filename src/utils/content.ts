@@ -71,7 +71,6 @@ export const INITIAL_CONTENT = {
         name: 'Free',
         price: '$0',
         period: '/month',
-        description: 'Perfect for validating schemas and testing the execution engine.',
         creditsTitle: '100 Credits / month',
         creditsDesc: '(Approx. 580 company checks)',
         ctaText: 'Get Started',
@@ -84,7 +83,6 @@ export const INITIAL_CONTENT = {
         name: 'Personal',
         price: '$15',
         period: '/month',
-        description: 'For researchers scaling their daily manual website checks.',
         creditsTitle: '500 Credits / month',
         creditsDesc: '(Approx. 2,900 company checks)',
         ctaText: 'Get Started',
@@ -98,7 +96,6 @@ export const INITIAL_CONTENT = {
         name: 'Professional',
         price: '$39',
         period: '/month',
-        description: 'For high-volume data qualification with contact enrichment.',
         popular: true,
         creditsTitle: '1,000 Credits / month',
         creditsDesc: '(Approx. 5,800 company checks)',
@@ -113,7 +110,6 @@ export const INITIAL_CONTENT = {
         name: 'Enterprise',
         price: 'Custom',
         period: 'Pricing',
-        description: 'For data teams needing specific integrations and massive scale.',
         creditsTitle: 'Custom Credit Volume',
         creditsDesc: 'Tailored to your needs',
         ctaText: 'Contact Sales',
@@ -134,57 +130,15 @@ export const INITIAL_CONTENT = {
 
 export type ContentType = typeof INITIAL_CONTENT;
 
-let cachedContent: ContentType | null = null;
-let inFlight: Promise<ContentType> | null = null;
 const cloneInitialContent = (): ContentType =>
   JSON.parse(JSON.stringify(INITIAL_CONTENT)) as ContentType;
 
 export const content = {
   getContent: async () => {
-    if (cachedContent) return cachedContent;
-    if (inFlight) return inFlight;
-    inFlight = (async () => {
-      const response = await fetch('/.netlify/functions/content-get', { cache: 'no-store' });
-      if (response.status === 404) {
-        cachedContent = cloneInitialContent();
-        return cachedContent;
-      }
-      if (!response.ok) throw new Error('Failed to load content');
-      const data = await response.json();
-      if (!data?.content || typeof data.content !== 'object') {
-        throw new Error('Invalid content response');
-      }
-      cachedContent = data.content as ContentType;
-      return cachedContent;
-    })();
-    try {
-      return await inFlight;
-    } finally {
-      inFlight = null;
-    }
+    return cloneInitialContent();
   },
 
-  saveContent: async (newContent: typeof INITIAL_CONTENT, token?: string) => {
-    const response = await fetch('/.netlify/functions/content-save', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        ...(token ? { authorization: `Bearer ${token}` } : {})
-      },
-      body: JSON.stringify({ content: newContent })
-    });
-
-    if (!response.ok) throw new Error('Failed to save content');
-    cachedContent = newContent;
-    // Dispatch a custom event so components can update immediately
-    window.dispatchEvent(new Event('contentUpdated'));
-    return newContent;
-  },
-
-  // Hook to use content in components
   useContent: () => {
-    // This is just a helper function, not a React hook
-    // Components should use their own useEffect to listen for updates
     return content.getContent();
   }
 };

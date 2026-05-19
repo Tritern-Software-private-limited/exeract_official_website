@@ -2,19 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, Calendar, User } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { auth } from '../utils/auth';
+import { blog, BlogPost } from '../utils/blog';
 import { motion } from 'framer-motion';
-
-interface BlogPost {
-  id?: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  date: string;
-  author: string;
-  category: string;
-}
 
 export function BlogIndexPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -26,7 +15,7 @@ export function BlogIndexPage() {
 
   useEffect(() => {
     let mounted = true;
-    auth
+    blog
       .getPosts()
       .then((items: BlogPost[]) => {
         if (mounted) setPosts(items);
@@ -164,7 +153,7 @@ export function BlogIndexPage() {
             <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {paginatedPosts.map((post, index) =>
             <motion.article
-              key={post.id || index}
+              key={post.slug || index}
               initial={{
                 opacity: 0,
                 y: 20
@@ -206,7 +195,7 @@ export function BlogIndexPage() {
                     </div>
 
                     <a
-                  href={post.id ? `/blog/${encodeURIComponent(post.id)}` : '#'}
+                  href={post.slug ? `/blog/${encodeURIComponent(post.slug)}` : '#'}
                   className="text-xl font-bold text-navy mb-3 hover:text-primary transition-colors">
 
                       {post.title}
@@ -216,7 +205,7 @@ export function BlogIndexPage() {
                     </p>
 
                     <a
-                  href={post.id ? `/blog/${encodeURIComponent(post.id)}` : '#'}
+                  href={post.slug ? `/blog/${encodeURIComponent(post.slug)}` : '#'}
                   className="inline-flex items-center text-sm font-bold text-primary hover:text-primary-dark mt-auto">
 
                       Read More <ArrowRight className="ml-1 h-3 w-3" />
