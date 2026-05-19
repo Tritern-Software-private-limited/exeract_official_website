@@ -20,7 +20,7 @@ export function BlogPreview() {
               From the Blog
             </h2>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy">
-              Lead Verification Insights
+              Outbound & Sales Insights
             </h3>
           </div>
           <div className="flex items-center gap-3">

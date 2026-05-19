@@ -5,13 +5,31 @@ import { Footer } from '../components/Footer';
 import { blog, BlogPost } from '../utils/blog';
 import { motion } from 'framer-motion';
 
+// Inject blog index SEO meta on mount
+function useBlogIndexMeta() {
+  useEffect(() => {
+    const prevTitle = document.title;
+    const prevDesc = document.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
+    document.title = 'Outbound Sales & Lead Qualification Blog | Exeract';
+    const descEl = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    if (descEl) descEl.setAttribute('content', 'Practical guides, strategy, and insights on outbound sales, lead qualification, and building lean outbound stacks, from the Exeract team.');
+    return () => {
+      document.title = prevTitle;
+      const el = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+      if (el) el.setAttribute('content', prevDesc);
+    };
+  }, []);
+}
+
 export function BlogIndexPage() {
+  useBlogIndexMeta();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [page, setPage] = useState(1);
   const pageSize = 6;
+
 
   useEffect(() => {
     let mounted = true;
@@ -71,11 +89,11 @@ export function BlogIndexPage() {
           <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy">
-                Lead Verification Insights
+                Outbound & Sales Insights
               </h1>
               <p className="text-gray-600 mt-3 max-w-2xl">
-                Practical insights, product updates, and case studies from the
-                Exeract team.
+                Practical guides on outbound stacks, lead qualification, and
+                building lean sales pipelines, from the Exeract team.
               </p>
             </div>
           </div>
