@@ -33,16 +33,22 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div
-            className="flex-shrink-0 flex items-center cursor-pointer"
-            onClick={() => window.scrollTo(0, 0)}
+          <a
+            href="/"
+            className="flex-shrink-0 flex items-center"
+            onClick={(e) => {
+              if (window.location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
           >
             <img
               src="/exeract-logo-color.svg"
               alt="Exeract Logo"
               className="h-8 lg:h-12 w-auto"
             />
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
