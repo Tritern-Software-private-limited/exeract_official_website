@@ -69,6 +69,7 @@ export const INITIAL_CONTENT = {
     plans: [
       {
         name: 'Free',
+        description: 'Perfect for trying out Exeract\'s core qualification features.',
         price: '$0',
         period: '/month',
         creditsTitle: '100 Credits / month',
@@ -81,6 +82,7 @@ export const INITIAL_CONTENT = {
       },
       {
         name: 'Personal',
+        description: 'Designed for individuals looking to qualify medium-sized lists.',
         price: '$15',
         period: '/month',
         creditsTitle: '500 Credits / month',
@@ -94,6 +96,7 @@ export const INITIAL_CONTENT = {
       },
       {
         name: 'Professional',
+        description: 'Best for growing outbound teams that need higher volume and speed.',
         price: '$39',
         period: '/month',
         popular: true,
@@ -108,6 +111,7 @@ export const INITIAL_CONTENT = {
       },
       {
         name: 'Enterprise',
+        description: 'For organizations requiring custom schemas, dedicated infra, and integrations.',
         price: 'Custom',
         period: 'Pricing',
         creditsTitle: 'Custom Credit Volume',

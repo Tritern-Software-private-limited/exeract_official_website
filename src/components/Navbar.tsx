@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 export function Navbar() {
@@ -12,7 +12,7 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
   const navLinks = [
-    
+
     {
       name: 'How it Works',
       href: '#how-it-works',
@@ -33,22 +33,16 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <a
-            href="/"
-            className="flex-shrink-0 flex items-center"
-            onClick={(e) => {
-              if (window.location.pathname === '/') {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            }}
+          <div
+            className="flex-shrink-0 flex items-center cursor-pointer"
+            onClick={() => window.scrollTo(0, 0)}
           >
             <img
               src="/exeract-logo-color.svg"
               alt="Exeract Logo"
               className="h-8 lg:h-12 w-auto"
             />
-          </a>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
@@ -121,7 +115,7 @@ export function Navbar() {
                 >
                   Admin
                 </a>
-                 <a href="https://app.exeract.com/signup" className="block w-full">
+                <a href="https://app.exeract.com/signup" className="block w-full">
                   <button className="w-full text-center bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 rounded-lg shadow-lg shadow-primary/20">
                     Start Free Trial
                   </button>
