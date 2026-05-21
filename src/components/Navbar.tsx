@@ -15,15 +15,15 @@ export function Navbar() {
 
     {
       name: 'How it Works',
-      href: '#how-it-works',
+      href: '/how-it-works',
     },
     {
       name: 'Pricing',
-      href: '#pricing',
+      href: '/pricing',
     },
     {
       name: 'Blog',
-      href: '#blog',
+      href: '/blog',
     },
   ]
   return (
@@ -32,49 +32,61 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div
-            className="flex-shrink-0 flex items-center cursor-pointer"
-            onClick={() => window.scrollTo(0, 0)}
-          >
-            <img
-              src="/exeract-logo-color.svg"
-              alt="Exeract Logo"
-              className="h-8 lg:h-12 w-auto"
-            />
+          {/* Left Group: Logo + Main Nav */}
+          <div className="flex items-center space-x-8 xl:space-x-12">
+            {/* Logo */}
+            <a
+              href="/"
+              className="flex-shrink-0 flex items-center cursor-pointer"
+            >
+              <img
+                src="/exeract-logo-color.svg"
+                alt="Exeract Logo"
+                className="h-8 lg:h-12 w-auto"
+              />
+            </a>
+
+            {/* Main Links (Desktop) */}
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-navy/80 hover:text-primary font-medium transition-colors text-sm xl:text-base whitespace-nowrap"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
-            {navLinks.map((link) => (
+          {/* Right Group: Auth Actions + Mobile Menu Toggle */}
+          <div className="flex items-center space-x-4 xl:space-x-6">
+            {/* Desktop Auth */}
+            <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
               <a
-                key={link.name}
-                href={link.href}
-                className="text-navy hover:text-primary font-medium transition-colors text-sm xl:text-base whitespace-nowrap"
+                href="https://app.exeract.com/login"
+                className="text-navy/80 hover:text-primary font-medium transition-colors text-sm xl:text-base whitespace-nowrap"
               >
-                {link.name}
+                Log In
               </a>
-            ))}
-            {/* <a
-              href="#/admin"
-              className="bg-navy text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:bg-navy-light transition-colors text-sm xl:text-base whitespace-nowrap"
-            >
-              Admin
-            </a> */}
-            <a href="https://app.exeract.com/signup"><button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 text-sm xl:text-base whitespace-nowrap">
-              Start Free Trial
-            </button></a>
-          </div>
+              <a href="https://app.exeract.com/signup">
+                <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm xl:text-base whitespace-nowrap">
+                  Sign up for free
+                </button>
+              </a>
+            </div>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-navy hover:text-primary transition-colors p-2"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-navy hover:text-primary transition-colors p-2"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -110,14 +122,14 @@ export function Navbar() {
               ))}
               <div className="pt-4 space-y-3">
                 <a
-                  href="#/admin"
+                  href="https://app.exeract.com/login"
                   className="w-full text-center text-navy font-medium py-3 border border-gray-200 rounded-lg hover:bg-gray-50 block"
                 >
-                  Admin
+                  Log In
                 </a>
                 <a href="https://app.exeract.com/signup" className="block w-full">
-                  <button className="w-full text-center bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 rounded-lg shadow-lg shadow-primary/20">
-                    Start Free Trial
+                  <button className="w-full text-center bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 rounded-lg hover:opacity-90 transition-opacity">
+                    Sign up for free
                   </button>
                 </a>
               </div>

@@ -139,7 +139,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
 
               <div className={`p-4 rounded-xl mb-6 ${plan.popular ? 'bg-white/10' : 'bg-[#F4F9FF]'}`}>
                 <p className={`text-sm font-bold ${plan.popular ? 'text-white' : 'text-primary'}`}>{plan.creditsTitle || '100 Credits / month'}</p>
-                <p className={`text-xs mt-1 ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>{plan.creditsDesc || '(Approx. 580 company checks)'}</p>
+                <p className={`text-xs mt-1 ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>{plan.creditsDesc || '(Approx. 500+ company checks)'}</p>
               </div>
 
               <ul className="space-y-4 mb-8 flex-grow">

@@ -79,12 +79,7 @@ export function BlogIndexPage() {
 
       <main className="pt-24 sm:pt-28 pb-16 sm:pb-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <a
-            href="/"
-            className="inline-flex items-center text-sm font-bold text-primary hover:text-primary-dark transition-colors">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Landing Page
-          </a>
+
 
           <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
             <div>

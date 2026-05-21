@@ -1,9 +1,9 @@
 export const INITIAL_CONTENT = {
   hero: {
     badge: 'New: Advanced Keyword Intelligence 2.0',
-    headline: 'Stop Wasting Hours on Manual Lead Verification',
+    headline: 'Know Exactly Which Companies Fit Your ICP',
     subheadline:
-      'Exeract automatically verifies your leads against keywords with 95% accuracy. Upload, verify, and close deals 10x faster.',
+      'Import your lists from Apollo.io, Clay, SalesNav, or your own CRM. Exeract instantly qualifies every company against your ICP keywords and returns clear match results.',
     primaryCta: 'Start Free Trial',
     secondaryCta: 'See How It Works',
     trustBadges: [
@@ -73,7 +73,7 @@ export const INITIAL_CONTENT = {
         price: '$0',
         period: '/month',
         creditsTitle: '100 Credits / month',
-        creditsDesc: '(Approx. 580 company checks)',
+        creditsDesc: '(Approx. 500+ company checks)',
         ctaText: 'Get Started',
         features: [
           'Full access to the core engine',
@@ -86,7 +86,7 @@ export const INITIAL_CONTENT = {
         price: '$15',
         period: '/month',
         creditsTitle: '500 Credits / month',
-        creditsDesc: '(Approx. 2,900 company checks)',
+        creditsDesc: '(Approx. 2,500+ company checks)',
         ctaText: 'Get Started',
         features: [
           'Full access to the core engine',
@@ -101,7 +101,7 @@ export const INITIAL_CONTENT = {
         period: '/month',
         popular: true,
         creditsTitle: '1,000 Credits / month',
-        creditsDesc: '(Approx. 5,800 company checks)',
+        creditsDesc: '(Approx. 5,000+ company checks)',
         ctaText: 'Get Started',
         features: [
           'Full access to the core engine',
@@ -111,7 +111,7 @@ export const INITIAL_CONTENT = {
       },
       {
         name: 'Enterprise',
-        description: 'For organizations requiring custom schemas, dedicated infra, and integrations.',
+        description: 'For organizations requiring custom requirements and integrations.',
         price: 'Custom',
         period: 'Pricing',
         creditsTitle: 'Custom Credit Volume',

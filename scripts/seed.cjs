@@ -13,9 +13,9 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const INITIAL_CONTENT = {
   hero: {
     badge: "New: Advanced Keyword Intelligence 2.0",
-    headline: "Stop Wasting Hours on Manual Lead Verification",
+    headline: "Know Exactly Which Companies Fit Your ICP",
     subheadline:
-      "Exeract automatically verifies your leads against keywords with 95% accuracy. Upload, verify, and close deals 10x faster.",
+      "Import your lists from Apollo.io, Clay, SalesNav, or your own CRM. Exeract instantly qualifies every company against your ICP keywords and returns clear match results.",
     primaryCta: "Start Free Trial",
     secondaryCta: "See How It Works",
     trustBadges: ["No credit card required", "14-day free trial", "GDPR Compliant"],
@@ -75,60 +75,60 @@ const INITIAL_CONTENT = {
     sectionTitle: 'Exeract Pricing Plans',
     subtitle: 'Stop wasting hours on manual verification. Scale your research pipelines with structured LLM execution.',
     plans: [
-    {
-      name: 'Free',
-      price: '$0',
-      period: '/month',
-    
-      creditsTitle: '100 Credits / month',
-      creditsDesc: '(Approx. 580 company checks)',
-      ctaText: 'Get Started',
-      features: [
-      'Full access to the core engine',
-      'Standard data qualification',
-      'CSV data export']
-    },
-    {
-      name: 'Personal',
-      price: '$15',
-      period: '/month',
-      creditsTitle: '500 Credits / month',
-      creditsDesc: '(Approx. 2,900 company checks)',
-      ctaText: 'Get Started',
-      features: [
-      'Full access to the core engine',
-      'Standard data qualification',
-      'CSV data export',
-      'Priority queue processing']
-    },
-    {
-      name: 'Professional',
-      price: '$39',
-      period: '/month',
-      popular: true,
-      creditsTitle: '1,000 Credits / month',
-      creditsDesc: '(Approx. 5,800 company checks)',
-      ctaText: 'Get Started',
-      features: [
-      'Full access to the core engine',
-      'Social media links in report',
-      'CSV data export',
-      'Priority queue processing']
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      period: 'Pricing',
-      creditsTitle: 'Custom Credit Volume',
-      creditsDesc: 'Tailored to your needs',
-      ctaText: 'Contact Sales',
-      features: [
-      'Custom schema builds',
-      'Social media links included',
-      'API & Webhook access',
-      'Dedicated infrastructure',
-      'BYOK (Bring Your Own Key)']
-    }]
+      {
+        name: 'Free',
+        price: '$0',
+        period: '/month',
+
+        creditsTitle: '100 Credits / month',
+        creditsDesc: '(Approx. 500+ company checks)',
+        ctaText: 'Get Started',
+        features: [
+          'Full access to the core engine',
+          'Standard data qualification',
+          'CSV data export']
+      },
+      {
+        name: 'Personal',
+        price: '$15',
+        period: '/month',
+        creditsTitle: '500 Credits / month',
+        creditsDesc: '(Approx. 2,500+ company checks)',
+        ctaText: 'Get Started',
+        features: [
+          'Full access to the core engine',
+          'Standard data qualification',
+          'CSV data export',
+          'Priority queue processing']
+      },
+      {
+        name: 'Professional',
+        price: '$39',
+        period: '/month',
+        popular: true,
+        creditsTitle: '1,000 Credits / month',
+        creditsDesc: '(Approx. 5,800 company checks)',
+        ctaText: 'Get Started',
+        features: [
+          'Full access to the core engine',
+          'Social media links in report',
+          'CSV data export',
+          'Priority queue processing']
+      },
+      {
+        name: 'Enterprise',
+        price: 'Custom',
+        period: 'Pricing',
+        creditsTitle: 'Custom Credit Volume',
+        creditsDesc: 'Tailored to your needs',
+        ctaText: 'Contact Sales',
+        features: [
+          'Custom schema builds',
+          'Social media links included',
+          'API & Webhook access',
+          'Dedicated infrastructure',
+          'BYOK (Bring Your Own Key)']
+      }]
   },
   footer: {
     description:

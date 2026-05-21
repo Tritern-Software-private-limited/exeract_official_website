@@ -82,13 +82,12 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
           <div className="col-span-2 lg:col-span-2">
-            <div className="flex items-center mb-6">
+            <a href="/" className="flex items-center mb-6 cursor-pointer">
               <img
                 src="/exeract-logo-white.svg"
                 alt="Exeract Logo"
                 className="h-8 w-auto brightness-0 invert" />
-
-            </div>
+            </a>
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
               {data.description}
             </p>

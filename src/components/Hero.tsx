@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Play, Edit2 } from 'lucide-react';
+import { ArrowRight, CheckCircle, Play, Edit2, Calendar, CheckCircle2, XCircle, HelpCircle } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
 import { SectionLoader } from './SectionLoader';
 interface HeroProps {
@@ -116,32 +116,44 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
               {data.headline}
             </h1>
 
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <h2 className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
               {data.subheadline}
-            </p>
+            </h2>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
-              <a href="https://app.exeract.com/signup"><button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg shadow-lg shadow-primary/25 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 flex items-center justify-center">
-                {data.primaryCta}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </button></a>
-
-
-              {/* <a
-                href="/#how-it-works"
-                className="w-full sm:w-auto px-8 py-4 bg-white text-navy border border-gray-200 rounded-xl font-bold text-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 flex items-center justify-center group">
-                <Play className="mr-2 h-5 w-5 text-primary fill-primary group-hover:scale-110 transition-transform" />
-                {data.secondaryCta}
-              </a> */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
+              <span className="text-xs sm:text-sm bg-green-50 border border-green-200 text-green-700 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+                <CheckCircle2 className="h-4 w-4" /> YES
+              </span>
+              <span className="text-xs sm:text-sm bg-green-50 border border-green-200 text-green-700 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+                <CheckCircle2 className="h-4 w-4" /> VERIFIED
+              </span>
+              <span className="text-xs sm:text-sm bg-orange-50 border border-orange-200 text-orange-600 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+                <HelpCircle className="h-4 w-4" /> CONSIDER
+              </span>
+              <span className="text-xs sm:text-sm bg-red-50 border border-red-200 text-red-600 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+                <XCircle className="h-4 w-4" /> NO
+              </span>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-sm text-gray-500">
-              {data.trustBadges.map((badge, idx) =>
-              <div key={idx} className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-primary mr-2" />
-                  {badge}
-                </div>
-              )}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
+              <a href="https://app.exeract.com/signup" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
+                  Start for free
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </button>
+              </a>
+
+              <a
+                href="https://calendly.com/aravindhan-tritern/30min"
+                className="w-full sm:w-auto"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="w-full sm:w-auto px-8 py-4 bg-white text-navy border border-gray-200 rounded-xl font-bold text-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-2">
+                  <Calendar className="h-5 w-5 text-secondary" />
+                  Book a Demo
+                </button>
+              </a>
             </div>
           </motion.div>
 
