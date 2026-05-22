@@ -218,11 +218,11 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
 
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-500 mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Exeract Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Tritern Software Pvt Ltd. All rights reserved.
           </p>
           <div className="flex items-center space-x-2 text-sm text-gray-500">
             <Mail size={16} />
-            <span>{data.email}</span>
+            <span>support@tritern.com</span>
           </div>
         </div>
       </div>
