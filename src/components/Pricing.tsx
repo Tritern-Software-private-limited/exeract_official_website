@@ -165,7 +165,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
                       ? 'bg-white text-secondary hover:shadow-lg hover:bg-gray-50' 
                       : 'bg-white text-primary border border-gray-200 hover:border-primary hover:bg-[#F4F9FF]'
                   }`}>
-                  {plan.ctaText || (plan.price === 'Custom' ? 'Contact Sales' : 'Start Free Trial')}
+                  {plan.ctaText || (plan.price === 'Custom' ? 'Contact Sales' : 'Start for free')}
                 </button>
               </a>
 

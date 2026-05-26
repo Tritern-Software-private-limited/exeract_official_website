@@ -4,11 +4,10 @@ export const INITIAL_CONTENT = {
     headline: 'Know Exactly Which Companies Fit Your ICP',
     subheadline:
       'Import your lists from Apollo.io, Clay, SalesNav, or your own CRM. Exeract instantly qualifies every company against your ICP keywords and returns clear match results.',
-    primaryCta: 'Start Free Trial',
+    primaryCta: 'Get Started',
     secondaryCta: 'See How It Works',
     trustBadges: [
       'No credit card required',
-      '14-day free trial',
       'GDPR Compliant']
 
   },
@@ -111,7 +110,7 @@ export const INITIAL_CONTENT = {
       },
       {
         name: 'Enterprise',
-        description: 'For organizations requiring custom requirements and integrations.',
+        description: 'For organizations with custom requirements and integrations.',
         price: 'Custom',
         period: 'Pricing',
         creditsTitle: 'Custom Credit Volume',

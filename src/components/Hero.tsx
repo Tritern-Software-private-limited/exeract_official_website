@@ -183,6 +183,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                 disablePictureInPicture
                 draggable={false}
                 onContextMenu={e => e.preventDefault()}
+                preload="metadata"
                 className="w-full h-auto pointer-events-none"
               />
             </div>

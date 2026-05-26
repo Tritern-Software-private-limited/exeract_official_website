@@ -80,7 +80,7 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
         </div>
       }
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-16">
           <div className="col-span-2 lg:col-span-2">
             <a href="/" className="flex items-center mb-6 cursor-pointer">
               <img
@@ -128,62 +128,26 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6">Product</h4>
+            <h4 className="text-white font-bold mb-6">Quick Links</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Features
+                <a href="/" className="hover:text-primary transition-colors">
+                  Home
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="/how-it-works" className="hover:text-primary transition-colors">
+                  How it Works
+                </a>
+              </li>
+              <li>
+                <a href="/pricing" className="hover:text-primary transition-colors">
                   Pricing
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  API Documentation
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Integrations
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Changelog
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-bold mb-6">Company</h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Partners
+                <a href="/blog" className="hover:text-primary transition-colors">
+                  Blogs
                 </a>
               </li>
             </ul>
@@ -193,23 +157,13 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
             <h4 className="text-white font-bold mb-6">Legal</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="https://www.tritern.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="/terms-of-service" className="hover:text-primary transition-colors">
                   Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Cookie Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Security
                 </a>
               </li>
             </ul>

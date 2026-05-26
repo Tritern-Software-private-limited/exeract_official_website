@@ -70,12 +70,12 @@ export function LandingPage() {
               </h2>
               <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
                 Join 500+ teams who trust Exeract for lead verification. Start
-                your free trial today.
+                your free account today.
               </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a href="https://app.exeract.com/signup"><button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-base sm:text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
-                    Start Your Free Trial
+                    Start Validating for free
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </button></a>
                 <p className="text-sm text-gray-500 mt-2 sm:mt-0 sm:ml-6">
