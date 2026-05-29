@@ -3,7 +3,7 @@ export const INITIAL_CONTENT = {
     badge: 'New: Advanced Keyword Intelligence 2.0',
     headline: 'Know Exactly Which Companies Fit Your ICP',
     subheadline:
-      'Import your lists from Apollo.io, Clay, SalesNav, or your own CRM. Exeract instantly qualifies every company against your ICP keywords and returns clear match results.',
+      'Exeract overlays ICP match results as you browse Apollo.io, Clay, Prospeo, or your CRM. Qualify target companies faster through website data, not AI assumption.',
     primaryCta: 'Get Started',
     secondaryCta: 'See How It Works',
     trustBadges: [

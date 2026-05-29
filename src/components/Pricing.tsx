@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Edit2 } from 'lucide-react';
+import { Check, Edit2, Loader2 } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
+import { useCTARedirect } from '../utils/useCTARedirect';
 import { SectionLoader } from './SectionLoader';
 interface PricingProps {
   isAdmin?: boolean;
@@ -11,6 +12,8 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
   const [data, setData] = useState<ContentType['pricing'] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { handleCTAClick, loadingState } = useCTARedirect();
+
   useEffect(() => {
     let active = true;
     const load = async () => {
@@ -157,15 +160,20 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
 
               <a 
                 href={plan.price === 'Custom' ? 'https://calendly.com/aravindhan-tritern/30min' : 'https://app.exeract.com/signup'}
+                onClick={plan.price !== 'Custom' ? (e) => handleCTAClick(e, 'https://app.exeract.com/signup', `pricing-${plan.name}`) : undefined}
                 className="w-full mt-auto block"
               >
                 <button
-                  className={`w-full py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${
+                  className={`w-full py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center ${
                     plan.popular 
                       ? 'bg-white text-secondary hover:shadow-lg hover:bg-gray-50' 
                       : 'bg-white text-primary border border-gray-200 hover:border-primary hover:bg-[#F4F9FF]'
                   }`}>
-                  {plan.ctaText || (plan.price === 'Custom' ? 'Contact Sales' : 'Start for free')}
+                  {loadingState === `pricing-${plan.name}` ? (
+                    <><Loader2 className="animate-spin mr-2 h-4 w-4" /> Loading...</>
+                  ) : (
+                    plan.ctaText || (plan.price === 'Custom' ? 'Contact Sales' : 'Start for free')
+                  )}
                 </button>
               </a>
 

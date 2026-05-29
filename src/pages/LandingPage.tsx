@@ -5,8 +5,11 @@ import { HowItWorks } from '../components/HowItWorks';
 import { Features } from '../components/Features';
 import { Footer } from '../components/Footer';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Loader2 } from 'lucide-react';
+import { useCTARedirect } from '../utils/useCTARedirect';
+
 export function LandingPage() {
+  const { handleCTAClick, loadingState } = useCTARedirect();
   return (
     <div className="min-h-screen bg-white font-sans text-navy selection:bg-primary/20 selection:text-navy overflow-x-hidden">
       <Navbar />
@@ -74,10 +77,18 @@ export function LandingPage() {
               </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <a href="https://app.exeract.com/signup"><button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-base sm:text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
-                    Start Validating for free
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </button></a>
+                  <a 
+                    href="https://app.exeract.com/signup"
+                    onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "landing-bottom-signup")}
+                  >
+                    <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-base sm:text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
+                      {loadingState === "landing-bottom-signup" ? (
+                        <><Loader2 className="animate-spin mr-2 h-5 w-5" /> Loading...</>
+                      ) : (
+                        <>Start Validating for free <ArrowRight className="ml-2 h-5 w-5" /></>
+                      )}
+                    </button>
+                  </a>
                 <p className="text-sm text-gray-500 mt-2 sm:mt-0 sm:ml-6">
                   No credit card required
                 </p>

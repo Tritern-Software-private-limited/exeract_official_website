@@ -6,6 +6,7 @@ const BlogIndexPage = lazy(() => import('./pages/BlogIndexPage').then(module => 
 const HowItWorksPage = lazy(() => import('./pages/HowItWorksPage').then(module => ({ default: module.HowItWorksPage })));
 const PricingPage = lazy(() => import('./pages/PricingPage').then(module => ({ default: module.PricingPage })));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage').then(module => ({ default: module.TermsOfServicePage })));
+const TrafficFallbackPage = lazy(() => import('./pages/TrafficFallbackPage').then(module => ({ default: module.TrafficFallbackPage })));
 
 function PageLoader() {
   return (
@@ -42,6 +43,9 @@ export function App() {
     }
     if (currentPath.startsWith('/blog/')) {
       return <BlogPostPage />;
+    }
+    if (currentPath === '/traffic-fallback') {
+      return <TrafficFallbackPage />;
     }
     // Default to landing page
     return <LandingPage />;

@@ -5,8 +5,9 @@ import { Footer } from '../components/Footer';
 import {
   ArrowRight, Calendar, Target, Download, ShieldCheck, Zap, Coins,
   Upload, Search, FileSpreadsheet, X, Plus, Check, ChevronRight,
-  BarChart3, FileDown, CheckCircle2, XCircle, HelpCircle
+  BarChart3, FileDown, CheckCircle2, XCircle, HelpCircle, Loader2
 } from 'lucide-react';
+import { useCTARedirect } from '../utils/useCTARedirect';
 
 // ─── Interactive Workflow Demo ────────────────────────────────────────────────
 const DEMO_KEYWORDS = ['SaaS', 'B2B', 'HR Tech', 'Recruiting', 'ATS'];
@@ -340,6 +341,8 @@ function WorkflowDemo() {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export function HowItWorksPage() {
+  const { handleCTAClick, loadingState } = useCTARedirect();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -365,9 +368,17 @@ export function HowItWorksPage() {
                 Automate your ABM qualification workflow and get perfectly matched company lists in minutes.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="https://app.exeract.com/signup" className="w-full sm:w-auto">
+                <a 
+                  href="https://app.exeract.com/signup" 
+                  onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "how-it-works-hero-signup")}
+                  className="w-full sm:w-auto"
+                >
                   <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
-                    Start for free <ArrowRight className="ml-2 h-5 w-5" />
+                    {loadingState === "how-it-works-hero-signup" ? (
+                      <><Loader2 className="animate-spin mr-2 h-5 w-5" /> Loading...</>
+                    ) : (
+                      <>Start for free <ArrowRight className="ml-2 h-5 w-5" /></>
+                    )}
                   </button>
                 </a>
                 <a href="https://calendly.com/aravindhan-tritern/30min" className="w-full sm:w-auto" target="_blank" rel="noopener noreferrer">
@@ -534,9 +545,16 @@ export function HowItWorksPage() {
                 Join the data experts and growth teams optimizing their outbound verification with Exeract.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="https://app.exeract.com/signup">
+                <a 
+                  href="https://app.exeract.com/signup"
+                  onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "how-it-works-bottom-signup")}
+                >
                   <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-base sm:text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
-                    Get Started for Free <ArrowRight className="ml-2 h-5 w-5" />
+                    {loadingState === "how-it-works-bottom-signup" ? (
+                      <><Loader2 className="animate-spin mr-2 h-5 w-5" /> Loading...</>
+                    ) : (
+                      <>Get Started for Free <ArrowRight className="ml-2 h-5 w-5" /></>
+                    )}
                   </button>
                 </a>
               </div>

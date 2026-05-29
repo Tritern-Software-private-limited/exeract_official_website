@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Calendar, User, Clock, ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Clock, ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { blog, BlogPost } from '../utils/blog';
+import { useCTARedirect } from '../utils/useCTARedirect';
 
 /* ── SEO helper: inject meta tags on mount, restore on unmount ── */
 function usePageMeta(post: BlogPost | null) {
@@ -86,6 +87,7 @@ export function BlogPostPage() {
 
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
+  const { handleCTAClick, loadingState } = useCTARedirect();
 
   useEffect(() => {
     let mounted = true;
@@ -301,10 +303,14 @@ export function BlogPostPage() {
                             </p>
                             <a
                               href="https://app.exeract.com/signup"
+                              onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "blog-signup")}
                               className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:scale-105 hover:shadow-xl transition-all duration-200"
                             >
-                              Try Exeract Free
-                              <ArrowRight className="h-4 w-4" />
+                              {loadingState === "blog-signup" ? (
+                                <><Loader2 className="animate-spin h-4 w-4" /> Loading...</>
+                              ) : (
+                                <>Try Exeract Free <ArrowRight className="h-4 w-4" /></>
+                              )}
                             </a>
                           </div>
                         </motion.div>

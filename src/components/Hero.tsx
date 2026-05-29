@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Play, Edit2, Calendar, CheckCircle2, XCircle, HelpCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, Play, Edit2, Calendar, CheckCircle2, XCircle, HelpCircle, Loader2 } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
+import { useCTARedirect } from '../utils/useCTARedirect';
 import { SectionLoader } from './SectionLoader';
 interface HeroProps {
   isAdmin?: boolean;
@@ -11,6 +12,8 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
   const [data, setData] = useState<ContentType['hero'] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { handleCTAClick, loadingState } = useCTARedirect();
+
   useEffect(() => {
     let active = true;
     const load = async () => {
@@ -136,10 +139,17 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
-              <a href="https://app.exeract.com/signup" className="w-full sm:w-auto">
+              <a 
+                href="https://app.exeract.com/signup" 
+                onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "hero-signup")}
+                className="w-full sm:w-auto"
+              >
                 <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
-                  Start for free
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  {loadingState === "hero-signup" ? (
+                    <><Loader2 className="animate-spin mr-2 h-5 w-5" /> Loading...</>
+                  ) : (
+                    <>Start for free <ArrowRight className="ml-2 h-5 w-5" /></>
+                  )}
                 </button>
               </a>
 
