@@ -84,7 +84,7 @@ export const INITIAL_POSTS: BlogPost[] = [
   {
     slug: 'how-to-qualify-target-companies-faster-inside-apollo-and-clay',
     title: 'How to Qualify Target Companies Faster Inside Apollo and Clay',
-    excerpt: 'Building lists in Apollo and Clay is incredibly fast, but qualifying those lists at scale without blowing your budget or getting fake data is where the standard playbook falls apart.',
+    excerpt: 'Building lists in Apollo and Clay is incredibly fast, but qualifying those lists at scale without blowing your budget or getting inaccurate data is where the standard playbook falls apart.',
     content: '',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2000',
     date: 'June 1, 2026',
@@ -94,7 +94,7 @@ export const INITIAL_POSTS: BlogPost[] = [
     sections: [
       {
         type: 'intro',
-        body: "You can pull thousands of company data in Apollo or Clay in seconds. But qualifying those lists at scale without blowing your budget or getting irrelevant company data? That is where the standard playbook falls apart.\n\nSetting up automated workflows inside these platforms is the norm for scaling B2B outreach. You get speed and basic firmographic enrichments instantly. But when it comes to deep ICP qualification, native automation flows start to show their cracks."
+        body: "You can pull data on thousands of companies in Apollo or Clay in seconds. But qualifying those lists at scale without blowing your budget or ending up with irrelevant data? That is where the standard playbook falls apart.\n\nSetting up automated workflows inside these platforms is the norm for scaling B2B outreach. You get speed and basic firmographic enrichments instantly. But when it comes to deep ICP qualification, native automation flows start to show their cracks."
       },
       {
         type: 'numbered',

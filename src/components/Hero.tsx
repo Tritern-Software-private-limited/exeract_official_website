@@ -140,7 +140,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
               <a 
-                href="https://app.exeract.com/signup" 
+                href="/product-access?redirect=https://app.exeract.com/signup" 
                 onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "hero-signup")}
                 className="w-full sm:w-auto"
               >

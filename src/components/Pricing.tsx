@@ -159,7 +159,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
               </ul>
 
               <a 
-                href={plan.price === 'Custom' ? 'https://calendly.com/aravindhan-tritern/30min' : 'https://app.exeract.com/signup'}
+                href={plan.price === 'Custom' ? 'https://calendly.com/aravindhan-tritern/30min' : '/product-access?redirect=https://app.exeract.com/signup'}
                 onClick={plan.price !== 'Custom' ? (e) => handleCTAClick(e, 'https://app.exeract.com/signup', `pricing-${plan.name}`) : undefined}
                 className="w-full mt-auto block"
               >

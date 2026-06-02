@@ -302,7 +302,7 @@ export function BlogPostPage() {
                               {section.body}
                             </p>
                             <a
-                              href="https://app.exeract.com/signup"
+                              href="/product-access?redirect=https://app.exeract.com/signup"
                               onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "blog-signup")}
                               className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:scale-105 hover:shadow-xl transition-all duration-200"
                             >

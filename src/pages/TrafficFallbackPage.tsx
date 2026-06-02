@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Loader2, CheckCircle } from 'lucide-react';
 
@@ -8,6 +8,61 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZyGgcW4aOIt
 export function TrafficFallbackPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const redirectUrl = queryParams.get('redirect');
+  const [checkingStatus, setCheckingStatus] = useState(!!redirectUrl);
+
+  useEffect(() => {
+    if (!redirectUrl) return;
+
+    let active = true;
+
+    const checkStatus = async () => {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+        await fetch('https://app.exeract.com', {
+          mode: 'no-cors',
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (active) {
+          window.location.href = redirectUrl;
+        }
+      } catch (err) {
+        console.error('Status check failed:', err);
+        if (active) {
+          setCheckingStatus(false);
+        }
+      }
+    };
+
+    checkStatus();
+
+    return () => {
+      active = false;
+    };
+  }, [redirectUrl]);
+
+  if (checkingStatus) {
+    return (
+      <div className="min-h-screen bg-[#F8FAFF] flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden text-navy">
+        {/* Background elements */}
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-3xl opacity-50" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/10 blur-3xl opacity-50" />
+
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border border-gray-100 p-8 relative z-10 text-center flex flex-col items-center justify-center min-h-[300px]">
+          <Loader2 className="animate-spin h-12 w-12 text-primary mb-6 animate-duration-1000" />
+          <h2 className="text-xl font-bold mb-2">Connecting to Exeract...</h2>
+          <p className="text-gray-500 text-sm">Please wait while we establish a secure connection to the platform.</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,10 +106,10 @@ export function TrafficFallbackPage() {
           </a>
 
           <h1 className="text-2xl sm:text-3xl font-bold mb-4">
-            We are experiencing unusually high traffic.
+            Ready to Explore Exeract?
           </h1>
           <p className="text-gray-500 text-sm leading-relaxed">
-            Our application is spinning up extra resources to handle the demand. Please drop your details below, and we will notify you the exact moment your access slot is ready.
+            Enter your information below, and we will email you the link to access Exeract.
           </p>
         </div>
 
@@ -67,9 +122,9 @@ export function TrafficFallbackPage() {
             <div className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-green-100 mb-6">
               <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
-            <h2 className="text-xl font-bold mb-2">Thank you, we've reserved your spot!</h2>
+            <h2 className="text-xl font-bold mb-2">Thank you!</h2>
             <p className="text-gray-500 text-sm">
-              Keep an eye on your inbox. We'll send you a link as soon as your resources are ready.
+              Keep an eye on your inbox. We'll send you the access link shortly.
             </p>
             <a href="/">
               <button className="mt-8 px-6 py-3 bg-white border border-gray-200 text-navy font-bold rounded-xl hover:bg-gray-50 transition-colors w-full">
@@ -133,10 +188,10 @@ export function TrafficFallbackPage() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin -ml-1 mr-2 h-5 w-5" />
-                  Securing Spot...
+                  Requesting Access...
                 </>
               ) : (
-                'Reserve My Access Slot'
+                'Get Access Link'
               )}
             </button>
           </motion.form>

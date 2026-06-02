@@ -369,7 +369,7 @@ export function HowItWorksPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a 
-                  href="https://app.exeract.com/signup" 
+                  href="/product-access?redirect=https://app.exeract.com/signup" 
                   onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "how-it-works-hero-signup")}
                   className="w-full sm:w-auto"
                 >
@@ -546,7 +546,7 @@ export function HowItWorksPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a 
-                  href="https://app.exeract.com/signup"
+                  href="/product-access?redirect=https://app.exeract.com/signup"
                   onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "how-it-works-bottom-signup")}
                 >
                   <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-base sm:text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">

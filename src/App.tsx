@@ -44,7 +44,7 @@ export function App() {
     if (currentPath.startsWith('/blog/')) {
       return <BlogPostPage />;
     }
-    if (currentPath === '/traffic-fallback') {
+    if (currentPath === '/product-access') {
       return <TrafficFallbackPage />;
     }
     // Default to landing page
