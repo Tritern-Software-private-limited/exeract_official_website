@@ -7,6 +7,7 @@ const HowItWorksPage = lazy(() => import('./pages/HowItWorksPage').then(module =
 const PricingPage = lazy(() => import('./pages/PricingPage').then(module => ({ default: module.PricingPage })));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage').then(module => ({ default: module.TermsOfServicePage })));
 const TrafficFallbackPage = lazy(() => import('./pages/TrafficFallbackPage').then(module => ({ default: module.TrafficFallbackPage })));
+const EmailVerificationPage = lazy(() => import('./pages/EmailVerificationPage').then(module => ({ default: module.EmailVerificationPage })));
 
 function PageLoader() {
   return (
@@ -46,6 +47,9 @@ export function App() {
     }
     if (currentPath === '/product-access') {
       return <TrafficFallbackPage />;
+    }
+    if (currentPath === '/email-verification') {
+      return <EmailVerificationPage />;
     }
     // Default to landing page
     return <LandingPage />;

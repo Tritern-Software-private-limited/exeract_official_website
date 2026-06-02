@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu, X, Loader2 } from 'lucide-react'
+import { Menu, X, Loader2, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCTARedirect } from '../utils/useCTARedirect'
 export function Navbar() {
@@ -15,10 +15,12 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
   const navLinks = [
-
     {
       name: 'How it Works',
-      href: '/how-it-works',
+      items: [
+        { name: 'Company ICP validation', href: '/how-it-works' },
+        { name: 'Email verification', href: '/email-verification' }
+      ]
     },
     {
       name: 'Pricing',
@@ -52,13 +54,35 @@ export function Navbar() {
             {/* Main Links (Desktop) */}
             <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-navy/80 hover:text-primary font-medium transition-colors text-sm xl:text-base whitespace-nowrap"
-                >
-                  {link.name}
-                </a>
+                link.items ? (
+                  <div key={link.name} className="relative group">
+                    <button className="flex items-center gap-1 text-navy/80 group-hover:text-primary font-medium transition-colors text-sm xl:text-base whitespace-nowrap">
+                      {link.name}
+                      <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    </button>
+                    <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-2 min-w-[240px] flex flex-col">
+                        {link.items.map((item) => (
+                          <a
+                            key={item.name}
+                            href={item.href}
+                            className="block px-4 py-3 text-sm font-medium text-navy/80 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                          >
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-navy/80 hover:text-primary font-medium transition-colors text-sm xl:text-base whitespace-nowrap"
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
             </nav>
           </div>
@@ -79,7 +103,7 @@ export function Navbar() {
                 onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "nav-signup")}
               >
                 <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm xl:text-base whitespace-nowrap flex items-center">
-                  {loadingState === "nav-signup" ? <><Loader2 className="animate-spin mr-2 h-4 w-4" /> Loading...</> : "Sign up for free"}
+                  {loadingState === "nav-signup" ? <><Loader2 className="animate-spin mr-2 h-4 w-4" /> Loading...</> : "Sign up"}
                 </button>
               </a>
             </div>
@@ -118,14 +142,34 @@ export function Navbar() {
           >
             <div className="px-4 pt-2 pb-6 space-y-2">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-3 py-3 text-base font-medium text-navy hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-                >
-                  {link.name}
-                </a>
+                link.items ? (
+                  <div key={link.name} className="space-y-1">
+                    <div className="px-3 py-3 text-base font-medium text-navy">
+                      {link.name}
+                    </div>
+                    <div className="pl-6 space-y-1 border-l-2 border-gray-100 ml-3 mb-2">
+                      {link.items.map(item => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                        >
+                          {item.name}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-3 text-base font-medium text-navy hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <div className="pt-4 space-y-3">
                 <a

@@ -148,7 +148,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                   {loadingState === "hero-signup" ? (
                     <><Loader2 className="animate-spin mr-2 h-5 w-5" /> Loading...</>
                   ) : (
-                    <>Start for free <ArrowRight className="ml-2 h-5 w-5" /></>
+                    <>Get Started Free <ArrowRight className="ml-2 h-5 w-5" /></>
                   )}
                 </button>
               </a>
