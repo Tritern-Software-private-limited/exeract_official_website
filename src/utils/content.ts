@@ -77,7 +77,8 @@ export const INITIAL_CONTENT = {
         features: [
           'Full access to the core engine',
           'Standard data qualification',
-          'CSV data export']
+          'CSV data export',
+          '500 email verification per month (No catch-all risk check)']
       },
       {
         name: 'Personal',
@@ -91,7 +92,8 @@ export const INITIAL_CONTENT = {
           'Full access to the core engine',
           'Standard data qualification',
           'CSV data export',
-          'Priority queue processing']
+          'Priority queue processing',
+          '4K email verification per month with catch-all risk check']
       },
       {
         name: 'Professional',
@@ -106,7 +108,8 @@ export const INITIAL_CONTENT = {
           'Full access to the core engine',
           'Social media links in report',
           'CSV data export',
-          'Priority queue processing']
+          'Priority queue processing',
+          '8K email verification per month with catch-all risk check']
       },
       {
         name: 'Enterprise',
@@ -121,7 +124,8 @@ export const INITIAL_CONTENT = {
           'Social media links included',
           'API & Webhook access',
           'Dedicated infrastructure',
-          'BYOK (Bring Your Own Key)']
+          'BYOK (Bring Your Own Key)',
+          'Email verification API option']
       }]
   },
   footer: {
