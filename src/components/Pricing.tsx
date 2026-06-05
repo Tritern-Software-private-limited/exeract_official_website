@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Edit2, Loader2 } from 'lucide-react';
+import { Check, Edit2, Loader2, Mail } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
 import { useCTARedirect } from '../utils/useCTARedirect';
 import { SectionLoader } from './SectionLoader';
@@ -140,10 +140,45 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
                 </span>
               </div>
 
-              <div className={`p-4 rounded-xl mb-6 ${plan.popular ? 'bg-white/10' : 'bg-[#F4F9FF]'}`}>
-                <p className={`text-sm font-bold ${plan.popular ? 'text-white' : 'text-primary'}`}>{plan.creditsTitle || '100 Credits / month'}</p>
-                <p className={`text-xs mt-1 ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>{plan.creditsDesc || '(Approx. 500+ company checks)'}</p>
+              <div className={`rounded-xl mb-6 overflow-hidden ${plan.popular ? 'bg-white/10' : 'bg-[#F4F9FF]'}`}>
+                {/* ICP Credits row */}
+                <div className="flex items-center gap-3 px-4 pt-4 pb-3">
+                  <div className={`flex-shrink-0 rounded-full p-1.5 ${plan.popular ? 'bg-white/20' : 'bg-primary/10'}`}>
+                    <svg className={`h-3 w-3 ${plan.popular ? 'text-white' : 'text-primary'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className={`text-sm font-bold leading-tight ${plan.popular ? 'text-white' : 'text-primary'}`}>{plan.creditsTitle || '100 Credits / month'}</p>
+                    <p className={`text-[11px] mt-0.5 ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>{plan.creditsDesc || '(Approx. 500+ company checks)'}</p>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className={`mx-4 h-px ${plan.popular ? 'bg-white/15' : 'bg-gray-200'}`} />
+
+                {/* Email Verification row */}
+                {(plan as any).emailCredits && (
+                  <div className="flex items-center gap-3 px-4 pt-3 pb-4">
+                    <div className={`flex-shrink-0 rounded-full p-1.5 ${plan.popular ? 'bg-white/20' : 'bg-emerald-100'}`}>
+                      <Mail className={`h-3 w-3 ${plan.popular ? 'text-white' : 'text-emerald-600'}`} />
+                    </div>
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <p className={`text-sm font-bold leading-tight ${plan.popular ? 'text-white' : 'text-emerald-700'}`}>
+                        {(plan as any).emailCredits}
+                      </p>
+                      {(plan as any).emailCreditsExtra && (
+                        <span className={`text-[9px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full ${
+                          plan.popular ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-700'
+                        }`}>
+                          {(plan as any).emailCreditsExtra}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
+
 
               <ul className="space-y-4 mb-8 flex-grow">
                 {plan.features.map((feature, i) =>

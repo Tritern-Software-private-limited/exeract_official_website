@@ -53,23 +53,11 @@ export function useCTARedirect() {
     setLoadingState(buttonId);
     activeRedirectRef.current = true;
 
-<<<<<<< Updated upstream
-    // 3-second timeout to redirect to product access page
-    const timeoutId = setTimeout(() => {
-      window.location.pathname = '/product-access';
-=======
-<<<<<<< HEAD
-    // 3-second timeout to redirect to fallback page if pre-flight fails or hangs
+    // 3-second timeout to redirect to product access page if pre-flight fails or hangs
     timeoutRef.current = setTimeout(() => {
       if (activeRedirectRef.current) {
-        window.location.pathname = '/traffic-fallback';
+        window.location.pathname = '/product-access';
       }
-=======
-    // 3-second timeout to redirect to product access page
-    const timeoutId = setTimeout(() => {
-      window.location.pathname = '/product-access';
->>>>>>> 841d64b29b03afbd651c87c74a9eb7a8140e5f04
->>>>>>> Stashed changes
     }, 3000);
 
     // Pre-flight check
@@ -93,21 +81,13 @@ export function useCTARedirect() {
       })
       .catch((error) => {
         console.error('Pre-flight fetch failed:', error);
-<<<<<<< HEAD
         if (activeRedirectRef.current) {
           if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
           }
-          window.location.pathname = '/traffic-fallback';
+          window.location.pathname = '/product-access';
         }
-=======
-        clearTimeout(timeoutId);
-        window.location.pathname = '/product-access';
-<<<<<<< Updated upstream
-=======
->>>>>>> 841d64b29b03afbd651c87c74a9eb7a8140e5f04
->>>>>>> Stashed changes
       });
   };
 

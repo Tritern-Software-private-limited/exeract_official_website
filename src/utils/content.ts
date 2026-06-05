@@ -12,25 +12,20 @@ export const INITIAL_CONTENT = {
 
   },
   howItWorks: {
-    sectionTitle: 'How It Works',
-    heading: 'Verify thousands of leads in minutes',
+    sectionTitle: 'Our Tools',
+    heading: 'Two powerful tools. One unified platform.',
     description:
-      'Stop manually checking websites. Our automated workflow handles the heavy lifting so you can focus on closing deals.',
+      'Exeract combines ICP company validation and email verification into a single seamless workflow — so your outreach always hits the right people at the right companies.',
     steps: [
       {
-        title: 'Upload Your Lead File',
+        title: 'ICP Validation',
         description:
-          'Import CSV, Excel, or any file containing URLs in seconds. Our system automatically detects and parses your data structure.'
+          'Overlay ICP match results as you browse Apollo.io, Clay, Prospeo, or your CRM. Qualify target companies instantly through live website data, keyword intelligence, and confidence scoring — not AI guesswork.'
       },
       {
-        title: 'Set Your Keywords',
+        title: 'Email Verification',
         description:
-          'Define the exact criteria that qualify a lead for your business. Use boolean logic and negative keywords for precision.'
-      },
-      {
-        title: 'Get Confidence Scores',
-        description:
-          'Receive instant verification results with detailed confidence ratings. Export clean, verified lists ready for your sales team.'
+          'Validate email addresses in bulk before you send. Our engine checks deliverability, detects catch-all domains, and flags risky addresses — giving you clean lists that protect your sender reputation.'
       }]
 
   },
@@ -38,27 +33,37 @@ export const INITIAL_CONTENT = {
     sectionTitle: 'Why Exeract?',
     heading: 'Built for high-velocity sales teams',
     description:
-      'Manual lead verification is slow, error-prone, and expensive. Exeract replaces the grunt work with intelligent automation, helping you scale your outreach without scaling your headcount.',
+      'Manual lead verification is slow, error-prone, and expensive. Exeract replaces the grunt work with intelligent automation across both company qualification and email verification.',
     features: [
       {
-        title: '95% Verification Accuracy',
+        title: 'ICP Match at a Glance',
         description:
-          'AI-powered analysis ensures you only pursue qualified leads. We cross-reference multiple data points to ensure validity.'
+          'Confidence scores and keyword signals surface inside your existing tools — no tab switching, no guesswork.'
+      },
+      {
+        title: 'Email Deliverability',
+        description:
+          'Catch invalid, risky, and catch-all emails before sending. Protect your domain reputation and improve reply rates.'
       },
       {
         title: '10x Faster Than Manual',
         description:
-          'Process thousands of leads in minutes, not days. Free up your SDRs to focus on selling rather than researching.'
+          'Process thousands of companies and emails in minutes. Free your SDRs to focus on closing, not researching.'
+      },
+      {
+        title: 'Catch-all Risk Detection',
+        description:
+          'Identify catch-all domains that silently accept any address — so you only send to addresses that truly exist.'
       },
       {
         title: 'Keyword Intelligence',
         description:
-          'Advanced matching algorithms understand context and relevance, not just exact text matches on the page.'
+          'Advanced matching understands context and relevance across website content, not just exact keyword matches.'
       },
       {
-        title: 'Detailed Reporting',
+        title: 'Unified Reporting',
         description:
-          'Export results with confidence scores and verification insights. Integrate directly with your CRM or outreach tools.'
+          'Export ICP scores and email verification results together. One clean dataset, ready for your CRM or sequencer.'
       }]
 
   },
@@ -73,12 +78,12 @@ export const INITIAL_CONTENT = {
         period: '/month',
         creditsTitle: '100 Credits / month',
         creditsDesc: '(Approx. 500+ company checks)',
+        emailCredits: '500 email verification credits',
         ctaText: 'Get Started',
         features: [
           'Full access to the core engine',
           'Standard data qualification',
-          'CSV data export',
-          '500 email verification per month (No catch-all risk check)']
+          'CSV data export']
       },
       {
         name: 'Personal',
@@ -87,29 +92,31 @@ export const INITIAL_CONTENT = {
         period: '/month',
         creditsTitle: '500 Credits / month',
         creditsDesc: '(Approx. 2,500+ company checks)',
+        emailCredits: '2.5K email verification credits',
+        emailCreditsExtra: 'Catch-all risk result',
         ctaText: 'Get Started',
         features: [
           'Full access to the core engine',
           'Standard data qualification',
           'CSV data export',
-          'Priority queue processing',
-          '4K email verification per month with catch-all risk check']
+          'Priority queue processing']
       },
       {
         name: 'Professional',
         description: 'Best for growing outbound teams that need higher volume and speed.',
-        price: '$39',
+        price: '$30',
         period: '/month',
         popular: true,
         creditsTitle: '1,000 Credits / month',
         creditsDesc: '(Approx. 5,000+ company checks)',
+        emailCredits: '6K email verification credits',
+        emailCreditsExtra: 'Catch-all risk result',
         ctaText: 'Get Started',
         features: [
           'Full access to the core engine',
           'Social media links in report',
           'CSV data export',
-          'Priority queue processing',
-          '8K email verification per month with catch-all risk check']
+          'Priority queue processing']
       },
       {
         name: 'Enterprise',
@@ -118,14 +125,15 @@ export const INITIAL_CONTENT = {
         period: 'Pricing',
         creditsTitle: 'Custom Credit Volume',
         creditsDesc: 'Tailored to your needs',
+        emailCredits: 'Email verification API',
+        emailCreditsExtra: 'Custom volume',
         ctaText: 'Contact Sales',
         features: [
           'Custom schema builds',
           'Social media links included',
           'API & Webhook access',
           'Dedicated infrastructure',
-          'BYOK (Bring Your Own Key)',
-          'Email verification API option']
+          'BYOK (Bring Your Own Key)']
       }]
   },
   footer: {

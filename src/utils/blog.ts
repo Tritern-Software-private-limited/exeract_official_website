@@ -29,7 +29,7 @@ export const INITIAL_POSTS: BlogPost[] = [
     excerpt:
       'Founders are wasting too much runway on bloated software stacks. Here is the exact, zero-fluff outbound infrastructure designed for lean teams, covering deliverability, raw data, qualification, and sending.',
     content: '',
-    image: '/outbound-tech-stack-hero.png',
+    image: '/exeract-tech-stack.png',
     date: 'May 19, 2025',
     author: 'Exeract Team',
     category: 'Strategy',

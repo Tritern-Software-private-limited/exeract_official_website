@@ -127,9 +127,6 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
               <span className="text-xs sm:text-sm bg-green-50 border border-green-200 text-green-700 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
                 <CheckCircle2 className="h-4 w-4" /> YES
               </span>
-              <span className="text-xs sm:text-sm bg-green-50 border border-green-200 text-green-700 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
-                <CheckCircle2 className="h-4 w-4" /> VERIFIED
-              </span>
               <span className="text-xs sm:text-sm bg-orange-50 border border-orange-200 text-orange-600 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
                 <HelpCircle className="h-4 w-4" /> CONSIDER
               </span>
