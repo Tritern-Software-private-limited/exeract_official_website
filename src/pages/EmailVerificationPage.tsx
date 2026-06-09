@@ -12,12 +12,12 @@ import { useCTARedirect } from '../utils/useCTARedirect';
 
 // ─── Demo Data ─────────────────────────────────────────────────────────────────
 const DEMO_EMAILS = [
-  { email: 'john@acme.com',        result: 'valid' },
-  { email: 'sarah@outlook.com',    result: 'valid' },
-  { email: 'mike@domain-test.io',  result: 'catch-all' },
-  { email: 'contact@bigcorp.co',   result: 'catch-all' },
+  { email: 'john@acme.com', result: 'valid' },
+  { email: 'sarah@outlook.com', result: 'valid' },
+  { email: 'mike@domain-test.io', result: 'catch-all' },
+  { email: 'contact@bigcorp.co', result: 'catch-all' },
   { email: 'info@notrealdomain.xyz', result: 'invalid' },
-  { email: 'bad-format@@example',  result: 'invalid' },
+  { email: 'bad-format@@example', result: 'invalid' },
 ];
 
 type ResultType = 'valid' | 'invalid' | 'catch-all';
@@ -65,9 +65,9 @@ function EmailVerificationDemo() {
   const [showPaidTooltip, setShowPaidTooltip] = useState(false);
 
   const steps = [
-    { id: 1, label: 'Add Emails',    icon: Upload,     color: 'text-primary' },
-    { id: 2, label: 'Verification',  icon: Zap,        color: 'text-amber-500' },
-    { id: 3, label: 'Results',       icon: CheckCircle2, color: 'text-green-500' },
+    { id: 1, label: 'Add Emails', icon: Upload, color: 'text-primary' },
+    { id: 2, label: 'Verification', icon: Zap, color: 'text-amber-500' },
+    { id: 3, label: 'Results', icon: CheckCircle2, color: 'text-green-500' },
   ];
 
   const runVerification = () => {
@@ -94,8 +94,8 @@ function EmailVerificationDemo() {
   const displayEmails = inputMode === 'single' ? [DEMO_EMAILS[0]] : DEMO_EMAILS;
 
   const stats = {
-    total:   displayEmails.length,
-    valid:   displayEmails.filter(e => e.result === 'valid').length,
+    total: displayEmails.length,
+    valid: displayEmails.filter(e => e.result === 'valid').length,
     invalid: displayEmails.filter(e => e.result === 'invalid').length,
     catchAll: displayEmails.filter(e => e.result === 'catch-all').length,
   };
@@ -204,11 +204,10 @@ function EmailVerificationDemo() {
                       transition={{ delay: idx * 0.05 }}
                       className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50/50"
                     >
-                      <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-300 ${
-                        scanned
+                      <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-300 ${scanned
                           ? item.result === 'valid' ? 'bg-green-500' : item.result === 'catch-all' ? 'bg-amber-400' : 'bg-red-400'
                           : scanning ? 'bg-amber-400 animate-pulse' : 'bg-gray-200'
-                      }`} />
+                        }`} />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-mono text-navy truncate">{item.email}</p>
                       </div>
@@ -223,7 +222,7 @@ function EmailVerificationDemo() {
               </div>
               {done && (
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 p-3 bg-green-50 rounded-xl border border-green-100 text-center">
-                  <p className="text-sm font-semibold text-green-700">✓ Verification complete — moving to results</p>
+                  <p className="text-sm font-semibold text-green-700">✓ Verification complete , moving to results</p>
                 </motion.div>
               )}
             </motion.div>
@@ -237,10 +236,10 @@ function EmailVerificationDemo() {
               {/* Summary Stats */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                 {[
-                  { label: 'Total',    value: stats.total,    icon: BarChart3,    color: 'text-secondary' },
-                  { label: 'Valid',    value: stats.valid,    icon: CheckCircle2, color: 'text-green-600' },
-                  { label: 'Invalid',  value: stats.invalid,  icon: XCircle,      color: 'text-red-500' },
-                  { label: 'Catch-All',value: stats.catchAll, icon: AlertTriangle, color: 'text-amber-500' },
+                  { label: 'Total', value: stats.total, icon: BarChart3, color: 'text-secondary' },
+                  { label: 'Valid', value: stats.valid, icon: CheckCircle2, color: 'text-green-600' },
+                  { label: 'Invalid', value: stats.invalid, icon: XCircle, color: 'text-red-500' },
+                  { label: 'Catch-All', value: stats.catchAll, icon: AlertTriangle, color: 'text-amber-500' },
                 ].map(stat => {
                   const Icon = stat.icon;
                   return (
@@ -265,9 +264,8 @@ function EmailVerificationDemo() {
                   {displayEmails.map(item => (
                     <div key={item.email} className="flex items-center justify-between text-sm p-2.5 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
-                          item.result === 'valid' ? 'bg-green-500' : item.result === 'catch-all' ? 'bg-amber-400' : 'bg-red-400'
-                        }`} />
+                        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.result === 'valid' ? 'bg-green-500' : item.result === 'catch-all' ? 'bg-amber-400' : 'bg-red-400'
+                          }`} />
                         <span className="font-mono text-xs text-navy truncate">{item.email}</span>
                       </div>
                       <div className="flex-shrink-0 ml-2">
@@ -305,7 +303,7 @@ function EmailVerificationDemo() {
                     <div>
                       <p className="text-sm font-bold text-amber-800">Catch-All Risk Analysis is a Pro feature</p>
                       <p className="text-xs text-amber-600 mt-0.5">
-                        Upgrade to Pro to see whether catch-all addresses are <strong>High Risk</strong> or <strong>Low Risk</strong> — so you know exactly which ones are safe to send to.
+                        Upgrade to Pro to see whether catch-all addresses are <strong>High Risk</strong> or <strong>Low Risk</strong> , so you know exactly which ones are safe to send to.
                       </p>
                     </div>
                   </motion.div>
@@ -357,7 +355,7 @@ export function EmailVerificationPage() {
                 Stop Sending to<br /><span className="text-primary">Emails That Bounce</span>
               </h1>
               <p className="text-lg sm:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Validate single emails or bulk lists instantly. Get clean, deliverable contacts with detailed results — Valid, Invalid, and Catch-All risk ratings.
+                Validate single emails or bulk lists instantly. Get clean, deliverable contacts with detailed results , Valid, Invalid, and Catch-All risk ratings.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
@@ -405,9 +403,9 @@ export function EmailVerificationPage() {
             {/* Step overview cards */}
             <div className="grid grid-cols-3 gap-4 mb-10">
               {[
-                { icon: Upload,      label: 'Add your emails',   desc: 'Single or bulk CSV/XLSX',      color: 'bg-primary/10',  iconColor: 'text-primary' },
-                { icon: Zap,         label: 'Auto verification', desc: 'Syntax, domain & SMTP checks', color: 'bg-amber-50',    iconColor: 'text-amber-500' },
-                { icon: FileDown,    label: 'Export results',    desc: 'Clean, CRM-ready in one click', color: 'bg-green-50',   iconColor: 'text-green-600' },
+                { icon: Upload, label: 'Add your emails', desc: 'Single or bulk CSV/XLSX', color: 'bg-primary/10', iconColor: 'text-primary' },
+                { icon: Zap, label: 'Auto verification', desc: 'Syntax, domain & SMTP checks', color: 'bg-amber-50', iconColor: 'text-amber-500' },
+                { icon: FileDown, label: 'Export results', desc: 'Clean, CRM-ready in one click', color: 'bg-green-50', iconColor: 'text-green-600' },
               ].map((item, i) => {
                 const Icon = item.icon;
                 return (
@@ -475,7 +473,7 @@ export function EmailVerificationPage() {
                   dot: 'bg-amber-400',
                   title: 'Catch-All (Risky)',
                   desc: 'The domain accepts all emails regardless of whether the mailbox exists. We cannot confirm delivery. Use with caution.',
-                  plan: 'Pro users get a deeper risk score — High Risk vs. Low Risk — for each catch-all address.',
+                  plan: 'Pro users get a deeper risk score , High Risk vs. Low Risk , for each catch-all address.',
                 },
               ].map((item, i) => {
                 const Icon = item.icon;
@@ -521,8 +519,8 @@ export function EmailVerificationPage() {
             <div className="grid sm:grid-cols-3 gap-8">
               {[
                 { icon: ShieldCheck, color: 'bg-green-50 text-green-600', title: 'Protect Your Domain', desc: 'Eliminate bounces before they happen and maintain a pristine sender reputation that keeps your emails out of spam.' },
-                { icon: Zap,         color: 'bg-blue-50 text-secondary',  title: 'Bulk Verification',  desc: 'Upload lists of up to 100,000 emails. Exeract processes them in minutes, not hours.' },
-                { icon: Coins,       color: 'bg-amber-50 text-amber-600', title: 'Smarter Outreach',   desc: "Only contact people who can actually receive your emails. Every send counts — don't waste it on dead addresses." },
+                { icon: Zap, color: 'bg-blue-50 text-secondary', title: 'Bulk Verification', desc: 'Upload lists of up to 100,000 emails. Exeract processes them in minutes, not hours.' },
+                { icon: Coins, color: 'bg-amber-50 text-amber-600', title: 'Smarter Outreach', desc: "Only contact people who can actually receive your emails. Every send counts , don't waste it on dead addresses." },
               ].map((item, i) => {
                 const Icon = item.icon;
                 return (

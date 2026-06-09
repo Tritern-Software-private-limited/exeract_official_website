@@ -15,17 +15,17 @@ export const INITIAL_CONTENT = {
     sectionTitle: 'Our Tools',
     heading: 'Two powerful tools. One unified platform.',
     description:
-      'Exeract combines ICP company validation and email verification into a single seamless workflow — so your outreach always hits the right people at the right companies.',
+      'Exeract combines ICP company validation and email verification into a single seamless workflow , so your outreach always hits the right people at the right companies.',
     steps: [
       {
         title: 'ICP Validation',
         description:
-          'Overlay ICP match results as you browse Apollo.io, Clay, Prospeo, or your CRM. Qualify target companies instantly through live website data, keyword intelligence, and confidence scoring — not AI guesswork.'
+          'Overlay ICP match results as you browse Apollo.io, Clay, Prospeo, or your CRM. Qualify target companies instantly through live website data, keyword intelligence, and confidence scoring , not AI guesswork.'
       },
       {
         title: 'Email Verification',
         description:
-          'Validate email addresses in bulk before you send. Our engine checks deliverability, detects catch-all domains, and flags risky addresses — giving you clean lists that protect your sender reputation.'
+          'Validate email addresses in bulk before you send. Our engine checks deliverability, detects catch-all domains, and flags risky addresses , giving you clean lists that protect your sender reputation.'
       }]
 
   },
@@ -38,7 +38,7 @@ export const INITIAL_CONTENT = {
       {
         title: 'ICP Match at a Glance',
         description:
-          'Confidence scores and keyword signals surface inside your existing tools — no tab switching, no guesswork.'
+          'Confidence scores and keyword signals surface inside your existing tools , no tab switching, no guesswork.'
       },
       {
         title: 'Email Deliverability',
@@ -53,7 +53,7 @@ export const INITIAL_CONTENT = {
       {
         title: 'Catch-all Risk Detection',
         description:
-          'Identify catch-all domains that silently accept any address — so you only send to addresses that truly exist.'
+          'Identify catch-all domains that silently accept any address , so you only send to addresses that truly exist.'
       },
       {
         title: 'Keyword Intelligence',
