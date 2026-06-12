@@ -140,7 +140,7 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
                 </span>
               </div>
 
-              <div className={`rounded-xl mb-6 overflow-hidden ${plan.popular ? 'bg-white/10' : 'bg-[#F4F9FF]'}`}>
+              <div className={`rounded-xl mb-6 overflow-hidden ${plan.popular ? 'bg-white/10' : 'bg-[#F4F9FF]/60 backdrop-blur-md border border-blue-100/30 shadow-sm'}`}>
                 {/* ICP Credits row */}
                 <div className="flex items-center gap-3 px-4 pt-4 pb-3">
                   <div className={`flex-shrink-0 rounded-full p-1.5 ${plan.popular ? 'bg-white/20' : 'bg-primary/10'}`}>
@@ -149,13 +149,13 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
                     </svg>
                   </div>
                   <div>
-                    <p className={`text-sm font-bold leading-tight ${plan.popular ? 'text-white' : 'text-primary'}`}>{plan.creditsTitle || '100 Credits / month'}</p>
+                    <p className={`text-sm font-bold leading-tight ${plan.popular ? 'text-white' : 'text-navy'}`}>{plan.creditsTitle || '100 Credits / month'}</p>
                     <p className={`text-[11px] mt-0.5 ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>{plan.creditsDesc || '(Approx. 500+ company checks)'}</p>
                   </div>
                 </div>
 
                 {/* Divider */}
-                <div className={`mx-4 h-px ${plan.popular ? 'bg-white/15' : 'bg-gray-200'}`} />
+                <div className={`mx-4 h-px ${plan.popular ? 'bg-white/15' : 'bg-gray-200/50'}`} />
 
                 {/* Email Verification row */}
                 {(plan as any).emailCredits && (
@@ -215,15 +215,6 @@ export function Pricing({ isAdmin, onEdit }: PricingProps) {
             </motion.div>
           )}
         </div>
-
-        {/* <div className="mt-16 text-center">
-          <p className="text-gray-500 flex items-center justify-center gap-2">
-            Need a custom volume plan?{' '}
-            <a href="#" className="text-primary hover:underline">
-              Contact our sales team
-            </a>
-          </p>
-        </div> */}
       </div>
     </section>);
 
