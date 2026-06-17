@@ -137,7 +137,7 @@ export function Footer({ isAdmin, onEdit }: FooterProps) {
               </li>
               <li>
                 <a href="/how-it-works" className="hover:text-primary transition-colors">
-                  How it Works
+                  Products
                 </a>
               </li>
               <li>
