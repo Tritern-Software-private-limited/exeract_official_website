@@ -41,7 +41,7 @@ function TableOfContents({ activeSection }: { activeSection: string }) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   return (
-    <aside className="hidden xl:block w-64 flex-shrink-0">
+    <aside className="hidden xl:block w-64 flex-shrink-0 self-stretch">
       <div className="sticky top-28 space-y-1">
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-3">On this page</p>
         {SECTIONS.map((s) => {
@@ -306,7 +306,6 @@ function SectionCard({ section, children }: { section: Section; children: React.
           <Icon className={`h-6 w-6 ${section.color}`} />
         </div>
         <div>
-          <span className={`text-xs font-bold ${section.color} uppercase tracking-widest`}>Section {section.number}</span>
           <h2 className="text-xl sm:text-2xl font-bold text-navy">{section.title}</h2>
         </div>
       </div>
@@ -518,7 +517,7 @@ export function OutboundUserGuidePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFF] font-sans text-navy selection:bg-primary/20 selection:text-navy overflow-x-hidden">
+    <div className="min-h-screen bg-[#F8FAFF] font-sans text-navy selection:bg-primary/20 selection:text-navy">
       <Navbar />
 
       {/* Hero */}
@@ -529,29 +528,13 @@ export function OutboundUserGuidePage() {
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">
-              <Send className="h-3 w-3" /> Outbound Playbook
-            </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-navy leading-tight mb-6">
               Outbound User Guide
             </h1>
             <p className="text-lg sm:text-xl text-gray-500 mb-10 max-w-3xl mx-auto leading-relaxed">
-              A complete, step-by-step playbook for building a cold outreach system that lands in inboxes — not spam folders. From infrastructure to LinkedIn, every layer covered.
+A complete, step-by-step guide to building a cold outreach system, covering email infrastructure, email deliverability, prospecting, cold email messaging, and LinkedIn outreach from start to finish.
             </p>
-            {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-4 mb-10">
-              {[
-                { label: '9 Sections', icon: Hash },
-                { label: '3 Calculators', icon: Calculator },
-                { label: 'Interactive Tools', icon: MousePointer },
-                { label: 'Exeract-Powered', icon: Zap },
-              ].map(({ label, icon: Icon }) => (
-                <div key={label} className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-100 shadow-sm text-sm font-medium text-gray-600">
-                  <Icon className="h-3.5 w-3.5 text-primary" />
-                  {label}
-                </div>
-              ))}
-            </div>
+
           </motion.div>
         </div>
       </section>
@@ -568,7 +551,7 @@ export function OutboundUserGuidePage() {
             {/* ── Section 1: Domain & Infrastructure ── */}
             <SectionCard section={SECTIONS[0]}>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Protect your primary root domain at all costs. Instead of sending from your main website's domain, purchase <strong className="text-navy">dedicated secondary domains</strong> (e.g., <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">get[yourcompany].com</code> or <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">try[yourcompany].com</code>).
+                Protect your primary root domain at all costs. Instead of sending from your main website's domain, purchase <strong className="text-navy">dedicated secondary domains</strong> (e.g., if your primary domain is <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany].com</code>, use <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany].co.in</code>, <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany].in</code>, or <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany]-email.com</code>).
               </p>
               <div className="grid sm:grid-cols-2 gap-4 mb-6">
                 {[
