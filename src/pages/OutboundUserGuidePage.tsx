@@ -7,7 +7,7 @@ import {
   Mail, Linkedin, Calculator, ChevronDown, ChevronRight,
   Globe, Lock, Key, AlertTriangle, TrendingUp, Users,
   ArrowRight, Zap, Target, Eye, MousePointer, Clock,
-  CheckCircle2, XCircle, Info, Send, UserCheck, Hash
+  CheckCircle2, XCircle, Info, Send, UserCheck, Hash, Loader2, Activity
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -108,6 +108,112 @@ function AuthCard({ icon: Icon, title, badge, desc, color, bg }: {
   );
 }
 
+// ─── Mailbox Infra Calculator ────────────────────────────────────────────────
+function MailboxInfraCalculator() {
+  const [targetEmails, setTargetEmails] = useState(10000);
+  const [workingDays, setWorkingDays] = useState(22);
+  const [emailsPerDay, setEmailsPerDay] = useState(35);
+  const [mailboxesPerDomain, setMailboxesPerDomain] = useState(2);
+
+  const maxEmailsPerMailboxMonth = emailsPerDay * workingDays;
+  const totalMailboxes = Math.ceil(targetEmails / maxEmailsPerMailboxMonth);
+  const totalDomains = Math.ceil(totalMailboxes / mailboxesPerDomain);
+
+  return (
+    <div className="bg-violet-50 rounded-2xl border border-violet-100 p-6 mt-4">
+      <div className="flex items-center gap-2 mb-6">
+        <Server className="h-5 w-5 text-violet-600" />
+        <h4 className="font-bold text-violet-800">Advanced Infrastructure Calculator</h4>
+      </div>
+      
+      <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6 mb-8">
+        <div className="col-span-1 sm:col-span-2">
+          <label className="text-xs font-semibold text-violet-800/70 uppercase tracking-wider block mb-3">Target Cold Emails per Month</label>
+          <div className="flex items-center gap-4">
+            <input
+              type="range" min={1000} max={100000} step={1000} value={targetEmails}
+              onChange={(e) => setTargetEmails(Number(e.target.value))}
+              className="flex-1 accent-violet-600"
+            />
+            <input
+              type="number" min={1000} max={100000} step={1000} value={targetEmails}
+              onChange={(e) => setTargetEmails(Number(e.target.value))}
+              className="w-28 px-3 py-2 rounded-xl border border-violet-200 text-center text-sm font-bold text-violet-900 bg-white focus:outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-400"
+            />
+          </div>
+        </div>
+
+        {[
+          { label: 'Working Days / Month', value: workingDays, setter: setWorkingDays, min: 10, max: 31, step: 1, color: 'violet' },
+          { label: 'Cold Emails / Mailbox / Day', value: emailsPerDay, setter: setEmailsPerDay, min: 10, max: 50, step: 1, color: 'violet' },
+          { label: 'Mailboxes / Domain', value: mailboxesPerDomain, setter: setMailboxesPerDomain, min: 1, max: 3, step: 1, color: 'violet' },
+        ].map(({ label, value, setter, min, max, step, color }) => (
+          <div key={label}>
+            <label className="text-xs font-semibold text-violet-800/70 block mb-2">{label}</label>
+            <div className="flex items-center gap-3">
+              <input
+                type="range" min={min} max={max} step={step} value={value}
+                onChange={(e) => setter(Number(e.target.value))}
+                className={`flex-1 accent-${color}-500`}
+                style={{ accentColor: '#8b5cf6' }}
+              />
+              <span className="w-10 text-right text-sm font-bold text-violet-900">{value}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <motion.div
+          key={`domain-${totalDomains}`}
+          initial={{ scale: 0.95, opacity: 0.5 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}
+          className="bg-white rounded-xl p-5 border border-violet-100 text-center shadow-sm relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 p-2 opacity-[0.03]">
+            <Globe className="w-16 h-16 text-violet-900" />
+          </div>
+          <p className="text-4xl font-black text-violet-600 mb-1">{totalDomains}</p>
+          <p className="text-sm text-gray-600 font-medium">Total Domains Needed</p>
+          <p className="text-[10px] text-gray-400 mt-1">@ {mailboxesPerDomain} mailboxes each</p>
+        </motion.div>
+        
+        <motion.div
+          key={`mailbox-${totalMailboxes}`}
+          initial={{ scale: 0.95, opacity: 0.5 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}
+          className="bg-white rounded-xl p-5 border border-violet-100 text-center shadow-sm relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 p-2 opacity-[0.03]">
+            <Mail className="w-16 h-16 text-violet-900" />
+          </div>
+          <p className="text-4xl font-black text-violet-600 mb-1">{totalMailboxes}</p>
+          <p className="text-sm text-gray-600 font-medium">Total Mailboxes Needed</p>
+          <p className="text-[10px] text-gray-400 mt-1">Sending {emailsPerDay} cold emails/day</p>
+        </motion.div>
+      </div>
+
+      <div className="bg-white/80 rounded-xl p-5 border border-violet-100/60">
+        <p className="text-sm font-bold text-violet-800 mb-3 flex items-center gap-2">
+          <Shield className="h-4 w-4 text-emerald-500" /> Deliverability Best Practices:
+        </p>
+        <ul className="space-y-2.5 text-sm text-violet-800/80">
+          <li className="flex items-start gap-2.5">
+            <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5 text-emerald-500" />
+            <span><strong>Human-like Schedule:</strong> Sending only {workingDays} days/month mimics natural working behavior.</span>
+          </li>
+          <li className="flex items-start gap-2.5">
+            <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5 text-emerald-500" />
+            <span><strong>Volume Caps:</strong> Keeping daily volume to {emailsPerDay} cold emails leaves room for warm-up replies.</span>
+          </li>
+          <li className="flex items-start gap-2.5">
+            <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5 text-emerald-500" />
+            <span><strong>Reputation Isolation:</strong> Max {mailboxesPerDomain} mailboxes per domain protects your infrastructure.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 // ─── Volume Calculator ────────────────────────────────────────────────────────
 function VolumeCalculator() {
   const [mailboxes, setMailboxes] = useState(3);
@@ -120,8 +226,17 @@ function VolumeCalculator() {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
       <div className="flex items-center gap-2 mb-6">
-        <Calculator className="h-5 w-5 text-emerald-500" />
-        <h4 className="font-bold text-navy">Send Volume Calculator</h4>
+        <Calculator className="h-5 w-5 text-primary" />
+        <h4 className="font-bold text-navy flex items-center gap-2">
+          Send Volume Calculator
+          <div className="group relative flex items-center">
+            <Info className="h-4 w-4 text-gray-400 cursor-help transition-colors group-hover:text-primary" />
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-2.5 bg-navy text-white text-xs rounded-xl opacity-0 group-hover:opacity-100 transition-all pointer-events-none text-center shadow-lg z-20">
+              Calculate your safe monthly capacity based on these guardrails.
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-navy rotate-45" />
+            </div>
+          </div>
+        </h4>
       </div>
       <div className="grid sm:grid-cols-3 gap-4 mb-6">
         {[
@@ -135,7 +250,7 @@ function VolumeCalculator() {
               <input
                 type="range" min={min} max={max} value={value}
                 onChange={(e) => setter(Number(e.target.value))}
-                className="flex-1 accent-emerald-500"
+                className="flex-1 accent-primary"
               />
               <span className="w-8 text-center text-sm font-bold text-navy">{value}</span>
             </div>
@@ -333,41 +448,147 @@ function Tip({ children, type = 'info' }: { children: React.ReactNode; type?: 'i
   );
 }
 
-// ─── Warmup Timeline ─────────────────────────────────────────────────────────
+// ─── Warmup Protocol Section Components ─────────────────────────────────────
 function WarmupTimeline() {
   const phases = [
-    { week: 'Week 1–2', label: 'Seeding', desc: 'Low volume, peer-to-peer engagement via TRU-warm by Mailineers', emails: '5–10/day', color: 'bg-orange-100 text-orange-600' },
-    { week: 'Week 3–4', label: 'Building', desc: 'Gradual ramp-up with high-engagement replies and positive signals', emails: '10–25/day', color: 'bg-yellow-100 text-yellow-600' },
-    { week: 'Week 5–6', label: 'Establishing', desc: 'Consistent positive sender history, inbox placement improving', emails: '25–40/day', color: 'bg-lime-100 text-lime-600' },
-    { week: 'Week 7+', label: 'Production', desc: 'Full cold outreach capacity with protected sender reputation', emails: '30–50/day', color: 'bg-emerald-100 text-emerald-600' },
+    { week: 'Week 1–2', label: 'Seeding', desc: 'Low volume, peer-to-peer engagement via TRU-warm by Mailineers', emails: '5–10/day', gradient: 'from-orange-500 to-orange-400', shadow: 'shadow-orange-200', bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-100' },
+    { week: 'Week 3–4', label: 'Building', desc: 'Gradual ramp-up with high-engagement replies and positive signals', emails: '10–25/day', gradient: 'from-yellow-500 to-yellow-400', shadow: 'shadow-yellow-200', bg: 'bg-yellow-50', text: 'text-yellow-600', border: 'border-yellow-100' },
+    { week: 'Week 5–6', label: 'Establishing', desc: 'Consistent positive sender history, inbox placement improving', emails: '25–40/day', gradient: 'from-lime-500 to-lime-400', shadow: 'shadow-lime-200', bg: 'bg-lime-50', text: 'text-lime-600', border: 'border-lime-100' },
+    { week: 'Week 7+', label: 'Production', desc: 'Full cold outreach capacity with protected sender reputation', emails: '30–50/day', gradient: 'from-emerald-500 to-emerald-400', shadow: 'shadow-emerald-200', bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-100' },
   ];
   return (
-    <div className="relative mt-4">
-      <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-200 via-yellow-200 via-lime-200 to-emerald-200" />
-      <div className="space-y-4 pl-14">
+    <div className="relative mt-6 mb-8">
+      <div className="space-y-6 pl-16">
         {phases.map((p, i) => (
           <motion.div
             key={p.week}
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.08 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
             className="relative"
           >
-            <div className={`absolute -left-11 top-3 w-5 h-5 rounded-full ${p.color.split(' ')[0]} border-2 border-white flex items-center justify-center`}>
-              <div className={`w-2 h-2 rounded-full ${p.color.split(' ')[0].replace('100', '500')}`} />
+            {/* Timeline node */}
+            <div className={`absolute -left-16 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border-4 border-white shadow-md flex items-center justify-center z-10`}>
+              <div className={`w-full h-full rounded-full bg-gradient-to-br ${p.gradient}`} />
             </div>
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 hover:border-gray-200 transition-colors">
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <span className="text-xs font-bold text-gray-500">{p.week}</span>
-                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${p.color}`}>{p.label}</span>
-                <span className="ml-auto text-xs font-mono font-bold text-gray-400">{p.emails}</span>
+
+            {/* Card */}
+            <div className={`bg-white rounded-2xl p-5 border ${p.border} shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group`}>
+              {/* Subtle background glow */}
+              <div className={`absolute top-0 right-0 w-32 h-32 rounded-full ${p.bg} blur-3xl -mr-10 -mt-10 opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+              
+              <div className="relative z-10">
+                <div className="flex flex-wrap items-center gap-3 mb-3">
+                  <span className="text-sm font-black text-navy">{p.week}</span>
+                  <span className={`text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-md ${p.bg} ${p.text}`}>{p.label}</span>
+                  <div className="ml-auto flex items-center gap-1.5">
+                    <Mail className={`h-3.5 w-3.5 ${p.text} opacity-70`} />
+                    <span className="text-xs font-mono font-bold text-gray-500">{p.emails}</span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 leading-relaxed max-w-[90%]">{p.desc}</p>
               </div>
-              <p className="text-sm text-gray-600">{p.desc}</p>
             </div>
           </motion.div>
         ))}
       </div>
+    </div>
+  );
+}
+
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZyGgcW4aOIty4lvfSrzF0MKYerX6-DhUmNTJ9bxXCxkR29ZnnzjizWOpsQDNGlcQ2/exec';
+
+function WarmupSubmissionForm() {
+  const [outreachIds, setOutreachIds] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!outreachIds.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
+    
+    const formData = new FormData();
+    formData.append('name', 'Warmup Protocol');
+    formData.append('email', outreachIds);
+    formData.append('notes', 'TRU-warm Protocol Submission IDs: ' + outreachIds);
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+      });
+      
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setOutreachIds('');
+      }, 4000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an issue submitting your request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 rounded-2xl border border-orange-200 p-6 mt-6">
+      <div className="flex items-start gap-4 mb-4">
+        <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center flex-shrink-0">
+          <Flame className="h-5 w-5 text-orange-600" />
+        </div>
+        <div>
+          <h4 className="font-bold text-navy text-lg">Start Your TRU-warm Protocol</h4>
+          <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+            Enter your outreach IDs below. Our team will queue your domains and mailboxes for the strategic human-interaction warm-up sequence.
+          </p>
+        </div>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="mt-5 flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+            <Mail className="h-4 w-4 text-orange-400" />
+          </div>
+          <input
+            type="text"
+            value={outreachIds}
+            onChange={(e) => setOutreachIds(e.target.value)}
+            placeholder="e.g. name@example.com, user@domain.com..."
+            className="w-full pl-10 pr-4 py-3 rounded-xl border border-orange-200/80 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 text-navy shadow-sm transition-all placeholder-gray-400"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={!outreachIds.trim() || submitted || isSubmitting}
+          className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap min-w-[140px]"
+        >
+          {isSubmitting ? (
+            <><Loader2 className="animate-spin h-4 w-4" /> Sending...</>
+          ) : submitted ? (
+            <motion.span initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4" /> Done
+            </motion.span>
+          ) : (
+            <><Send className="h-4 w-4" /> Submit</>
+          )}
+        </button>
+      </form>
+      
+      <AnimatePresence>
+        {submitted ? (
+          <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="text-xs font-semibold text-emerald-600 mt-3 flex items-center gap-1.5">
+            <CheckCircle2 className="h-4 w-4 flex-shrink-0" /> After submission, you'll receive the details shortly.
+          </motion.p>
+        ) : (
+          <p className="text-xs text-orange-700/70 mt-3 flex items-center gap-1.5">
+            <Info className="h-4 w-4 flex-shrink-0" /> After submission, you'll receive the details shortly.
+          </p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -555,7 +776,7 @@ A complete, step-by-step guide to building a cold outreach system, covering emai
               </p>
               <div className="grid sm:grid-cols-2 gap-4 mb-6">
                 {[
-                  { icon: Shield, title: 'Primary Domain', badge: 'PROTECTED', desc: 'Your main brand domain. Never used for cold outreach. Keep its reputation pristine for transactional and internal email.', color: 'text-red-500', bg: 'red' },
+                  { icon: Shield, title: 'Primary Domain', badge: 'PROTECTED', desc: 'This is your main website. Never use it for cold emails. Keep it safe for your team messages and customer updates.', color: 'text-red-500', bg: 'red' },
                   { icon: Globe, title: 'Secondary Domains', badge: 'FOR OUTREACH', desc: 'Dedicated domains only for cold outbound. Purchase 1 domain per 2–3 mailboxes. If one is flagged, your primary is safe.', color: 'text-emerald-500', bg: 'emerald' },
                 ].map((card) => (
                   <div key={card.title} className={`rounded-2xl p-5 border ${card.bg === 'red' ? 'bg-red-50 border-red-100' : 'bg-emerald-50 border-emerald-100'}`}>
@@ -570,19 +791,7 @@ A complete, step-by-step guide to building a cold outreach system, covering emai
                   </div>
                 ))}
               </div>
-              <div className="bg-violet-50 rounded-2xl border border-violet-100 p-5">
-                <p className="text-sm font-bold text-violet-700 mb-3 flex items-center gap-2"><Server className="h-4 w-4" /> Mailbox Allocation Rule</p>
-                <div className="flex items-center gap-4">
-                  <div className="flex-1 bg-white rounded-xl p-3 border border-violet-100 text-center">
-                    <p className="text-3xl font-black text-violet-600">2–3</p>
-                    <p className="text-xs text-gray-500 mt-1">Mailboxes per domain</p>
-                  </div>
-                  <ArrowRight className="h-5 w-5 text-violet-400 flex-shrink-0" />
-                  <div className="flex-1">
-                    <p className="text-sm text-violet-700 leading-relaxed">This isolates your risk. If one domain takes a reputation hit, it <em>won't drag down</em> your entire operation or your internal team's communications.</p>
-                  </div>
-                </div>
-              </div>
+              <MailboxInfraCalculator />
             </SectionCard>
 
             {/* ── Section 2: Authentication ── */}
@@ -629,13 +838,13 @@ A complete, step-by-step guide to building a cold outreach system, covering emai
                 {[
                   {
                     title: '❌ Avoid Robotic Pools',
-                    desc: 'Standard automated warm-up tools are increasingly detected by major email providers. Gmail and Outlook now flag coordinated warm-up network patterns.',
+                    desc: 'Standard warm-up tools are increasingly detected by major email providers. Gmail and Outlook now flag coordinated warm-up network patterns.',
                     bg: 'bg-red-50 border-red-100',
                     textColor: 'text-red-700'
                   },
                   {
                     title: '✅ The Manual Approach',
-                    desc: 'We recommend TRU-warm by Mailineers to naturally build sender trust through strategic, high-engagement peer-to-peer interactions. This establishes a baseline of human activity before you introduce automation.',
+                    desc: 'We recommend TRU-warm by Mailineers to naturally build sender reputation through strategic, high-engagement human interactions for email warmups.',
                     bg: 'bg-emerald-50 border-emerald-100',
                     textColor: 'text-emerald-700'
                   },
@@ -646,51 +855,94 @@ A complete, step-by-step guide to building a cold outreach system, covering emai
                   </div>
                 ))}
               </div>
-              <h4 className="font-bold text-navy mb-3 flex items-center gap-2"><Clock className="h-4 w-4 text-orange-500" /> Warm-Up Timeline</h4>
+              <h4 className="font-bold text-navy mb-3 flex items-center gap-2"><Clock className="h-4 w-4 text-orange-500" /> Timeline</h4>
               <WarmupTimeline />
               <Tip type="warning">Jumping to 50 emails/day on week 1 from a new domain is the #1 cause of permanent blacklisting. The timeline above is a minimum — not a fast-track.</Tip>
+              <WarmupSubmissionForm />
             </SectionCard>
 
             {/* ── Section 4: Volume Thresholds ── */}
             <SectionCard section={SECTIONS[3]}>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Volume spikes are the <strong className="text-navy">fastest way to trigger algorithmic blacklists.</strong> These thresholds are non-negotiable during cold outreach.
+                After 2 to 3 weeks of warmup, you can gradually begin your outbound campaigns. However, sudden volume spikes are the <strong className="text-navy">fastest way to trigger algorithmic blacklists.</strong> These thresholds are non-negotiable during cold outreach.
               </p>
-              <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                {[
-                  { label: 'Daily Limit Per Mailbox', value: '30–50', unit: 'emails/day', icon: Mail, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                  { label: 'Send Window', value: '6–8', unit: 'hours spread', icon: Clock, color: 'text-blue-600', bg: 'bg-blue-50' },
-                ].map(({ label, value, unit, icon: Icon, color, bg }) => (
-                  <div key={label} className={`${bg} rounded-2xl p-5 border border-gray-100`}>
-                    <Icon className={`h-6 w-6 ${color} mb-3`} />
-                    <p className={`text-4xl font-black ${color}`}>{value}</p>
-                    <p className="text-xs text-gray-500 mt-1">{unit}</p>
-                    <p className="text-sm font-medium text-navy mt-1">{label}</p>
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6 shadow-sm">
+                <div className="grid md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                  <div className="flex flex-col items-center text-center px-2 group relative">
+                    <div className="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center mb-3">
+                      <TrendingUp className="h-6 w-6 text-sky-500" />
+                    </div>
+                    <p className="text-4xl font-black text-sky-500 mb-1">+2 to 5</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1 flex items-center gap-1 cursor-help">
+                      Daily Volume Increase
+                      <Info className="h-3 w-3 text-gray-300 group-hover:text-sky-400 transition-colors" />
+                    </p>
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-56 p-2.5 bg-navy text-white text-xs rounded-xl opacity-0 group-hover:opacity-100 transition-all pointer-events-none shadow-lg z-20">
+                      Gradually scale your daily limit after the warm-up phase.
+                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-navy rotate-45" />
+                    </div>
                   </div>
-                ))}
+
+                  <div className="flex flex-col items-center text-center px-2 pt-6 md:pt-0">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-3">
+                      <Shield className="h-6 w-6 text-emerald-600" />
+                    </div>
+                    <p className="text-4xl font-black text-emerald-600 mb-1">30–40</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1">Max Emails / Mailbox / Day</p>
+                  </div>
+
+                  <div className="flex flex-col items-center text-center px-2 pt-6 md:pt-0 relative">
+                    <div className="absolute inset-0 bg-violet-50/60 rounded-2xl -m-4 hidden md:block" />
+                    <div className="relative z-10 flex flex-col items-center w-full">
+                      <div className="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center mb-3">
+                        <Activity className="h-6 w-6 text-violet-600" />
+                      </div>
+                      <p className="text-4xl font-black text-violet-600 mb-1">~10–15</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-violet-700 mb-1">Mins Between Emails</p>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 mb-6">
-                <h4 className="font-bold text-navy mb-3 text-sm flex items-center gap-2"><Zap className="h-4 w-4 text-amber-500" /> Pacing Strategy</h4>
-                <div className="flex items-start gap-3">
-                  <div className="flex-1 space-y-2">
-                    {[
-                      { time: '08:30', action: 'Send batch 1 (10 emails)', type: 'send' },
-                      { time: '10:15', action: 'Send batch 2 (12 emails)', type: 'send' },
-                      { time: '12:45', action: 'Lunch break — no sends', type: 'break' },
-                      { time: '14:20', action: 'Send batch 3 (10 emails)', type: 'send' },
-                      { time: '16:30', action: 'Send batch 4 (8 emails)', type: 'send' },
-                    ].map((item) => (
-                      <div key={item.time} className="flex items-center gap-3 text-sm">
-                        <span className="font-mono text-xs text-gray-400 w-12 flex-shrink-0">{item.time}</span>
-                        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.type === 'send' ? 'bg-emerald-400' : 'bg-gray-300'}`} />
-                        <span className={item.type === 'break' ? 'text-gray-400 italic' : 'text-gray-600'}>{item.action}</span>
+                <h4 className="font-bold text-navy mb-2 text-sm flex items-center gap-2">
+                  <UserCheck className="h-4 w-4 text-primary" /> Human Mimicry & Drip Pacing
+                </h4>
+                <p className="text-xs text-gray-500 mb-5 leading-relaxed">
+                  ESPs flag timestamp density. Never send in batches. Distribute your daily limit unevenly to break algorithmic pattern recognition.
+                </p>
+                
+                <div className="grid sm:grid-cols-2 gap-3 mb-5">
+                  <div className="bg-red-50/50 border border-red-100 rounded-xl p-3.5">
+                    <div className="flex items-start gap-2.5">
+                      <XCircle className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <span className="text-xs font-bold text-red-700 block mb-0.5">Avoid Batching</span>
+                        <span className="text-xs text-red-600/80 leading-relaxed block">Sending 10+ emails at the exact same time triggers spam filters.</span>
                       </div>
-                    ))}
+                    </div>
                   </div>
-                  <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-center min-w-[80px]">
-                    <p className="text-2xl font-black text-emerald-600">40</p>
-                    <p className="text-[10px] text-gray-500">total/day</p>
-                    <p className="text-[10px] text-emerald-600 font-bold mt-1">✓ Safe</p>
+                  <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-3.5">
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <span className="text-xs font-bold text-emerald-700 block mb-0.5">Variable Drip</span>
+                        <span className="text-xs text-emerald-600/80 leading-relaxed block">Space emails out randomly to mimic real human typing speed.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 border-t border-gray-100 pt-4">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mr-2">Ideal Settings</span>
+                  <div className="bg-white border border-gray-200 px-3 py-1.5 rounded-full text-xs font-medium text-gray-600 shadow-sm">
+                    Min Delay: 7–9 mins
+                  </div>
+                  <div className="bg-white border border-gray-200 px-3 py-1.5 rounded-full text-xs font-medium text-gray-600 shadow-sm">
+                    Max Delay: 14–20 mins
+                  </div>
+                  <div className="bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full text-xs font-bold text-emerald-700 shadow-sm flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    Schedule Jitter: Enabled
                   </div>
                 </div>
               </div>
