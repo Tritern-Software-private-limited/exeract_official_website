@@ -15,12 +15,12 @@ export const INITIAL_CONTENT = {
     sectionTitle: 'Our Tools',
     heading: 'Two powerful tools. One unified platform.',
     description:
-      'Exeract combines ICP company validation and email verification into a single seamless workflow — so your outreach always hits the right people at the right companies.',
+      'Exeract combines ICP company validation and email verification into a single seamless workflow, so your outreach always hits the right people at the right companies.',
     steps: [
       {
         title: 'ICP Validation',
         description:
-          'Overlay ICP match results as you browse Apollo.io, Clay, Prospeo, or your CRM. Qualify target companies instantly through live website data, keyword intelligence, and confidence scoring — not AI guesswork.'
+          'Overlay ICP match results as you browse Apollo.io, Clay, Prospeo, or your CRM. Qualify target companies instantly through live website data, keyword intelligence, and confidence scoring, not AI guesswork.'
       },
       {
         title: 'Email Verification',

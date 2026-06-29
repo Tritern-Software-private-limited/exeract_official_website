@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Building2, Mail, CheckCircle2, ShieldAlert, Zap, Globe, Edit2, HelpCircle, XCircle } from 'lucide-react';
+import { Building2, Mail, CheckCircle2, Edit2, HelpCircle, XCircle } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
 import { SectionLoader } from './SectionLoader';
 
@@ -14,9 +14,9 @@ const TOOL_CONFIG = [
     accentColor: '#00D4AA',
     badgeColor: 'bg-primary/10 text-primary border-primary/20',
     tags: [
-      { icon: Globe, label: 'Live website data' },
-      { icon: Zap, label: 'Keyword intelligence' },
-      { icon: CheckCircle2, label: 'Confidence scoring' },
+      { label: 'Custom Software Development' },
+      { label: 'LLM Development' },
+      { label: ' Website Development' },
     ],
     mockLines: [
       { name: 'Tritern', domain: 'tritern.com', status: 'yes', color: 'bg-primary' },
@@ -33,9 +33,9 @@ const TOOL_CONFIG = [
     accentColor: '#8b5cf6',
     badgeColor: 'bg-violet-500/10 text-violet-600 border-violet-400/20',
     tags: [
-      { icon: CheckCircle2, label: 'Deliverability check' },
-      { icon: ShieldAlert, label: 'Catch-all detection' },
-      { icon: Zap, label: 'Bulk processing' },
+      { label: 'Deliverability check' },
+      { label: 'Catch-all detection' },
+      { label: 'Bulk processing' },
     ],
     mockLines: [
       { email: 'john@acme-corp.com', status: 'Valid', safe: true },
@@ -141,32 +141,31 @@ export function HowItWorks({ isAdmin, onEdit }: HowItWorksProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: index * 0.15 }}
-                className={`relative rounded-2xl bg-white border ${cfg.border} shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group`}
+                className={`relative rounded-2xl bg-white border ${cfg.border} shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group flex flex-col h-full`}
               >
                 {/* Top accent bar */}
                 <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${cfg.accentColor}, transparent)` }} />
 
-                <div className="p-7 sm:p-8">
+                <div className="p-7 sm:p-8 flex flex-col flex-grow">
                   {/* Icon + title */}
-                  <div className="flex items-start gap-4 mb-5">
+                  <div className="flex items-center gap-4 mb-5">
                     <div className={`w-12 h-12 rounded-xl ${cfg.iconBg} flex items-center justify-center flex-shrink-0`}>
                       <Icon className={`${cfg.iconColor}`} size={24} />
                     </div>
                     <div>
-                      <span className={`inline-block text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border ${cfg.badgeColor} mb-1.5`}>
+                      {/* <span className={`inline-block text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border ${cfg.badgeColor} mb-1.5`}>
                         Tool {String(index + 1).padStart(2, '0')}
-                      </span>
+                      </span> */}
                       <h3 className="text-xl font-bold text-navy leading-tight">{step.title}</h3>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-500 text-sm leading-relaxed mb-6">{step.description}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">{step.description}</p>
 
                   {/* Feature tags */}
                   <div className="flex flex-wrap gap-2 mb-7">
                     {cfg.tags.map((tag, ti) => {
-                      const TagIcon = tag.icon;
                       return (
                         <motion.span
                           key={ti}
@@ -174,9 +173,8 @@ export function HowItWorks({ isAdmin, onEdit }: HowItWorksProps) {
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ delay: 0.3 + ti * 0.07 }}
-                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${cfg.badgeColor}`}
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${cfg.badgeColor}`}
                         >
-                          <TagIcon size={11} />
                           {tag.label}
                         </motion.span>
                       );
