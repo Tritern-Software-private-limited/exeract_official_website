@@ -25,7 +25,7 @@ export const INITIAL_CONTENT = {
       {
         title: 'Email Verification',
         description:
-          'Validate email addresses in bulk before you send. Our engine checks deliverability, detects catch-all domains, and flags risky addresses — giving you clean lists that protect your sender reputation.'
+          'Validate email addresses in bulk before you send. Our engine detects catch-all domains, and flags risky addresses, giving you clean lists that protect your sender reputation.'
       }]
 
   },
@@ -38,7 +38,7 @@ export const INITIAL_CONTENT = {
       {
         title: 'ICP Match at a Glance',
         description:
-          'Confidence scores and keyword signals surface inside your existing tools — no tab switching, no guesswork.'
+          'Get confidence scores and keyword signals directly in your existing tools. Eliminate tab switching and guesswork.'
       },
       {
         title: 'Email Deliverability',
@@ -53,17 +53,17 @@ export const INITIAL_CONTENT = {
       {
         title: 'Catch-all Risk Detection',
         description:
-          'Identify catch-all domains that silently accept any address — so you only send to addresses that truly exist.'
+          'Identify catch-all domains that silently accept any address. Ensure you only send to real inboxes.'
       },
       {
         title: 'Keyword Intelligence',
         description:
-          'Advanced matching understands context and relevance across website content, not just exact keyword matches.'
+          'Our matching engine understands context and relevance across websites, going beyond exact keyword matches.'
       },
       {
         title: 'Unified Reporting',
         description:
-          'Export ICP scores and email verification results together. One clean dataset, ready for your CRM or sequencer.'
+          'Export ICP scores and email verification results together in one clean dataset, ready for your CRM or sequencer.'
       }]
 
   },

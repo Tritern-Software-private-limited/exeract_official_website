@@ -1,27 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Target, MailCheck, Zap, ShieldAlert, BrainCircuit, FileSpreadsheet, Edit2 } from 'lucide-react';
+import { Edit2 } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
 import { SectionLoader } from './SectionLoader';
 import { FeaturesVisual } from './FeaturesVisual';
-
-const icons = [Target, MailCheck, Zap, ShieldAlert, BrainCircuit, FileSpreadsheet];
-const colors = [
-  'text-primary',
-  'text-violet-500',
-  'text-amber-500',
-  'text-rose-500',
-  'text-blue-500',
-  'text-emerald-500',
-];
-const bgColors = [
-  'bg-primary/8',
-  'bg-violet-500/8',
-  'bg-amber-500/8',
-  'bg-rose-500/8',
-  'bg-blue-500/8',
-  'bg-emerald-500/8',
-];
 
 interface FeaturesProps {
   isAdmin?: boolean;
@@ -92,22 +74,19 @@ export function Features({ isAdmin, onEdit }: FeaturesProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-base font-semibold text-primary uppercase tracking-wide mb-2">
+            <span className="block text-sm font-bold text-primary uppercase tracking-widest mb-3">
               {data.sectionTitle}
-            </h2>
-            <h3 className="text-3xl md:text-4xl font-bold text-navy mb-5">
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-5">
               {data.heading}
-            </h3>
+            </h2>
             <p className="text-lg text-gray-500 mb-10 leading-relaxed">
               {data.description}
             </p>
 
-            {/* 2×3 feature grid */}
-            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-7">
+            {/* Feature Cards Grid */}
+            <div className="grid sm:grid-cols-2 gap-4">
               {data.features.map((feature, index) => {
-                const Icon = icons[index % icons.length];
-                const color = colors[index % colors.length];
-                const bg = bgColors[index % bgColors.length];
                 return (
                   <motion.div
                     key={index}
@@ -115,15 +94,18 @@ export function Features({ isAdmin, onEdit }: FeaturesProps) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.07, duration: 0.45 }}
-                    className="flex gap-3"
+                    className="bg-white border border-gray-100 shadow-sm rounded-2xl p-6 hover:shadow-md hover:border-gray-200 transition-all duration-300 flex flex-col relative overflow-hidden group"
                   >
-                    <div className={`flex-shrink-0 w-9 h-9 rounded-lg ${bg} flex items-center justify-center mt-0.5`}>
-                      <Icon size={18} className={color} />
+                    {/* Brand Accent Line */}
+                    <div className="absolute top-0 left-0 w-full h-[3px] bg-primary/10 group-hover:bg-primary transition-colors duration-300" />
+                    
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-base font-bold text-navy pr-4">{feature.title}</h3>
+                      <span className="text-sm font-mono font-bold text-primary/40 group-hover:text-primary transition-colors duration-300">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-navy mb-1">{feature.title}</h4>
-                      <p className="text-xs text-gray-500 leading-relaxed">{feature.description}</p>
-                    </div>
+                    <p className="text-sm text-gray-500 leading-relaxed">{feature.description}</p>
                   </motion.div>
                 );
               })}
