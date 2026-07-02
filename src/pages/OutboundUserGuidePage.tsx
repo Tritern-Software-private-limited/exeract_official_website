@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import {
   Shield, Server, Flame, BarChart2, CheckCircle, Database,
-  Mail, Linkedin, Calculator, ChevronDown, ChevronRight,
+  Mail, Linkedin, Calculator, ChevronDown,
   Globe, Lock, Key, AlertTriangle, TrendingUp, Users,
-  ArrowRight, Zap, Target, Eye, MousePointer, Clock,
-  CheckCircle2, XCircle, Info, Send, UserCheck, Hash, Loader2, Activity
+  Target, Eye, Clock,
+  CheckCircle2, XCircle, Info, Send, UserCheck, Loader2, Activity
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -16,22 +16,18 @@ interface Section {
   number: string;
   icon: React.ElementType;
   title: string;
-  color: string;
-  bgColor: string;
-  borderColor: string;
 }
 
 // ─── Sections config ─────────────────────────────────────────────────────────
 const SECTIONS: Section[] = [
-  { id: 'domain',       number: '01', icon: Globe,       title: 'Domain & Infrastructure',    color: 'text-violet-500',  bgColor: 'bg-violet-50',  borderColor: 'border-violet-200' },
-  { id: 'auth',         number: '02', icon: Lock,        title: 'Technical Record Setup',      color: 'text-blue-500',    bgColor: 'bg-blue-50',    borderColor: 'border-blue-200'   },
-  { id: 'warmup',       number: '03', icon: Flame,       title: 'The Warm-Up Protocol',        color: 'text-orange-500',  bgColor: 'bg-orange-50',  borderColor: 'border-orange-200' },
-  { id: 'volume',       number: '04', icon: BarChart2,   title: 'Send Volume Thresholds',      color: 'text-emerald-500', bgColor: 'bg-emerald-50', borderColor: 'border-emerald-200'},
-  { id: 'compliance',  number: '05', icon: Shield,      title: 'Compliance & Best Practices', color: 'text-red-500',     bgColor: 'bg-red-50',     borderColor: 'border-red-200'    },
-  { id: 'data',         number: '06', icon: Database,    title: 'Data Quality & ICP',          color: 'text-primary',     bgColor: 'bg-primary/10', borderColor: 'border-primary/30' },
-  { id: 'automation',  number: '07', icon: Mail,        title: 'Cold Email Automation',       color: 'text-secondary',   bgColor: 'bg-secondary/10','borderColor': 'border-secondary/30'},
-  { id: 'linkedin',    number: '08', icon: Linkedin,    title: 'Multi-Channel: LinkedIn',     color: 'text-sky-600',     bgColor: 'bg-sky-50',     borderColor: 'border-sky-200'    },
-  { id: 'calculator',  number: '09', icon: Calculator,  title: 'Outbound Calculators',        color: 'text-pink-500',    bgColor: 'bg-pink-50',    borderColor: 'border-pink-200'   },
+  { id: 'domain',     number: '01', icon: Globe,     title: 'Domain & Infrastructure'    },
+  { id: 'auth',       number: '02', icon: Lock,       title: 'Technical Record Setup'     },
+  { id: 'warmup',     number: '03', icon: Flame,      title: 'The Warm-Up Protocol'       },
+  { id: 'volume',     number: '04', icon: BarChart2,  title: 'Send Volume Thresholds'     },
+  { id: 'compliance', number: '05', icon: Shield,     title: 'Compliance & Best Practices'},
+  { id: 'data',       number: '06', icon: Database,   title: 'Data Quality & ICP'         },
+  { id: 'automation', number: '07', icon: Mail,       title: 'Cold Email Automation'      },
+  { id: 'linkedin',   number: '08', icon: Linkedin,   title: 'Multi-Channel: LinkedIn'    },
 ];
 
 // ─── Sticky Table of Contents ─────────────────────────────────────────────────
@@ -41,53 +37,55 @@ function TableOfContents({ activeSection }: { activeSection: string }) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   return (
-    <aside className="hidden xl:block w-64 flex-shrink-0 self-stretch">
-      <div className="sticky top-28 space-y-1">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-3">On this page</p>
-        {SECTIONS.map((s) => {
-          const Icon = s.icon;
-          const isActive = activeSection === s.id;
-          return (
-            <button
-              key={s.id}
-              onClick={() => scrollTo(s.id)}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-left
-                ${isActive ? `${s.bgColor} ${s.color} border ${s.borderColor}` : 'text-gray-500 hover:text-navy hover:bg-gray-50'}`}
-            >
-              <Icon className={`h-3.5 w-3.5 flex-shrink-0 ${isActive ? s.color : 'text-gray-400'}`} />
-              <span className="truncate">{s.title}</span>
-            </button>
-          );
-        })}
+    <aside className="hidden xl:block w-56 flex-shrink-0 self-stretch">
+      <div className="sticky top-28">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 px-2">On this page</p>
+        <nav className="space-y-0.5">
+          {SECTIONS.map((s) => {
+            const Icon = s.icon;
+            const isActive = activeSection === s.id;
+            return (
+              <button
+                key={s.id}
+                onClick={() => scrollTo(s.id)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-150 text-left group ${
+                  isActive
+                    ? 'bg-indigo-50 text-indigo-700 font-semibold'
+                    : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100 font-medium'
+                }`}
+              >
+                <Icon className={`h-3.5 w-3.5 flex-shrink-0 ${isActive ? 'text-indigo-500' : 'text-slate-400 group-hover:text-slate-600'}`} />
+                <span className="truncate text-xs">{s.title}</span>
+              </button>
+            );
+          })}
+        </nav>
       </div>
     </aside>
   );
 }
 
 // ─── Auth Record Card ─────────────────────────────────────────────────────────
-function AuthCard({ icon: Icon, title, badge, desc, color, bg }: {
-  icon: React.ElementType; title: string; badge: string; desc: string; color: string; bg: string;
+function AuthCard({ icon: Icon, title, badge, desc }: {
+  icon: React.ElementType; title: string; badge: string; desc: string;
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <motion.div
-      layout
-      className={`rounded-2xl border ${bg === 'violet' ? 'border-violet-100' : bg === 'blue' ? 'border-blue-100' : 'border-emerald-100'} overflow-hidden`}
-    >
+    <motion.div layout className="rounded-xl border border-slate-200 overflow-hidden bg-white">
       <button
         onClick={() => setOpen(!open)}
-        className={`w-full flex items-center justify-between p-5 transition-colors hover:bg-gray-50`}
+        className="w-full flex items-center justify-between p-4 transition-colors hover:bg-slate-50"
       >
-        <div className="flex items-center gap-4">
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${bg === 'violet' ? 'bg-violet-50' : bg === 'blue' ? 'bg-blue-50' : 'bg-emerald-50'}`}>
-            <Icon className={`h-5 w-5 ${color}`} />
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0">
+            <Icon className="h-4 w-4 text-slate-600" />
           </div>
           <div className="text-left">
-            <p className="font-bold text-navy text-sm">{title}</p>
-            <p className={`text-xs font-mono font-bold ${color}`}>{badge}</p>
+            <p className="font-semibold text-slate-800 text-sm">{title}</p>
+            <p className="text-[10px] font-mono font-bold text-indigo-500 mt-0.5">{badge}</p>
           </div>
         </div>
-        <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -95,10 +93,10 @@ function AuthCard({ icon: Icon, title, badge, desc, color, bg }: {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className={`px-5 pb-5 text-sm text-gray-600 leading-relaxed border-t ${bg === 'violet' ? 'border-violet-50 bg-violet-50/30' : bg === 'blue' ? 'border-blue-50 bg-blue-50/30' : 'border-emerald-50 bg-emerald-50/30'} pt-4`}>
+            <div className="px-4 pb-4 pt-3 text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/60">
               {desc}
             </div>
           </motion.div>
@@ -110,7 +108,7 @@ function AuthCard({ icon: Icon, title, badge, desc, color, bg }: {
 
 // ─── Mailbox Infra Calculator ────────────────────────────────────────────────
 function MailboxInfraCalculator() {
-  const [targetEmails, setTargetEmails] = useState(10000);
+  const [targetEmails, setTargetEmails] = useState(5000);
   const [workingDays, setWorkingDays] = useState(22);
   const [emailsPerDay, setEmailsPerDay] = useState(35);
   const [mailboxesPerDomain, setMailboxesPerDomain] = useState(2);
@@ -120,94 +118,81 @@ function MailboxInfraCalculator() {
   const totalDomains = Math.ceil(totalMailboxes / mailboxesPerDomain);
 
   return (
-    <div className="bg-violet-50 rounded-2xl border border-violet-100 p-6 mt-4">
+    <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 mt-6">
       <div className="flex items-center gap-2 mb-6">
-        <Server className="h-5 w-5 text-violet-600" />
-        <h4 className="font-bold text-violet-800">Advanced Infrastructure Calculator</h4>
+        <Server className="h-4 w-4 text-indigo-500" />
+        <h4 className="font-semibold text-slate-800 text-sm">Infrastructure Calculator</h4>
       </div>
-      
-      <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6 mb-8">
+
+      <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5 mb-6">
         <div className="col-span-1 sm:col-span-2">
-          <label className="text-xs font-semibold text-violet-800/70 uppercase tracking-wider block mb-3">Target Cold Emails per Month</label>
+          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-3">Target Cold Emails per Month</label>
           <div className="flex items-center gap-4">
             <input
-              type="range" min={1000} max={100000} step={1000} value={targetEmails}
+              type="range" min={500} max={10000} step={500} value={targetEmails}
               onChange={(e) => setTargetEmails(Number(e.target.value))}
-              className="flex-1 accent-violet-600"
+              className="flex-1"
+              style={{ accentColor: '#6366f1' }}
             />
             <input
-              type="number" min={1000} max={100000} step={1000} value={targetEmails}
+              type="number" min={500} max={10000} step={500} value={targetEmails}
               onChange={(e) => setTargetEmails(Number(e.target.value))}
-              className="w-28 px-3 py-2 rounded-xl border border-violet-200 text-center text-sm font-bold text-violet-900 bg-white focus:outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-400"
+              className="w-24 px-3 py-1.5 rounded-lg border border-slate-300 text-center text-sm font-bold text-slate-800 bg-white focus:outline-none focus:border-indigo-500"
             />
           </div>
         </div>
 
         {[
-          { label: 'Working Days / Month', value: workingDays, setter: setWorkingDays, min: 10, max: 31, step: 1, color: 'violet' },
-          { label: 'Cold Emails / Mailbox / Day', value: emailsPerDay, setter: setEmailsPerDay, min: 10, max: 50, step: 1, color: 'violet' },
-          { label: 'Mailboxes / Domain', value: mailboxesPerDomain, setter: setMailboxesPerDomain, min: 1, max: 3, step: 1, color: 'violet' },
-        ].map(({ label, value, setter, min, max, step, color }) => (
+          { label: 'Working Days / Month', value: workingDays, setter: setWorkingDays, min: 10, max: 31, step: 1 },
+          { label: 'Cold Emails / Mailbox / Day', value: emailsPerDay, setter: setEmailsPerDay, min: 10, max: 40, step: 1 },
+          { label: 'Mailboxes / Domain', value: mailboxesPerDomain, setter: setMailboxesPerDomain, min: 1, max: 2, step: 1 },
+        ].map(({ label, value, setter, min, max, step }) => (
           <div key={label}>
-            <label className="text-xs font-semibold text-violet-800/70 block mb-2">{label}</label>
+            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-2">{label}</label>
             <div className="flex items-center gap-3">
               <input
                 type="range" min={min} max={max} step={step} value={value}
                 onChange={(e) => setter(Number(e.target.value))}
-                className={`flex-1 accent-${color}-500`}
-                style={{ accentColor: '#8b5cf6' }}
+                className="flex-1"
+                style={{ accentColor: '#6366f1' }}
               />
-              <span className="w-10 text-right text-sm font-bold text-violet-900">{value}</span>
+              <span className="w-8 text-right text-sm font-bold text-slate-800">{value}</span>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-        <motion.div
-          key={`domain-${totalDomains}`}
-          initial={{ scale: 0.95, opacity: 0.5 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}
-          className="bg-white rounded-xl p-5 border border-violet-100 text-center shadow-sm relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 p-2 opacity-[0.03]">
-            <Globe className="w-16 h-16 text-violet-900" />
-          </div>
-          <p className="text-4xl font-black text-violet-600 mb-1">{totalDomains}</p>
-          <p className="text-sm text-gray-600 font-medium">Total Domains Needed</p>
-          <p className="text-[10px] text-gray-400 mt-1">@ {mailboxesPerDomain} mailboxes each</p>
-        </motion.div>
-        
-        <motion.div
-          key={`mailbox-${totalMailboxes}`}
-          initial={{ scale: 0.95, opacity: 0.5 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}
-          className="bg-white rounded-xl p-5 border border-violet-100 text-center shadow-sm relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 p-2 opacity-[0.03]">
-            <Mail className="w-16 h-16 text-violet-900" />
-          </div>
-          <p className="text-4xl font-black text-violet-600 mb-1">{totalMailboxes}</p>
-          <p className="text-sm text-gray-600 font-medium">Total Mailboxes Needed</p>
-          <p className="text-[10px] text-gray-400 mt-1">Sending {emailsPerDay} cold emails/day</p>
-        </motion.div>
+      <div className="grid grid-cols-2 gap-3 mb-5">
+        {[
+          { key: `domain-${totalDomains}`, value: totalDomains, label: 'Domains Needed', sub: `@ ${mailboxesPerDomain} mailboxes each`, icon: Globe },
+          { key: `mailbox-${totalMailboxes}`, value: totalMailboxes, label: 'Mailboxes Needed', sub: `${emailsPerDay} emails/day each`, icon: Mail },
+        ].map(({ key, value, label, sub, icon: Icon }) => (
+          <motion.div
+            key={key}
+            initial={{ scale: 0.95, opacity: 0.5 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}
+            className="bg-slate-50 rounded-xl p-4 text-center border border-slate-200 relative overflow-hidden"
+          >
+            <Icon className="absolute top-2 right-2 h-8 w-8 text-indigo-500 opacity-5" />
+            <p className="text-3xl font-black text-indigo-600 mb-1">{value}</p>
+            <p className="text-xs text-slate-700 font-semibold">{label}</p>
+            <p className="text-[10px] text-slate-500 mt-0.5">{sub}</p>
+          </motion.div>
+        ))}
       </div>
 
-      <div className="bg-white/80 rounded-xl p-5 border border-violet-100/60">
-        <p className="text-sm font-bold text-violet-800 mb-3 flex items-center gap-2">
-          <Shield className="h-4 w-4 text-emerald-500" /> Deliverability Best Practices:
-        </p>
-        <ul className="space-y-2.5 text-sm text-violet-800/80">
-          <li className="flex items-start gap-2.5">
-            <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5 text-emerald-500" />
-            <span><strong>Human-like Schedule:</strong> Sending only {workingDays} days/month mimics natural working behavior.</span>
-          </li>
-          <li className="flex items-start gap-2.5">
-            <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5 text-emerald-500" />
-            <span><strong>Volume Caps:</strong> Keeping daily volume to {emailsPerDay} cold emails leaves room for warm-up replies.</span>
-          </li>
-          <li className="flex items-start gap-2.5">
-            <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5 text-emerald-500" />
-            <span><strong>Reputation Isolation:</strong> Max {mailboxesPerDomain} mailboxes per domain protects your infrastructure.</span>
-          </li>
+      <div className="border-t border-slate-200 pt-4">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Deliverability Guardrails</p>
+        <ul className="space-y-2">
+          {[
+            `Human-like schedule: ${workingDays} working days/month mimics natural behavior`,
+            `Volume cap: ${emailsPerDay} emails/mailbox leaves room for warm-up replies`,
+            `Reputation isolation: max ${mailboxesPerDomain} mailboxes per domain`,
+          ].map((item) => (
+            <li key={item} className="flex items-start gap-2 text-xs text-slate-600">
+              <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-indigo-500" />
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
@@ -216,7 +201,7 @@ function MailboxInfraCalculator() {
 
 // ─── Volume Calculator ────────────────────────────────────────────────────────
 function VolumeCalculator() {
-  const [mailboxes, setMailboxes] = useState(3);
+  const [mailboxes, setMailboxes] = useState(2);
   const [domains, setDomains] = useState(2);
   const [days, setDays] = useState(22);
   const perMailbox = 40;
@@ -224,55 +209,47 @@ function VolumeCalculator() {
   const monthly = daily * days;
   const totalMailboxes = mailboxes * domains;
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-      <div className="flex items-center gap-2 mb-6">
-        <Calculator className="h-5 w-5 text-primary" />
-        <h4 className="font-bold text-navy flex items-center gap-2">
-          Send Volume Calculator
-          <div className="group relative flex items-center">
-            <Info className="h-4 w-4 text-gray-400 cursor-help transition-colors group-hover:text-primary" />
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-2.5 bg-navy text-white text-xs rounded-xl opacity-0 group-hover:opacity-100 transition-all pointer-events-none text-center shadow-lg z-20">
-              Calculate your safe monthly capacity based on these guardrails.
-              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-navy rotate-45" />
-            </div>
-          </div>
-        </h4>
+    <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 mt-6">
+      <div className="flex items-center gap-2 mb-5">
+        <Calculator className="h-4 w-4 text-indigo-500" />
+        <h4 className="font-semibold text-slate-800 text-sm">Send Volume Calculator</h4>
       </div>
-      <div className="grid sm:grid-cols-3 gap-4 mb-6">
+      <div className="grid sm:grid-cols-3 gap-4 mb-5">
         {[
           { label: 'Domains', value: domains, setter: setDomains, min: 1, max: 10 },
-          { label: 'Mailboxes / Domain', value: mailboxes, setter: setMailboxes, min: 1, max: 3 },
+          { label: 'Mailboxes / Domain', value: mailboxes, setter: setMailboxes, min: 1, max: 2 },
           { label: 'Working Days / Month', value: days, setter: setDays, min: 1, max: 31 },
         ].map(({ label, value, setter, min, max }) => (
           <div key={label}>
-            <label className="text-xs font-semibold text-gray-500 block mb-2">{label}</label>
+            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-2">{label}</label>
             <div className="flex items-center gap-3">
               <input
                 type="range" min={min} max={max} value={value}
                 onChange={(e) => setter(Number(e.target.value))}
-                className="flex-1 accent-primary"
+                className="flex-1"
+                style={{ accentColor: '#6366f1' }}
               />
-              <span className="w-8 text-center text-sm font-bold text-navy">{value}</span>
+              <span className="w-6 text-right text-sm font-bold text-slate-800">{value}</span>
             </div>
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-2">
         {[
-          { label: 'Total Mailboxes', value: totalMailboxes, unit: 'accounts', color: 'text-violet-600', bg: 'bg-violet-50' },
-          { label: 'Daily Capacity', value: daily.toLocaleString(), unit: 'emails/day', color: 'text-emerald-600', bg: 'bg-emerald-50' },
-          { label: 'Monthly Reach', value: monthly.toLocaleString(), unit: 'emails/month', color: 'text-secondary', bg: 'bg-blue-50' },
-        ].map(({ label, value, unit, color, bg }) => (
-          <div key={label} className={`${bg} rounded-xl p-4 text-center`}>
-            <p className={`text-2xl font-bold ${color}`}>{value}</p>
-            <p className="text-xs text-gray-500 mt-1">{unit}</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">{label}</p>
+          { label: 'Total Mailboxes', value: totalMailboxes, unit: 'accounts' },
+          { label: 'Daily Capacity', value: daily.toLocaleString(), unit: 'emails/day' },
+          { label: 'Monthly Reach', value: monthly.toLocaleString(), unit: 'emails/mo' },
+        ].map(({ label, value, unit }) => (
+          <div key={label} className="bg-slate-50 rounded-xl p-3 text-center border border-slate-200">
+            <p className="text-xl font-black text-indigo-600">{value}</p>
+            <p className="text-[10px] text-slate-500 mt-0.5">{unit}</p>
+            <p className="text-[9px] text-slate-400 mt-0.5">{label}</p>
           </div>
         ))}
       </div>
-      <p className="text-xs text-gray-400 mt-4 flex items-center gap-1.5">
+      <p className="text-[10px] text-slate-500 mt-3 flex items-center gap-1.5">
         <Info className="h-3 w-3 flex-shrink-0" />
-        Based on recommended cap of 30–50 emails/mailbox/day (calculator uses 40 avg)
+        Based on 40 emails/mailbox/day cap
       </p>
     </div>
   );
@@ -283,69 +260,62 @@ function LinkedInCalculator() {
   const [requests, setRequests] = useState(25);
   const [accepted, setAccepted] = useState(10);
   const rate = requests > 0 ? Math.round((accepted / requests) * 100) : 0;
-  const status =
-    rate >= 40 ? { label: 'Excellent', color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200' } :
-    rate >= 30 ? { label: 'Healthy', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' } :
-    rate >= 20 ? { label: 'At Risk', color: 'text-orange-500', bg: 'bg-orange-50', border: 'border-orange-200' } :
-    { label: 'Danger Zone', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-200' };
+  const isGood = rate >= 30;
+  const statusLabel = rate >= 40 ? 'Excellent' : rate >= 30 ? 'Healthy' : rate >= 20 ? 'At Risk' : 'Danger Zone';
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-      <div className="flex items-center gap-2 mb-6">
-        <Linkedin className="h-5 w-5 text-sky-600" />
-        <h4 className="font-bold text-navy">LinkedIn Acceptance Rate Monitor</h4>
+    <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 mt-6">
+      <div className="flex items-center gap-2 mb-5">
+        <Linkedin className="h-4 w-4 text-indigo-500" />
+        <h4 className="font-semibold text-slate-800 text-sm">Acceptance Rate Monitor</h4>
       </div>
       <div className="grid sm:grid-cols-2 gap-4 mb-6">
         {[
-          { label: 'Requests Sent (last 7 days)', value: requests, setter: setRequests, min: 0, max: 200, color: 'sky' },
-          { label: 'Requests Accepted', value: accepted, setter: setAccepted, min: 0, max: requests, color: 'emerald' },
-        ].map(({ label, value, setter, min, max, color }) => (
+          { label: 'Requests Sent (last 7 days)', value: requests, setter: setRequests, min: 0, max: 200 },
+          { label: 'Requests Accepted', value: accepted, setter: setAccepted, min: 0, max: requests },
+        ].map(({ label, value, setter, min, max }) => (
           <div key={label}>
-            <label className="text-xs font-semibold text-gray-500 block mb-2">{label}</label>
+            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-2">{label}</label>
             <div className="flex items-center gap-3">
               <input
                 type="range" min={min} max={max} value={value}
                 onChange={(e) => setter(Number(e.target.value))}
-                className={`flex-1 accent-${color}-500`}
-                style={{ accentColor: color === 'sky' ? '#0ea5e9' : '#10b981' }}
+                className="flex-1"
+                style={{ accentColor: '#6366f1' }}
               />
-              <span className="w-8 text-center text-sm font-bold text-navy">{value}</span>
+              <span className="w-8 text-center text-sm font-bold text-slate-800">{value}</span>
             </div>
           </div>
         ))}
       </div>
-      {/* Gauge */}
-      <div className="flex flex-col items-center mb-6">
-        <div className="relative w-40 h-20 overflow-hidden">
-          <div className="absolute inset-0 rounded-t-full bg-gradient-to-r from-red-400 via-orange-400 via-yellow-400 to-emerald-400 opacity-20" />
-          <div className={`absolute inset-0 flex items-end justify-center pb-3`}>
-            <span className={`text-5xl font-black ${status.color}`}>{rate}%</span>
-          </div>
+      <div className="bg-slate-50 rounded-xl p-5 border border-slate-200 flex items-center justify-between mb-4">
+        <div>
+          <p className={`text-4xl font-black ${isGood ? 'text-indigo-600' : 'text-red-500'}`}>{rate}%</p>
+          <p className="text-xs text-slate-500 mt-1">Acceptance Rate</p>
         </div>
-        <div className={`mt-2 px-4 py-1.5 rounded-full border text-sm font-bold ${status.color} ${status.bg} ${status.border}`}>
-          {status.label}
+        <div className={`px-4 py-2 rounded-full text-xs font-bold ${isGood ? 'bg-indigo-100 text-indigo-700 border border-indigo-200' : 'bg-red-100 text-red-700 border border-red-200'}`}>
+          {statusLabel}
         </div>
       </div>
-      {/* Status bar */}
-      <div className="bg-gray-100 rounded-full h-2.5 overflow-hidden">
+      <div className="bg-slate-100 rounded-full h-1.5 overflow-hidden">
         <motion.div
-          className={`h-full rounded-full transition-all duration-500 ${rate >= 40 ? 'bg-emerald-400' : rate >= 30 ? 'bg-blue-400' : rate >= 20 ? 'bg-orange-400' : 'bg-red-400'}`}
+          className={`h-full rounded-full ${isGood ? 'bg-indigo-500' : 'bg-red-500'}`}
           style={{ width: `${Math.min(rate * 2, 100)}%` }}
           initial={{ width: 0 }}
           animate={{ width: `${Math.min(rate * 2, 100)}%` }}
           transition={{ duration: 0.6 }}
         />
       </div>
-      <div className="flex justify-between text-[10px] text-gray-400 mt-1.5">
+      <div className="flex justify-between text-[10px] text-slate-400 mt-1.5">
         <span>0%</span><span>30% threshold</span><span>50%+</span>
       </div>
       {rate < 30 && (
         <motion.div
-          initial={{ opacity: 0, y: 6 }}
+          initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           className="mt-4 p-3 rounded-xl bg-red-50 border border-red-100 flex items-start gap-2"
         >
           <AlertTriangle className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
-          <p className="text-xs text-red-600">Your rate is below 30%. Pause outreach, refine your Exeract targeting, and adjust messaging before continuing.</p>
+          <p className="text-xs text-red-700">Your rate is below 30%. Pause outreach, refine your Exeract targeting, and adjust messaging before continuing.</p>
         </motion.div>
       )}
     </div>
@@ -359,42 +329,42 @@ function BounceCalculator() {
   const rate = sent > 0 ? ((bounced / sent) * 100).toFixed(2) : '0.00';
   const isGood = parseFloat(rate) <= 1;
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-      <div className="flex items-center gap-2 mb-6">
-        <TrendingUp className="h-5 w-5 text-pink-500" />
-        <h4 className="font-bold text-navy">Hard Bounce Rate Checker</h4>
+    <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 mt-6">
+      <div className="flex items-center gap-2 mb-5">
+        <TrendingUp className="h-4 w-4 text-indigo-500" />
+        <h4 className="font-semibold text-slate-800 text-sm">Hard Bounce Rate Checker</h4>
       </div>
-      <div className="grid sm:grid-cols-2 gap-4 mb-6">
+      <div className="grid sm:grid-cols-2 gap-4 mb-5">
         {[
           { label: 'Emails Sent', value: sent, setter: setSent, min: 10, max: 5000, step: 10 },
           { label: 'Hard Bounces', value: bounced, setter: setBounced, min: 0, max: Math.round(sent * 0.1), step: 1 },
         ].map(({ label, value, setter, min, max, step }) => (
           <div key={label}>
-            <label className="text-xs font-semibold text-gray-500 block mb-2">{label}</label>
+            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-2">{label}</label>
             <div className="flex items-center gap-3">
               <input
                 type="range" min={min} max={max} step={step} value={value}
                 onChange={(e) => setter(Number(e.target.value))}
                 className="flex-1"
-                style={{ accentColor: isGood ? '#10b981' : '#ef4444' }}
+                style={{ accentColor: isGood ? '#6366f1' : '#ef4444' }}
               />
-              <span className="w-12 text-center text-sm font-bold text-navy">{value.toLocaleString()}</span>
+              <span className="w-12 text-center text-sm font-bold text-slate-800">{value.toLocaleString()}</span>
             </div>
           </div>
         ))}
       </div>
-      <div className={`rounded-2xl p-6 flex items-center justify-between ${isGood ? 'bg-emerald-50 border border-emerald-100' : 'bg-red-50 border border-red-100'}`}>
+      <div className={`rounded-xl p-5 flex items-center justify-between border ${isGood ? 'bg-indigo-50 border-indigo-100' : 'bg-red-50 border-red-100'}`}>
         <div>
-          <p className={`text-4xl font-black ${isGood ? 'text-emerald-600' : 'text-red-500'}`}>{rate}%</p>
-          <p className="text-xs text-gray-500 mt-1">Bounce Rate</p>
+          <p className={`text-4xl font-black ${isGood ? 'text-indigo-600' : 'text-red-500'}`}>{rate}%</p>
+          <p className="text-xs text-slate-500 mt-1">Bounce Rate</p>
         </div>
-        <div className={`flex items-center gap-2 px-4 py-2 rounded-full ${isGood ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'} text-sm font-bold`}>
-          {isGood ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-          {isGood ? 'Within Target (0–1%)' : 'Exceeds Limit!'}
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold ${isGood ? 'bg-indigo-100 text-indigo-700' : 'bg-red-100 text-red-700'}`}>
+          {isGood ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}
+          {isGood ? 'Within Target (0-1%)' : 'Exceeds Limit!'}
         </div>
       </div>
       {!isGood && (
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs text-red-500 mt-3 flex items-center gap-1.5">
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs text-red-600 mt-3 flex items-center gap-1.5">
           <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
           Run your list through Exeract ICP Validation + email verification immediately to clean your data.
         </motion.p>
@@ -409,22 +379,21 @@ function SectionCard({ section, children }: { section: Section; children: React.
   return (
     <motion.section
       id={section.id}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.55 }}
-      className={`scroll-mt-24 rounded-3xl border ${section.borderColor} overflow-hidden mb-8`}
+      transition={{ duration: 0.5 }}
+      className="scroll-mt-24 rounded-2xl border border-slate-200 overflow-hidden mb-6 bg-white shadow-sm"
     >
-      {/* Header */}
-      <div className={`${section.bgColor} px-6 sm:px-8 py-6 flex items-center gap-4 border-b ${section.borderColor}`}>
-        <div className={`w-12 h-12 rounded-2xl bg-white/80 flex items-center justify-center shadow-sm flex-shrink-0`}>
-          <Icon className={`h-6 w-6 ${section.color}`} />
+      <div className="bg-white border-b border-slate-200 px-6 sm:px-8 py-5 flex items-center gap-4">
+        <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+          <Icon className="h-5 w-5 text-indigo-600" />
         </div>
-        <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-navy">{section.title}</h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-base sm:text-lg font-bold text-slate-800">{section.title}</h2>
         </div>
       </div>
-      <div className="bg-white px-6 sm:px-8 py-8">
+      <div className="px-6 sm:px-8 py-8">
         {children}
       </div>
     </motion.section>
@@ -434,63 +403,76 @@ function SectionCard({ section, children }: { section: Section; children: React.
 // ─── Tip Badge ────────────────────────────────────────────────────────────────
 function Tip({ children, type = 'info' }: { children: React.ReactNode; type?: 'info' | 'warning' | 'success' }) {
   const styles = {
-    info:    'bg-blue-50 border-blue-100 text-blue-700',
-    warning: 'bg-amber-50 border-amber-100 text-amber-700',
-    success: 'bg-emerald-50 border-emerald-100 text-emerald-700',
+    info:    'bg-slate-50 border-slate-200 text-slate-700',
+    warning: 'bg-amber-50 border-amber-200 text-amber-800',
+    success: 'bg-slate-50 border-slate-200 text-slate-700',
   };
   const icons = { info: Info, warning: AlertTriangle, success: CheckCircle };
   const Icon = icons[type];
   return (
     <div className={`flex items-start gap-3 p-4 rounded-xl border mt-4 ${styles[type]}`}>
-      <Icon className="h-4 w-4 mt-0.5 flex-shrink-0" />
+      <Icon className="h-4 w-4 mt-0.5 flex-shrink-0 text-indigo-500" />
       <p className="text-sm leading-relaxed">{children}</p>
     </div>
   );
 }
 
-// ─── Warmup Protocol Section Components ─────────────────────────────────────
+// ─── Warmup Timeline ─────────────────────────────────────────────────────────
 function WarmupTimeline() {
   const phases = [
-    { week: 'Week 1–2', label: 'Seeding', desc: 'Low volume, peer-to-peer engagement via TRU-warm by Mailineers', emails: '5–10/day', gradient: 'from-orange-500 to-orange-400', shadow: 'shadow-orange-200', bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-100' },
-    { week: 'Week 3–4', label: 'Building', desc: 'Gradual ramp-up with high-engagement replies and positive signals', emails: '10–25/day', gradient: 'from-yellow-500 to-yellow-400', shadow: 'shadow-yellow-200', bg: 'bg-yellow-50', text: 'text-yellow-600', border: 'border-yellow-100' },
-    { week: 'Week 5–6', label: 'Establishing', desc: 'Consistent positive sender history, inbox placement improving', emails: '25–40/day', gradient: 'from-lime-500 to-lime-400', shadow: 'shadow-lime-200', bg: 'bg-lime-50', text: 'text-lime-600', border: 'border-lime-100' },
-    { week: 'Week 7+', label: 'Production', desc: 'Full cold outreach capacity with protected sender reputation', emails: '30–50/day', gradient: 'from-emerald-500 to-emerald-400', shadow: 'shadow-emerald-200', bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-100' },
+    { week: 'Week 1',   label: 'Seeding',          emails: '5-10/day',  ramp: 15,  desc: 'Zero cold outreach. Goal: establish basic inbox placement on Gmail and Outlook. Monitor closely - if anything lands in spam, pause and investigate DNS records before continuing.' },
+    { week: 'Week 2',   label: 'Stabilising',      emails: '5-10/day',  ramp: 30,  desc: 'Still warm-up only - no cold sends. Positive replies from the warm-up network build your engagement signals. Check postmaster tools for any reputation drop before advancing.' },
+    { week: 'Week 3',   label: 'Introducing Cold', emails: '15-20/day', ramp: 50,  desc: 'Start outbound with 5 to 10 cold emails per day alongside your warm-up. Monitor your metrics closely to ensure your domain reputation stays protected.' },
+    { week: 'Week 4',   label: 'Building',          emails: '20-30/day', ramp: 70,  desc: 'Increase combined volume to 20-30/day. Positive reply rate on cold emails also acts as a warm-up signal - write copy that earns responses.' },
+    { week: 'Weeks 5-6', label: 'Establishing',     emails: '25-35/day', ramp: 85,  desc: 'Warm-up and cold outreach run in parallel at 25-35 total/day. Gradually reduce warm-up volume as cold volume grows. A healthy sender score at this stage means consistent inbox placement across major providers.' },
+    { week: 'Week 7+',   label: 'Production',        emails: '30-40/day', ramp: 100, desc: 'Full cold outreach at 30-40 emails/day maximum. Never exceed this cap. Keep warm-up thread running in the background indefinitely to maintain your reputation buffer. This is your steady-state.' },
   ];
-  return (
-    <div className="relative mt-6 mb-8">
-      <div className="space-y-6 pl-16">
-        {phases.map((p, i) => (
-          <motion.div
-            key={p.week}
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="relative"
-          >
-            {/* Timeline node */}
-            <div className={`absolute -left-16 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border-4 border-white shadow-md flex items-center justify-center z-10`}>
-              <div className={`w-full h-full rounded-full bg-gradient-to-br ${p.gradient}`} />
-            </div>
 
-            {/* Card */}
-            <div className={`bg-white rounded-2xl p-5 border ${p.border} shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group`}>
-              {/* Subtle background glow */}
-              <div className={`absolute top-0 right-0 w-32 h-32 rounded-full ${p.bg} blur-3xl -mr-10 -mt-10 opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
-              
-              <div className="relative z-10">
-                <div className="flex flex-wrap items-center gap-3 mb-3">
-                  <span className="text-sm font-black text-navy">{p.week}</span>
-                  <span className={`text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-md ${p.bg} ${p.text}`}>{p.label}</span>
-                  <div className="ml-auto flex items-center gap-1.5">
-                    <Mail className={`h-3.5 w-3.5 ${p.text} opacity-70`} />
-                    <span className="text-xs font-mono font-bold text-gray-500">{p.emails}</span>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 leading-relaxed max-w-[90%]">{p.desc}</p>
+  return (
+    <div className="mt-6 bg-slate-50/70 border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-200">
+        <div>
+          <h3 className="font-bold text-slate-800 text-base">Warm-Up Protocol</h3>
+          <p className="text-xs text-slate-500 mt-0.5">Gradual deliverability ramp-up schedule for domain reputation protection</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700">
+            Target: 30-40 Emails/Day
+          </span>
+        </div>
+      </div>
+
+      {/* Full Phase Breakdown List */}
+      <div className="space-y-3">
+        {phases.map((p, idx) => (
+          <div
+            key={p.week}
+            className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center gap-4 hover:border-slate-300 transition-colors"
+          >
+            <div className="flex items-center gap-3 sm:w-44 flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">
+                0{idx + 1}
+              </div>
+              <div>
+                <h4 className="font-bold text-slate-800 text-xs">{p.week}</h4>
+                <span className="text-[10px] text-indigo-600 font-medium">{p.label}</span>
               </div>
             </div>
-          </motion.div>
+
+            <p className="text-xs text-slate-500 flex-1 leading-relaxed">
+              {p.desc}
+            </p>
+
+            <div className="flex items-center justify-between sm:justify-end gap-3 sm:w-36 flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+              <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-md">
+                {p.emails}
+              </span>
+              <span className="text-[10px] font-semibold text-slate-400">
+                {p.ramp}%
+              </span>
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -507,25 +489,15 @@ function WarmupSubmissionForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!outreachIds.trim() || isSubmitting) return;
-
     setIsSubmitting(true);
-    
     const formData = new FormData();
     formData.append('name', 'Warmup Protocol');
     formData.append('email', outreachIds);
     formData.append('notes', 'TRU-warm Protocol Submission IDs: ' + outreachIds);
-
     try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        body: formData,
-      });
-      
+      await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData });
       setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setOutreachIds('');
-      }, 4000);
+      setTimeout(() => { setSubmitted(false); setOutreachIds(''); }, 4000);
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('There was an issue submitting your request. Please try again.');
@@ -535,36 +507,34 @@ function WarmupSubmissionForm() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 rounded-2xl border border-orange-200 p-6 mt-6">
-      <div className="flex items-start gap-4 mb-4">
-        <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center flex-shrink-0">
-          <Flame className="h-5 w-5 text-orange-600" />
+    <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 mt-6">
+      <div className="flex items-start gap-3 mb-5">
+        <div className="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+          <Flame className="h-4 w-4 text-indigo-600" />
         </div>
         <div>
-          <h4 className="font-bold text-navy text-lg">Start Your TRU-warm Protocol</h4>
-          <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+          <h4 className="font-bold text-slate-800">Start Your TRU-warm Protocol</h4>
+          <p className="text-sm text-slate-500 mt-1 leading-relaxed">
             Enter your outreach IDs below. Our team will queue your domains and mailboxes for the strategic human-interaction warm-up sequence.
           </p>
         </div>
       </div>
-      
-      <form onSubmit={handleSubmit} className="mt-5 flex flex-col sm:flex-row gap-3">
+
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-            <Mail className="h-4 w-4 text-orange-400" />
-          </div>
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
           <input
             type="text"
             value={outreachIds}
             onChange={(e) => setOutreachIds(e.target.value)}
             placeholder="e.g. name@example.com, user@domain.com..."
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-orange-200/80 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 text-navy shadow-sm transition-all placeholder-gray-400"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-slate-400 shadow-sm"
           />
         </div>
         <button
           type="submit"
           disabled={!outreachIds.trim() || submitted || isSubmitting}
-          className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap min-w-[140px]"
+          className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-sm"
         >
           {isSubmitting ? (
             <><Loader2 className="animate-spin h-4 w-4" /> Sending...</>
@@ -577,18 +547,10 @@ function WarmupSubmissionForm() {
           )}
         </button>
       </form>
-      
-      <AnimatePresence>
-        {submitted ? (
-          <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="text-xs font-semibold text-emerald-600 mt-3 flex items-center gap-1.5">
-            <CheckCircle2 className="h-4 w-4 flex-shrink-0" /> After submission, you'll receive the details shortly.
-          </motion.p>
-        ) : (
-          <p className="text-xs text-orange-700/70 mt-3 flex items-center gap-1.5">
-            <Info className="h-4 w-4 flex-shrink-0" /> After submission, you'll receive the details shortly.
-          </p>
-        )}
-      </AnimatePresence>
+      <p className="text-xs text-slate-500 mt-3 flex items-center gap-1.5">
+        <Info className="h-3 w-3 flex-shrink-0" />
+        After submission, you will receive the details shortly.
+      </p>
     </div>
   );
 }
@@ -596,65 +558,25 @@ function WarmupSubmissionForm() {
 // ─── DNS Status Visualizer ────────────────────────────────────────────────────
 function DnsVisualizer() {
   const [domain, setDomain] = useState('getmycompany.com');
-  const [checked, setChecked] = useState(false);
-  const [checking, setChecking] = useState(false);
-  const runCheck = () => {
-    setChecking(true);
-    setChecked(false);
-    setTimeout(() => { setChecking(false); setChecked(true); }, 1400);
-  };
-  const records = [
-    { type: 'SPF', value: 'v=spf1 include:sendgrid.net ~all', status: 'pass' },
-    { type: 'DKIM', value: '2048-bit RSA key · selector: s1', status: 'pass' },
-    { type: 'DMARC', value: 'v=DMARC1; p=quarantine; rua=mailto:dmarcreports@' + domain, status: 'pass' },
-  ];
   return (
-    <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 mt-4">
-      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">DNS Record Visualizer (Demo)</p>
-      <div className="flex gap-2 mb-4">
+    <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-5 mt-5">
+      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">DNS Record Visualizer</p>
+      <div className="flex flex-col sm:flex-row gap-2">
         <input
           value={domain}
-          onChange={(e) => { setDomain(e.target.value); setChecked(false); }}
+          onChange={(e) => setDomain(e.target.value)}
           placeholder="yoursecondary.com"
-          className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 text-navy font-mono"
+          className="flex-1 px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono placeholder-slate-400 shadow-sm"
         />
-        <button
-          onClick={runCheck}
-          disabled={checking}
-          className="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-all flex items-center gap-2 disabled:opacity-60"
+        <a
+          href="https://easydmarc.com/tools"
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
         >
-          {checking ? (
-            <><span className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />Checking…</>
-          ) : (
-            <><Key className="h-4 w-4" />Check Records</>
-          )}
-        </button>
+          <Key className="h-4 w-4" /> Check Records
+        </a>
       </div>
-      <AnimatePresence>
-        {checked && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="space-y-2"
-          >
-            {records.map((r) => (
-              <div key={r.type} className="flex items-start gap-3 bg-white rounded-xl p-3.5 border border-emerald-100">
-                <span className="flex-shrink-0 mt-0.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                </span>
-                <div className="min-w-0">
-                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md mr-2">{r.type}</span>
-                  <span className="text-xs font-mono text-gray-500 break-all">{r.value}</span>
-                </div>
-              </div>
-            ))}
-            <p className="text-xs text-emerald-600 font-medium flex items-center gap-1.5 mt-2">
-              <CheckCircle2 className="h-3.5 w-3.5" /> All authentication records configured correctly
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
@@ -670,41 +592,35 @@ function EmailCopyAnalyzer() {
   const foundSpam = spamWords.filter(w => text.toLowerCase().includes(w));
   const score = Math.max(0, 100 - foundSpam.length * 15 - (hasHtml ? 20 : 0) - (hasTracking ? 25 : 0));
   return (
-    <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 mt-4">
-      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Deliverability Copy Analyzer</p>
+    <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-5 mt-5">
+      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Deliverability Copy Analyzer</p>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Paste your cold email copy here to analyze it for spam triggers…"
-        className="w-full h-32 px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary resize-none text-navy placeholder-gray-400 bg-white"
+        placeholder="Paste your cold email copy here to analyze it for spam triggers..."
+        className="w-full h-28 px-3 py-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none placeholder-slate-400 shadow-sm"
       />
       {text.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mt-4 space-y-3">
-          {/* Score */}
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="mt-4 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-gray-600">Deliverability Score</span>
-            <span className={`text-2xl font-black ${score >= 80 ? 'text-emerald-600' : score >= 60 ? 'text-orange-500' : 'text-red-500'}`}>{score}/100</span>
+            <span className="text-xs font-semibold text-slate-500">Deliverability Score</span>
+            <span className={`text-2xl font-black ${score >= 80 ? 'text-indigo-600' : score >= 60 ? 'text-amber-500' : 'text-red-500'}`}>{score}/100</span>
           </div>
-          <div className="bg-gray-200 rounded-full h-2">
+          <div className="bg-slate-100 rounded-full h-1.5">
             <motion.div
-              className={`h-2 rounded-full ${score >= 80 ? 'bg-emerald-400' : score >= 60 ? 'bg-orange-400' : 'bg-red-400'}`}
+              className={`h-1.5 rounded-full ${score >= 80 ? 'bg-indigo-500' : score >= 60 ? 'bg-amber-500' : 'bg-red-500'}`}
               animate={{ width: `${score}%` }}
               transition={{ duration: 0.6 }}
             />
           </div>
-          {/* Issues */}
-          <div className="space-y-1.5">
-            {hasHtml && (
-              <div className="flex items-center gap-2 text-xs text-red-600"><XCircle className="h-3.5 w-3.5" /> HTML formatting detected — use plain text only</div>
-            )}
-            {hasTracking && (
-              <div className="flex items-center gap-2 text-xs text-red-600"><XCircle className="h-3.5 w-3.5" /> Tracking link detected — disable open/click tracking</div>
-            )}
+          <div className="space-y-1.5 pt-1">
+            {hasHtml && <div className="flex items-center gap-2 text-xs text-red-500"><XCircle className="h-3.5 w-3.5" /> HTML formatting detected - use plain text only</div>}
+            {hasTracking && <div className="flex items-center gap-2 text-xs text-red-500"><XCircle className="h-3.5 w-3.5" /> Tracking link detected - disable open/click tracking</div>}
             {foundSpam.map(w => (
-              <div key={w} className="flex items-center gap-2 text-xs text-orange-600"><AlertTriangle className="h-3.5 w-3.5" /> Spam word: "{w}"</div>
+              <div key={w} className="flex items-center gap-2 text-xs text-amber-500"><AlertTriangle className="h-3.5 w-3.5" /> Spam word: "{w}"</div>
             ))}
             {!hasHtml && !hasTracking && foundSpam.length === 0 && (
-              <div className="flex items-center gap-2 text-xs text-emerald-600"><CheckCircle2 className="h-3.5 w-3.5" /> No obvious spam triggers found — good copy!</div>
+              <div className="flex items-center gap-2 text-xs text-indigo-500"><CheckCircle2 className="h-3.5 w-3.5" /> No obvious spam triggers found - good copy!</div>
             )}
           </div>
         </motion.div>
@@ -717,11 +633,8 @@ function EmailCopyAnalyzer() {
 export function OutboundUserGuidePage() {
   const [activeSection, setActiveSection] = useState('domain');
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  // Intersection observer for active section
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     SECTIONS.forEach((s) => {
@@ -738,245 +651,182 @@ export function OutboundUserGuidePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFF] font-sans text-navy selection:bg-primary/20 selection:text-navy">
+    <div className="min-h-screen bg-[#F8FAFF] font-sans text-slate-900 selection:bg-indigo-100">
       <Navbar />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-16 lg:pt-44 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/4 w-[700px] h-[700px] rounded-full bg-primary/8 blur-[120px]" />
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-secondary/8 blur-[100px]" />
+      <section className="relative pt-32 pb-14 lg:pt-44 lg:pb-20 overflow-hidden bg-white border-b border-slate-200 shadow-sm">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/3 w-[600px] h-[600px] rounded-full bg-indigo-100/50 blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-blue-100/40 blur-[100px]" />
         </div>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-navy leading-tight mb-6">
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-5">
               Outbound User Guide
             </h1>
-            <p className="text-lg sm:text-xl text-gray-500 mb-10 max-w-3xl mx-auto leading-relaxed">
-A complete, step-by-step guide to building a cold outreach system, covering email infrastructure, email deliverability, prospecting, cold email messaging, and LinkedIn outreach from start to finish.
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              A complete, step-by-step guide to building a cold outreach system covering email infrastructure, deliverability, prospecting, messaging, and LinkedIn from start to finish.
             </p>
-
           </motion.div>
         </div>
       </section>
 
       {/* Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24">
         <div className="flex gap-10 items-start">
-          {/* TOC Sidebar */}
           <TableOfContents activeSection={activeSection} />
 
-          {/* Main Content */}
           <div className="flex-1 min-w-0">
 
-            {/* ── Section 1: Domain & Infrastructure ── */}
+            {/* Section 1 */}
             <SectionCard section={SECTIONS[0]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Protect your primary root domain at all costs. Instead of sending from your main website's domain, purchase <strong className="text-navy">dedicated secondary domains</strong> (e.g., if your primary domain is <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany].com</code>, use <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany].co.in</code>, <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany].in</code>, or <code className="bg-violet-50 text-violet-600 px-1.5 py-0.5 rounded font-mono text-sm">[yourcompany]-email.com</code>).
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                Protect your primary root domain at all costs. Instead of sending from your main website's domain, purchase <strong className="text-slate-800">dedicated secondary domains</strong> (e.g., if your primary domain is <code className="bg-slate-100 text-indigo-600 px-1.5 py-0.5 rounded font-mono text-xs">[yourcompany].com</code>, use <code className="bg-slate-100 text-indigo-600 px-1.5 py-0.5 rounded font-mono text-xs">[yourcompany].co.in</code> or <code className="bg-slate-100 text-indigo-600 px-1.5 py-0.5 rounded font-mono text-xs">[yourcompany]-email.com</code>).
               </p>
-              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <div className="grid sm:grid-cols-2 gap-3 mb-2">
                 {[
-                  { icon: Shield, title: 'Primary Domain', badge: 'PROTECTED', desc: 'This is your main website. Never use it for cold emails. Keep it safe for your team messages and customer updates.', color: 'text-red-500', bg: 'red' },
-                  { icon: Globe, title: 'Secondary Domains', badge: 'FOR OUTREACH', desc: 'Dedicated domains only for cold outbound. Purchase 1 domain per 2–3 mailboxes. If one is flagged, your primary is safe.', color: 'text-emerald-500', bg: 'emerald' },
+                  { icon: Shield, title: 'Primary Domain', badge: 'PROTECTED', desc: 'Your main website. Never use it for cold emails. Keep it safe for team messages and customer communications.' },
+                  { icon: Globe,  title: 'Secondary Domains', badge: 'FOR OUTREACH', desc: 'Dedicated domains for cold outbound only. Purchase 1 domain per 2 mailboxes. If one is flagged, your primary stays safe.' },
                 ].map((card) => (
-                  <div key={card.title} className={`rounded-2xl p-5 border ${card.bg === 'red' ? 'bg-red-50 border-red-100' : 'bg-emerald-50 border-emerald-100'}`}>
-                    <div className={`w-10 h-10 rounded-xl ${card.bg === 'red' ? 'bg-red-100' : 'bg-emerald-100'} flex items-center justify-center mb-3`}>
-                      <card.icon className={`h-5 w-5 ${card.color}`} />
+                  <div key={card.title} className="rounded-xl p-5 border border-slate-200 bg-slate-50">
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3 bg-slate-200">
+                      <card.icon className="h-4 w-4 text-slate-500" />
                     </div>
                     <div className="flex items-center gap-2 mb-2">
-                      <h4 className="font-bold text-navy text-sm">{card.title}</h4>
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${card.bg === 'red' ? 'bg-red-100 text-red-600' : 'bg-emerald-100 text-emerald-600'}`}>{card.badge}</span>
+                      <h4 className="font-bold text-slate-800 text-sm">{card.title}</h4>
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-200 text-slate-500">{card.badge}</span>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed">{card.desc}</p>
+                    <p className="text-xs text-slate-500 leading-relaxed">{card.desc}</p>
                   </div>
                 ))}
               </div>
               <MailboxInfraCalculator />
             </SectionCard>
 
-            {/* ── Section 2: Authentication ── */}
+            {/* Section 2 */}
             <SectionCard section={SECTIONS[1]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Proper DNS configuration is <strong className="text-navy">non-negotiable</strong> for bypassing modern spam filters. Expand each record to understand its role.
+              <p className="text-slate-600 leading-relaxed mb-5 text-sm">
+                Proper DNS configuration is <strong className="text-slate-800">non-negotiable</strong> for bypassing modern spam filters. Expand each record to understand its role.
               </p>
-              <div className="space-y-3 mb-4">
-                <AuthCard
-                  icon={Shield}
-                  title="SPF — Sender Policy Framework"
-                  badge="TXT Record"
-                  desc="Authorizes your email service provider to send emails on your behalf. Without SPF, receiving servers have no way to verify that your ESP is legitimate. Set a strict ~all or -all policy once your sending sources are locked in."
-                  color="text-violet-500"
-                  bg="violet"
-                />
-                <AuthCard
-                  icon={Key}
-                  title="DKIM — DomainKeys Identified Mail"
-                  badge="TXT Record"
-                  desc="Adds a cryptographic signature to your emails, proving to the receiving server that the message wasn't tampered with in transit. Most modern ESPs generate DKIM keys automatically — use 2048-bit for maximum trust."
-                  color="text-blue-500"
-                  bg="blue"
-                />
-                <AuthCard
-                  icon={CheckCircle}
-                  title="DMARC — Message Authentication, Reporting & Conformance"
-                  badge="TXT Record"
-                  desc="Instructs receiving servers on what to do if SPF or DKIM fails, preventing domain spoofing. Start with p=none for monitoring, advance to p=quarantine, then p=reject as your confidence grows. Set up rua= for aggregate reports."
-                  color="text-emerald-500"
-                  bg="emerald"
-                />
+              <div className="space-y-2 mb-4">
+                <AuthCard icon={Shield} title="SPF: Sender Policy Framework" badge="TXT Record" desc="Authorizes your email service provider to send emails on your behalf. Without SPF, receiving servers have no way to verify that your ESP is legitimate. Set a strict ~all or -all policy once your sending sources are locked in." />
+                <AuthCard icon={Key} title="DKIM: DomainKeys Identified Mail" badge="TXT Record" desc="Adds a cryptographic signature to your emails, proving to the receiving server that the message wasn't tampered with in transit. Most modern ESPs generate DKIM keys automatically. Use 2048-bit for maximum trust." />
+                <AuthCard icon={CheckCircle} title="DMARC: Message Authentication, Reporting & Conformance" badge="TXT Record" desc="Instructs receiving servers on what to do if SPF or DKIM fails, preventing domain spoofing. Start with p=none for monitoring, advance to p=quarantine, then p=reject as your confidence grows. Set up rua= for aggregate reports." />
               </div>
               <DnsVisualizer />
-              <Tip type="info">All three records — SPF, DKIM, and DMARC — must be correctly configured together. Missing even one significantly increases your spam score.</Tip>
+              <Tip type="info">All three records (SPF, DKIM, and DMARC) must be correctly configured together. Missing even one significantly increases your spam score.</Tip>
             </SectionCard>
 
-            {/* ── Section 3: Warm-Up Protocol ── */}
+            {/* Section 3 */}
             <SectionCard section={SECTIONS[2]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                <strong className="text-navy">Never blast emails from a fresh domain.</strong> Your sender reputation needs to be built gradually through strategic, high-engagement interactions.
+              <p className="text-slate-600 leading-relaxed mb-5 text-sm">
+                <strong className="text-slate-800">Never send a single cold email from a fresh domain.</strong> ISPs score every new sender from zero. Your inbox placement, sender score, and domain reputation must be built deliberately over weeks - skipping any phase risks permanent blacklisting that no warm-up tool can undo.
               </p>
-              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <div className="grid sm:grid-cols-2 gap-3 mb-6">
                 {[
-                  {
-                    title: '❌ Avoid Robotic Pools',
-                    desc: 'Standard warm-up tools are increasingly detected by major email providers. Gmail and Outlook now flag coordinated warm-up network patterns.',
-                    bg: 'bg-red-50 border-red-100',
-                    textColor: 'text-red-700'
-                  },
-                  {
-                    title: '✅ The Manual Approach',
-                    desc: 'We recommend TRU-warm by Mailineers to naturally build sender reputation through strategic, high-engagement human interactions for email warmups.',
-                    bg: 'bg-emerald-50 border-emerald-100',
-                    textColor: 'text-emerald-700'
-                  },
+                  { title: 'Avoid Automation', desc: 'Standard automated warm-up tools are increasingly detected by major email providers. Gmail and Outlook now flag coordinated warm-up network patterns.' },
+                  { title: 'The Manual Approach', desc: 'We recommend TRU-warm by Mailineers to naturally build sender reputation through strategic, high-engagement human interactions for email warmups.' },
                 ].map((item) => (
-                  <div key={item.title} className={`rounded-2xl border p-5 ${item.bg}`}>
-                    <h4 className={`font-bold text-sm mb-2 ${item.textColor}`}>{item.title}</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                  <div key={item.title} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                    <h4 className="font-bold text-sm mb-1.5 text-slate-700">{item.title}</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
-              <h4 className="font-bold text-navy mb-3 flex items-center gap-2"><Clock className="h-4 w-4 text-orange-500" /> Timeline</h4>
               <WarmupTimeline />
-              <Tip type="warning">Jumping to 50 emails/day on week 1 from a new domain is the #1 cause of permanent blacklisting. The timeline above is a minimum — not a fast-track.</Tip>
               <WarmupSubmissionForm />
             </SectionCard>
 
-            {/* ── Section 4: Volume Thresholds ── */}
+            {/* Section 4 */}
             <SectionCard section={SECTIONS[3]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                After 2 to 3 weeks of warmup, you can gradually begin your outbound campaigns. However, sudden volume spikes are the <strong className="text-navy">fastest way to trigger algorithmic blacklists.</strong> These thresholds are non-negotiable during cold outreach.
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                After 2 to 3 weeks of warmup, you can gradually begin your outbound campaigns. However, sudden volume spikes are the <strong className="text-slate-800">fastest way to trigger algorithmic blacklists.</strong> These thresholds are non-negotiable during cold outreach.
               </p>
-              <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6 shadow-sm">
-                <div className="grid md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-gray-100">
-                  <div className="flex flex-col items-center text-center px-2 group relative">
-                    <div className="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center mb-3">
-                      <TrendingUp className="h-6 w-6 text-sky-500" />
+              <div className="grid md:grid-cols-3 gap-3 mb-6">
+                {[
+                  { icon: TrendingUp, value: '+2 to 5', label: 'Daily Volume Increase', sub: 'Gradually scale after warm-up' },
+                  { icon: Shield, value: '30-40', label: 'Max Emails / Mailbox / Day', sub: 'Hard cap per mailbox' },
+                  { icon: Activity, value: '~10-15', label: 'Mins Between Emails', sub: 'Mimic human send rhythm' },
+                ].map(({ icon: Icon, value, label, sub }) => (
+                  <div key={label} className="rounded-xl border border-slate-200 bg-white p-5 text-center shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                      <Icon className="h-5 w-5 text-slate-500" />
                     </div>
-                    <p className="text-4xl font-black text-sky-500 mb-1">+2 to 5</p>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1 flex items-center gap-1 cursor-help">
-                      Daily Volume Increase
-                      <Info className="h-3 w-3 text-gray-300 group-hover:text-sky-400 transition-colors" />
-                    </p>
-                    <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-56 p-2.5 bg-navy text-white text-xs rounded-xl opacity-0 group-hover:opacity-100 transition-all pointer-events-none shadow-lg z-20">
-                      Gradually scale your daily limit after the warm-up phase.
-                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-navy rotate-45" />
-                    </div>
+                    <p className="text-3xl font-black text-slate-800 mb-1">{value}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">{sub}</p>
                   </div>
-
-                  <div className="flex flex-col items-center text-center px-2 pt-6 md:pt-0">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-3">
-                      <Shield className="h-6 w-6 text-emerald-600" />
-                    </div>
-                    <p className="text-4xl font-black text-emerald-600 mb-1">30–40</p>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1">Max Emails / Mailbox / Day</p>
-                  </div>
-
-                  <div className="flex flex-col items-center text-center px-2 pt-6 md:pt-0 relative">
-                    <div className="absolute inset-0 bg-violet-50/60 rounded-2xl -m-4 hidden md:block" />
-                    <div className="relative z-10 flex flex-col items-center w-full">
-                      <div className="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center mb-3">
-                        <Activity className="h-6 w-6 text-violet-600" />
-                      </div>
-                      <p className="text-4xl font-black text-violet-600 mb-1">~10–15</p>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-violet-700 mb-1">Mins Between Emails</p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
-              <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 mb-6">
-                <h4 className="font-bold text-navy mb-2 text-sm flex items-center gap-2">
-                  <UserCheck className="h-4 w-4 text-primary" /> Human Mimicry & Drip Pacing
+              <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 mb-2">
+                <h4 className="font-bold text-slate-800 mb-1.5 text-sm flex items-center gap-2">
+                  <UserCheck className="h-4 w-4 text-indigo-500" /> Human Mimicry &amp; Drip Pacing
                 </h4>
-                <p className="text-xs text-gray-500 mb-5 leading-relaxed">
-                  ESPs flag timestamp density. Never send in batches. Distribute your daily limit unevenly to break algorithmic pattern recognition.
-                </p>
-                
-                <div className="grid sm:grid-cols-2 gap-3 mb-5">
-                  <div className="bg-red-50/50 border border-red-100 rounded-xl p-3.5">
-                    <div className="flex items-start gap-2.5">
-                      <XCircle className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-slate-500 mb-4 leading-relaxed">ESPs flag timestamp density. Never send in batches. Distribute your daily limit unevenly to break algorithmic pattern recognition.</p>
+                <div className="grid sm:grid-cols-2 gap-3 mb-4">
+                  <div className="border border-slate-200 rounded-lg p-3 bg-white">
+                    <div className="flex items-start gap-2">
+                      <XCircle className="h-3.5 w-3.5 text-red-500 flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-xs font-bold text-red-700 block mb-0.5">Avoid Batching</span>
-                        <span className="text-xs text-red-600/80 leading-relaxed block">Sending 10+ emails at the exact same time triggers spam filters.</span>
+                        <span className="text-xs font-bold text-slate-700 block mb-0.5">Avoid Batching</span>
+                        <span className="text-xs text-slate-500 leading-relaxed block">Sending 10+ emails at the exact same time triggers spam filters.</span>
                       </div>
                     </div>
                   </div>
-                  <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-3.5">
-                    <div className="flex items-start gap-2.5">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                  <div className="border border-indigo-200 rounded-lg p-3 bg-indigo-50/50">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-xs font-bold text-emerald-700 block mb-0.5">Variable Drip</span>
-                        <span className="text-xs text-emerald-600/80 leading-relaxed block">Space emails out randomly to mimic real human typing speed.</span>
+                        <span className="text-xs font-bold text-indigo-700 block mb-0.5">Variable Drip</span>
+                        <span className="text-xs text-slate-500 leading-relaxed block">Space emails out randomly to mimic real human typing speed.</span>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div className="flex flex-wrap items-center gap-2 border-t border-slate-200 pt-3">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mr-1">Ideal Settings</span>
+                  {['Min Delay: 7-9 mins', 'Max Delay: 14-20 mins'].map(s => (
+                    <span key={s} className="bg-white border border-slate-200 px-3 py-1 rounded-full text-[11px] font-medium text-slate-600">{s}</span>
+                  ))}
 
-                <div className="flex flex-wrap items-center gap-2 border-t border-gray-100 pt-4">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mr-2">Ideal Settings</span>
-                  <div className="bg-white border border-gray-200 px-3 py-1.5 rounded-full text-xs font-medium text-gray-600 shadow-sm">
-                    Min Delay: 7–9 mins
-                  </div>
-                  <div className="bg-white border border-gray-200 px-3 py-1.5 rounded-full text-xs font-medium text-gray-600 shadow-sm">
-                    Max Delay: 14–20 mins
-                  </div>
-                  <div className="bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full text-xs font-bold text-emerald-700 shadow-sm flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Schedule Jitter: Enabled
-                  </div>
                 </div>
               </div>
               <VolumeCalculator />
             </SectionCard>
 
-            {/* ── Section 5: Compliance ── */}
+            {/* Section 5 */}
             <SectionCard section={SECTIONS[4]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Deliverability isn't just technical; it's heavily influenced by how you structure your copy and manage opt-outs.
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                Deliverability is not just technical; it is heavily influenced by how you structure your copy and manage opt-outs.
               </p>
-              <div className="space-y-4 mb-6">
-                <div className="rounded-2xl border border-red-100 bg-red-50 p-5">
-                  <h4 className="font-bold text-red-700 mb-2 text-sm flex items-center gap-2"><Shield className="h-4 w-4" /> CAN-SPAM Compliance</h4>
+              <div className="space-y-4 mb-4">
+                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <h4 className="font-bold text-slate-800 mb-3 text-sm flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-indigo-500" /> CAN-SPAM Compliance
+                  </h4>
                   <ul className="space-y-2">
                     {[
                       'Always include your physical business address in the email footer',
-                      'Subject lines must accurately reflect the email content — no misleading subject lines',
+                      'Subject lines must accurately reflect the email content - no misleading subject lines',
                       'Honor opt-out requests within 10 business days',
                       "Never use deceptive 'From' names or domains",
                     ].map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-sm text-red-800">
-                        <CheckCircle2 className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
+                      <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
+                        <CheckCircle2 className="h-4 w-4 text-indigo-500 flex-shrink-0 mt-0.5" />
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
-                  <h4 className="font-bold text-emerald-700 mb-3 text-sm flex items-center gap-2"><UserCheck className="h-4 w-4" /> The "Soft" Unsubscribe Technique</h4>
-                  <p className="text-sm text-gray-600 mb-3">Instead of a hyperlinked "Unsubscribe" button (which triggers promotional filters), use conversational opt-outs in your sign-off:</p>
-                  <div className="bg-white rounded-xl border border-emerald-100 p-4">
-                    <p className="text-xs font-bold text-emerald-600 mb-2">✉️ Example Sign-off</p>
-                    <p className="text-sm text-gray-700 italic leading-relaxed">
+                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <h4 className="font-bold text-slate-800 mb-3 text-sm flex items-center gap-2">
+                    <UserCheck className="h-4 w-4 text-indigo-500" /> The Soft Unsubscribe Technique
+                  </h4>
+                  <p className="text-sm text-slate-500 mb-3">Instead of a hyperlinked Unsubscribe button (which triggers promotional filters), use conversational opt-outs in your sign-off:</p>
+                  <div className="bg-slate-50 rounded-lg border border-slate-200 p-4">
+                    <p className="text-[10px] font-bold text-indigo-600 mb-2 uppercase tracking-wider">Example Sign-off</p>
+                    <p className="text-sm text-slate-700 italic leading-relaxed">
                       "If this isn't relevant to you right now, just let me know and I'll make sure not to reach out again."
                     </p>
                   </div>
@@ -986,51 +836,51 @@ A complete, step-by-step guide to building a cold outreach system, covering emai
               <EmailCopyAnalyzer />
             </SectionCard>
 
-            {/* ── Section 6: Data Quality & Exeract ICP ── */}
+            {/* Section 6 */}
             <SectionCard section={SECTIONS[5]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                <strong className="text-navy">Bad data ruins good domains.</strong> Precision targeting is the core of a sustainable outbound system.
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                <strong className="text-slate-800">Bad data ruins good domains.</strong> Precision targeting is the core of a sustainable outbound system.
               </p>
-              <div className="relative mb-8">
+              <div className="space-y-3 mb-6">
                 {[
-                  { step: '1', title: 'Multi-Point Sourcing', desc: 'Gather raw prospect data from your preferred data providers (Apollo, ZoomInfo, LinkedIn Sales Nav, etc.)', color: 'bg-primary text-white', badge: 'Your Input' },
-                  { step: '2', title: 'Exeract ICP Validation', desc: 'Feed raw data directly into Exeract. Our AI module conducts automated outbound qualification, actively researching leads to ensure they strictly match your Ideal Customer Profile before a single email is drafted.', color: 'bg-gradient-to-r from-primary to-secondary text-white', badge: 'Exeract AI' },
-                  { step: '3', title: 'Email Verification', desc: 'Run the Exeract-validated list through a rigorous email verification protocol to catch catch-all and invalid addresses. Your goal: hard bounce rate of strictly 0–1%.', color: 'bg-secondary text-white', badge: 'Final Step' },
+                  { step: '1', title: 'Multi-Point Sourcing', desc: 'Gather raw prospect data from your preferred data providers (Apollo, ZoomInfo, LinkedIn Sales Nav, etc.)', badge: 'Your Input' },
+                  { step: '2', title: 'Exeract ICP Validation', desc: 'Feed raw data directly into Exeract. Our AI module conducts automated outbound qualification, actively researching leads to ensure they strictly match your Ideal Customer Profile before a single email is drafted.', badge: 'Exeract AI' },
+                  { step: '3', title: 'Email Verification', desc: 'Run the Exeract-validated list through a rigorous email verification protocol to catch catch-all and invalid addresses. Your goal: hard bounce rate of strictly 0-1%.', badge: 'Final Step' },
                 ].map((item, i) => (
-                  <div key={item.step} className="flex gap-4 mb-4">
-                    <div className="flex flex-col items-center">
-                      <div className={`w-9 h-9 rounded-full ${item.color} flex items-center justify-center text-sm font-black flex-shrink-0`}>{item.step}</div>
-                      {i < 2 && <div className="w-0.5 h-full bg-gradient-to-b from-gray-200 to-transparent mt-2 min-h-[32px]" />}
+                  <div key={item.step} className="flex gap-4">
+                    <div className="flex flex-col items-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs font-black">{item.step}</div>
+                      {i < 2 && <div className="w-px flex-1 bg-slate-200 mt-1 min-h-[1.5rem]" />}
                     </div>
-                    <div className="bg-white rounded-2xl border border-gray-100 p-4 flex-1 mb-2">
+                    <div className="bg-white rounded-xl border border-slate-200 p-4 flex-1 mb-2 shadow-sm">
                       <div className="flex items-center gap-2 mb-1">
-                        <h4 className="font-bold text-navy text-sm">{item.title}</h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary">{item.badge}</span>
+                        <h4 className="font-bold text-slate-800 text-sm">{item.title}</h4>
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">{item.badge}</span>
                       </div>
-                      <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                      <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 p-5">
+              <div className="bg-slate-50 rounded-xl border border-slate-200 p-5">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center">
-                    <Target className="h-5 w-5 text-primary" />
+                  <div className="w-9 h-9 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center flex-shrink-0">
+                    <Target className="h-4 w-4 text-indigo-500" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-navy text-sm">Why Exeract ICP Validation Matters</h4>
-                    <p className="text-xs text-gray-500">Before one email is drafted</p>
+                    <h4 className="font-bold text-slate-800 text-sm">Why Exeract ICP Validation Matters</h4>
+                    <p className="text-xs text-slate-500">Before one email is drafted</p>
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-3 gap-3">
                   {[
-                    { label: 'Bounce Rate Target', value: '0–1%', color: 'text-emerald-600' },
-                    { label: 'AI Research Depth', value: 'Full Site', color: 'text-primary' },
-                    { label: 'Qualification Mode', value: 'Automated', color: 'text-secondary' },
-                  ].map(({ label, value, color }) => (
-                    <div key={label} className="bg-white rounded-xl p-3 text-center border border-gray-100">
-                      <p className={`text-xl font-black ${color}`}>{value}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{label}</p>
+                    { label: 'Bounce Rate Target', value: '0-1%' },
+                    { label: 'AI Research Depth', value: 'Full Site' },
+                    { label: 'Qualification Mode', value: 'Automated' },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="bg-white rounded-xl p-3 text-center border border-slate-200">
+                      <p className="text-lg font-black text-indigo-600">{value}</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5">{label}</p>
                     </div>
                   ))}
                 </div>
@@ -1038,176 +888,93 @@ A complete, step-by-step guide to building a cold outreach system, covering emai
               <BounceCalculator />
             </SectionCard>
 
-            {/* ── Section 7: Cold Email Automation ── */}
+            {/* Section 7 */}
             <SectionCard section={SECTIONS[6]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                When configuring your sending tools (like Yesware, Smartlead, or Instantly), <strong className="text-navy">optimize for plain text above all else.</strong>
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                When configuring your sending tools (like Yesware, Smartlead, or Instantly), <strong className="text-slate-800">optimize for plain text above all else.</strong>
               </p>
-              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <div className="grid sm:grid-cols-2 gap-3 mb-6">
                 {[
-                  {
-                    title: 'Disable Tracking',
-                    icon: Eye,
-                    desc: 'Turn off open and click tracking. Tracking pixels insert HTML images and redirect links into your copy, which heavily penalize your deliverability score.',
-                    action: 'Set tracking = OFF',
-                    color: 'text-red-500',
-                    bg: 'bg-red-50 border-red-100',
-                    actionColor: 'bg-red-100 text-red-700'
-                  },
-                  {
-                    title: 'Plain Text Format',
-                    icon: Mail,
-                    desc: 'Stick to plain-text emails with zero formatting. They render perfectly across all devices and feel like a genuine 1-to-1 message from a peer.',
-                    action: 'Format = Plain Text',
-                    color: 'text-emerald-500',
-                    bg: 'bg-emerald-50 border-emerald-100',
-                    actionColor: 'bg-emerald-100 text-emerald-700'
-                  },
+                  { title: 'Disable Tracking', icon: Eye, desc: 'Turn off open and click tracking. Tracking pixels insert HTML images and redirect links into your copy, which heavily penalize your deliverability score.', action: 'Set tracking = OFF', accent: false },
+                  { title: 'Plain Text Format', icon: Mail, desc: 'Stick to plain-text emails with zero formatting. They render perfectly across all devices and feel like a genuine 1-to-1 message from a peer.', action: 'Format = Plain Text', accent: true },
                 ].map((item) => (
-                  <div key={item.title} className={`rounded-2xl border p-5 ${item.bg}`}>
-                    <item.icon className={`h-6 w-6 ${item.color} mb-3`} />
-                    <h4 className="font-bold text-navy text-sm mb-2">{item.title}</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed mb-3">{item.desc}</p>
-                    <span className={`text-xs font-bold px-3 py-1 rounded-full ${item.actionColor}`}>→ {item.action}</span>
+                  <div key={item.title} className={`rounded-xl border p-5 ${item.accent ? 'border-indigo-200 bg-indigo-50/50' : 'border-slate-200 bg-slate-50'}`}>
+                    <item.icon className={`h-5 w-5 mb-3 ${item.accent ? 'text-indigo-500' : 'text-slate-500'}`} />
+                    <h4 className="font-bold text-slate-800 text-sm mb-2">{item.title}</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed mb-3">{item.desc}</p>
+                    <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${item.accent ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-200 text-slate-600'}`}>→ {item.action}</span>
                   </div>
                 ))}
               </div>
-              {/* Comparison */}
-              <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Email Format Comparison</p>
+              <div className="bg-slate-50 rounded-xl border border-slate-200 p-5">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Email Format Comparison</p>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="bg-white rounded-xl border border-red-100 overflow-hidden">
-                    <div className="bg-red-50 px-4 py-2 border-b border-red-100 flex items-center gap-2">
+                  <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div className="bg-slate-100 px-4 py-2 border-b border-slate-200 flex items-center gap-2">
                       <XCircle className="h-3.5 w-3.5 text-red-500" />
-                      <span className="text-xs font-bold text-red-600">HTML / Tracked Email</span>
+                      <span className="text-xs font-bold text-slate-600">HTML / Tracked Email</span>
                     </div>
-                    <div className="p-4 text-xs text-gray-500 font-mono space-y-1">
+                    <div className="p-4 text-xs text-slate-500 font-mono space-y-1">
                       <p className="text-blue-500 underline">Hi [First Name],</p>
-                      <p>Check out our <span className="bg-yellow-100 px-1">[tracked link]</span></p>
-                      <p className="text-gray-300">&lt;img src="pixel.gif"&gt;</p>
-                      <p className="text-gray-300">&lt;div style="font-size:14px"&gt;</p>
+                      <p>Check out our <span className="bg-yellow-100 px-1 text-slate-700">[tracked link]</span></p>
+                      <p className="text-slate-400">&lt;img src="pixel.gif"&gt;</p>
+                      <p className="text-slate-400">&lt;div style="font-size:14px"&gt;</p>
                     </div>
                   </div>
-                  <div className="bg-white rounded-xl border border-emerald-100 overflow-hidden">
-                    <div className="bg-emerald-50 px-4 py-2 border-b border-emerald-100 flex items-center gap-2">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                      <span className="text-xs font-bold text-emerald-600">Plain Text Email</span>
+                  <div className="bg-white rounded-xl border border-indigo-200 overflow-hidden shadow-sm">
+                    <div className="bg-indigo-50 px-4 py-2 border-b border-indigo-100 flex items-center gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600" />
+                      <span className="text-xs font-bold text-indigo-700">Plain Text Email</span>
                     </div>
-                    <div className="p-4 text-xs text-gray-700 space-y-1">
+                    <div className="p-4 text-xs text-slate-700 space-y-1">
                       <p>Hi Sarah,</p>
-                      <p className="mt-2">Saw you're scaling your SDR team at Acme — wanted to share how we helped a similar team cut research time by 70%.</p>
+                      <p className="mt-2">Saw you're scaling your SDR team at Acme. Wanted to share how we helped a similar team cut research time by 70%.</p>
                       <p className="mt-2">Worth a quick call this week?</p>
-                      <p className="mt-2">— James</p>
+                      <p className="mt-2">James</p>
                     </div>
                   </div>
                 </div>
               </div>
             </SectionCard>
 
-            {/* ── Section 8: LinkedIn Outreach ── */}
+            {/* Section 8 */}
             <SectionCard section={SECTIONS[7]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Combining email with LinkedIn creates a <strong className="text-navy">"warm outbound" effect</strong>, but automation limits are tighter than ever.
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                Combining email with LinkedIn creates a <strong className="text-slate-800">"warm outbound" effect</strong>, but automation limits are tighter than ever.
               </p>
-              <div className="grid sm:grid-cols-3 gap-4 mb-6">
+              <div className="grid sm:grid-cols-3 gap-3 mb-6">
                 {[
-                  { label: 'Max Connection Requests / Day', value: '20–30', icon: Users, color: 'text-sky-600', bg: 'bg-sky-50' },
-                  { label: 'Warm-Up Period Before Connecting', value: '1–2 wks', icon: Clock, color: 'text-violet-600', bg: 'bg-violet-50' },
-                  { label: 'Minimum Acceptance Rate', value: '30%', icon: TrendingUp, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                ].map(({ label, value, icon: Icon, color, bg }) => (
-                  <div key={label} className={`${bg} rounded-2xl p-5 border border-gray-100 text-center`}>
-                    <Icon className={`h-6 w-6 ${color} mx-auto mb-2`} />
-                    <p className={`text-3xl font-black ${color}`}>{value}</p>
-                    <p className="text-xs text-gray-500 mt-2 leading-relaxed">{label}</p>
+                  { label: 'Max Connection Requests / Day', value: '20-30', icon: Users },
+                  { label: 'Warm-Up Period Before Connecting', value: '1-2 wks', icon: Clock },
+                  { label: 'Minimum Acceptance Rate', value: '30%', icon: TrendingUp },
+                ].map(({ label, value, icon: Icon }) => (
+                  <div key={label} className="rounded-xl border border-slate-200 bg-white p-5 text-center shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center mx-auto mb-3">
+                      <Icon className="h-5 w-5 text-indigo-500" />
+                    </div>
+                    <p className="text-2xl font-black text-slate-800">{value}</p>
+                    <p className="text-[10px] text-slate-500 mt-1.5 leading-relaxed">{label}</p>
                   </div>
                 ))}
               </div>
-              <div className="space-y-3 mb-6">
+              <div className="space-y-2 mb-4">
                 {[
-                  {
-                    step: '1',
-                    title: 'Engagement-First Warm-Up',
-                    desc: 'Warm up prospects for 1–2 weeks before connecting. View their profiles, like 2–3 posts, and leave thoughtful comments. By the time your connection request arrives, they already recognize your name.',
-                    icon: Eye,
-                    color: 'text-violet-500',
-                    bg: 'bg-violet-50 border-violet-100',
-                  },
-                  {
-                    step: '2',
-                    title: 'Cloud-Based Tools Only',
-                    desc: 'Always prioritize cloud-based platforms (Expandi, Lemlist, Dripify) over browser extensions. Extensions leave detectable code fingerprints that LinkedIn actively monitors and penalizes.',
-                    icon: Server,
-                    color: 'text-sky-500',
-                    bg: 'bg-sky-50 border-sky-100',
-                  },
-                  {
-                    step: '3',
-                    title: 'Monitor Acceptance Rate',
-                    desc: "If your acceptance rate drops below 30%, LinkedIn's algorithm will flag you as a spammer. Pause immediately, refine your Exeract targeting, and adjust messaging before resuming.",
-                    icon: TrendingUp,
-                    color: 'text-emerald-500',
-                    bg: 'bg-emerald-50 border-emerald-100',
-                  },
+                  { step: '1', title: 'Engagement-First Warm-Up', desc: 'Warm up prospects for 1-2 weeks before connecting. View their profiles, like 2-3 posts, and leave thoughtful comments. By the time your connection request arrives, they already recognize your name.', icon: Eye },
+                  { step: '2', title: 'Cloud-Based Tools Only', desc: 'Always prioritize cloud-based platforms (Expandi, Lemlist, Dripify) over browser extensions. Extensions leave detectable code fingerprints that LinkedIn actively monitors and penalizes.', icon: Server },
+                  { step: '3', title: 'Monitor Acceptance Rate', desc: "If your acceptance rate drops below 30%, LinkedIn's algorithm will flag you as a spammer. Pause immediately, refine your Exeract targeting, and adjust messaging before resuming.", icon: TrendingUp },
                 ].map((item) => (
-                  <div key={item.step} className={`flex items-start gap-4 rounded-2xl border p-4 ${item.bg}`}>
-                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
-                      <item.icon className={`h-4 w-4 ${item.color}`} />
+                  <div key={item.step} className="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                    <div className="w-8 h-8 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-4 w-4 text-indigo-500" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-navy text-sm mb-1">{item.title}</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                      <h4 className="font-bold text-slate-800 text-sm mb-1">{item.title}</h4>
+                      <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <LinkedInCalculator />
-            </SectionCard>
-
-            {/* ── Section 9: Calculators ── */}
-            <SectionCard section={SECTIONS[8]}>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Use these interactive tools to plan, monitor, and optimize every layer of your outbound system in real time.
-              </p>
-              <div className="grid sm:grid-cols-3 gap-4 mb-8">
-                {[
-                  { title: 'Volume Calculator', desc: 'Calculate total send capacity based on domains & mailboxes', icon: BarChart2, color: 'text-emerald-500', bg: 'bg-emerald-50', href: '#volume' },
-                  { title: 'Bounce Rate Checker', desc: 'Verify your bounce rate stays within the 0–1% safe zone', icon: TrendingUp, color: 'text-pink-500', bg: 'bg-pink-50', href: '#data' },
-                  { title: 'LinkedIn Rate Monitor', desc: "Track your connection acceptance rate against LinkedIn's threshold", icon: Linkedin, color: 'text-sky-500', bg: 'bg-sky-50', href: '#linkedin' },
-                ].map(({ title, desc, icon: Icon, color, bg, href }) => (
-                  <a
-                    key={title}
-                    href={href}
-                    onClick={(e) => { e.preventDefault(); document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' }); }}
-                    className={`${bg} rounded-2xl border border-gray-100 p-5 hover:shadow-md transition-all cursor-pointer group`}
-                  >
-                    <Icon className={`h-6 w-6 ${color} mb-3 group-hover:scale-110 transition-transform`} />
-                    <h4 className="font-bold text-navy text-sm mb-1">{title}</h4>
-                    <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
-                    <div className={`flex items-center gap-1 mt-3 text-xs font-semibold ${color}`}>
-                      Go to calculator <ChevronRight className="h-3 w-3" />
-                    </div>
-                  </a>
-                ))}
-              </div>
-              {/* Quick Reference Card */}
-              <div className="bg-gradient-to-br from-navy to-navy-light rounded-2xl p-6 text-white">
-                <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                  <Hash className="h-5 w-5 text-primary" /> Quick Reference Limits
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {[
-                    { label: 'Emails/Mailbox/Day', value: '30–50' },
-                    { label: 'Mailboxes/Domain', value: '2–3' },
-                    { label: 'LinkedIn Requests/Day', value: '20–30' },
-                    { label: 'Max Bounce Rate', value: '1%' },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="bg-white/10 rounded-xl p-3 text-center border border-white/10">
-                      <p className="text-lg font-black text-primary">{value}</p>
-                      <p className="text-[10px] text-gray-300 mt-1 leading-snug">{label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </SectionCard>
 
           </div>
