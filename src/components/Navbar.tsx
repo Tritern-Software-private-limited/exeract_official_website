@@ -16,7 +16,7 @@ export function Navbar() {
   }, [])
   const navLinks = [
     {
-      name: 'Products',
+      name: 'Features',
       items: [
         { name: 'Company ICP validation', href: '/how-it-works' },
         { name: 'Email verification', href: '/email-verification' }
