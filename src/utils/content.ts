@@ -1,18 +1,15 @@
 export const INITIAL_CONTENT = {
   hero: {
-    badge: 'New: Advanced Keyword Intelligence 2.0',
-    headline: 'Know Exactly Which Companies Fit Your ICP',
+    headline: 'Qualify Target Companies & Verify Email IDs at Scale',
     subheadline:
-      'Exeract overlays ICP match results as you browse Apollo.io, Prospeo, or your CRM. Qualify target companies faster through website data, not AI assumption.',
+      'Exeract overlays instant ICP match results as you browse Apollo.io, Prospeo, or your CRM, while verifying email addresses with catch-all risk detection. Qualify companies & clean email lists using live data, not AI assumption.',
     primaryCta: 'Get Started',
     secondaryCta: 'See How It Works',
     trustBadges: [
       'No credit card required',
       'GDPR Compliant']
-
   },
   howItWorks: {
-    sectionTitle: 'Our Tools',
     heading: 'Two powerful tools. One unified platform.',
     description:
       'Exeract combines ICP company validation and email verification into a single seamless workflow, so your outreach always hits the right people at the right companies.',

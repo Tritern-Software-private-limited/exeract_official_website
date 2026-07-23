@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Play, Edit2, Calendar, CheckCircle2, XCircle, HelpCircle, Loader2 } from 'lucide-react';
+import { ArrowRight, CheckCircle, Play, Edit2, Calendar, CheckCircle2, XCircle, HelpCircle, Loader2, Target, MailCheck, BadgeCheck, ShieldAlert } from 'lucide-react';
 import { content, type ContentType } from '../utils/content';
 import { useCTARedirect } from '../utils/useCTARedirect';
 import { SectionLoader } from './SectionLoader';
@@ -54,8 +54,8 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
     return (
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
-          <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-3xl opacity-50" />
-          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/10 blur-3xl opacity-50" />
+          <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/5 opacity-40" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/5 opacity-40" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLoader label="Loading" minHeightClassName="min-h-[320px]" />
@@ -89,8 +89,8 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
       }
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-3xl opacity-50" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/10 blur-3xl opacity-50" />
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/5 opacity-40" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/5 opacity-40" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -110,10 +110,12 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
             }}
             className="text-center lg:text-left">
 
-            {/*<div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary-dark text-sm font-medium mb-6 border border-primary/20">
-              <span className="flex h-2 w-2 rounded-full bg-primary mr-2"></span>
-              {data.badge}
-            </div>*/}
+            {'badge' in data && (data as any).badge && (
+              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-primary/10 text-primary-dark text-xs sm:text-sm font-semibold mb-6 border border-primary/20 shadow-xs">
+                <span className="flex h-2 w-2 rounded-full bg-primary mr-2.5 animate-pulse" />
+                {(data as any).badge}
+              </div>
+            )}
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-navy leading-tight mb-6">
               {data.headline}
@@ -123,16 +125,69 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
               {data.subheadline}
             </h2>
 
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
-              <span className="text-xs sm:text-sm bg-green-50 border border-green-200 text-green-700 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
-                <CheckCircle2 className="h-4 w-4" /> YES
-              </span>
-              <span className="text-xs sm:text-sm bg-orange-50 border border-orange-200 text-orange-600 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
-                <HelpCircle className="h-4 w-4" /> CONSIDER
-              </span>
-              <span className="text-xs sm:text-sm bg-red-50 border border-red-200 text-red-600 font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
-                <XCircle className="h-4 w-4" /> NO
-              </span>
+            {/* Rich Dual Status Showcase: ICP Qualification + Email Verification */}
+            <div className="relative bg-gradient-to-b from-white via-slate-50 to-white border border-slate-200/90 rounded-3xl p-5 sm:p-6 mb-8 shadow-sm max-w-xl mx-auto lg:mx-0">
+              <div className="flex flex-col gap-4">
+                {/* ICP Qualification Row */}
+                <div className="flex flex-wrap items-center justify-between sm:justify-start gap-3">
+                  <div className="flex items-center gap-3 min-w-[170px]">
+                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white flex items-center justify-center shadow-sm flex-shrink-0">
+                      <Target className="h-4.5 w-4.5 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-navy leading-tight">
+                        ICP Qualification
+                      </div>
+                      <div className="text-[11px] text-gray-400 font-normal">
+                        Company fit check
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs bg-emerald-50 border border-emerald-200/80 text-emerald-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" /> Yes
+                    </span>
+                    <span className="text-xs bg-amber-50 border border-amber-200/80 text-amber-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                      <HelpCircle className="h-3.5 w-3.5 text-amber-500" /> Consider
+                    </span>
+                    <span className="text-xs bg-rose-50 border border-rose-200/80 text-rose-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                      <XCircle className="h-3.5 w-3.5 text-rose-500" /> No
+                    </span>
+                  </div>
+                </div>
+
+                <div className="h-px bg-slate-200/60 w-full" />
+
+                {/* Catch-All Email Verification Row */}
+                <div className="flex flex-wrap items-center justify-between sm:justify-start gap-3">
+                  <div className="flex items-center gap-3 min-w-[170px]">
+                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white flex items-center justify-center shadow-sm flex-shrink-0">
+                      <MailCheck className="h-4.5 w-4.5 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-navy leading-tight">
+                        Catch-all Verification
+                      </div>
+                      <div className="text-[11px] text-gray-400 font-normal">
+                        Email deliverability
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs bg-teal-50 border border-teal-200/80 text-teal-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                      <BadgeCheck className="h-3.5 w-3.5 text-teal-500" /> Valid
+                    </span>
+                    <span className="text-xs bg-amber-50 border border-amber-200/80 text-amber-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                      <ShieldAlert className="h-3.5 w-3.5 text-amber-500" /> Catch-all
+                    </span>
+                    <span className="text-xs bg-rose-50 border border-rose-200/80 text-rose-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                      <XCircle className="h-3.5 w-3.5 text-rose-500" /> Invalid
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
@@ -141,7 +196,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                 onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "hero-signup")}
                 className="w-full sm:w-auto"
               >
-                <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center">
+                <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-bold text-lg shadow-md hover:shadow-lg hover:opacity-95 active:scale-[0.98] transition-all duration-200 flex items-center justify-center">
                   {loadingState === "hero-signup" ? (
                     <><Loader2 className="animate-spin mr-2 h-5 w-5" /> Loading...</>
                   ) : (
@@ -156,9 +211,8 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="w-full sm:w-auto px-8 py-4 bg-white text-navy border border-gray-200 rounded-xl font-bold text-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-2">
-                  <Calendar className="h-5 w-5 text-secondary" />
-                  Book a Demo
+                <button className="w-full sm:w-auto px-8 py-4 bg-white text-navy border border-slate-200 rounded-2xl font-bold text-base sm:text-lg shadow-sm hover:shadow-md hover:bg-slate-50 active:scale-[0.98] transition-all duration-200 flex items-center justify-center">
+                  <span className="tracking-tight font-bold">Book a Demo</span>
                 </button>
               </a>
             </div>
@@ -182,7 +236,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
 
             <div className="relative select-none" onContextMenu={e => e.preventDefault()}>
               <video
-                src="/exeract-header-fc.webm"
+                src="/Exeract_heropage.webm"
                 autoPlay
                 loop
                 muted

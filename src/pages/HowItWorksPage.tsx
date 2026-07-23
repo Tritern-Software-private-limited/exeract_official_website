@@ -382,8 +382,8 @@ export function HowItWorksPage() {
                   </button>
                 </a>
                 <a href="https://calendly.com/aravindhan-tritern/30min" className="w-full sm:w-auto" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full sm:w-auto px-8 py-4 bg-white text-navy border border-gray-200 rounded-xl font-bold text-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-2">
-                    <Calendar className="h-5 w-5 text-secondary" /> Book a Demo
+                  <button className="w-full sm:w-auto px-8 py-4 bg-white text-navy border border-slate-200 rounded-2xl font-bold text-base sm:text-lg shadow-sm hover:shadow-md hover:bg-slate-50 active:scale-[0.98] transition-all duration-200 flex items-center justify-center">
+                    <span className="tracking-tight font-bold">Book a Demo</span>
                   </button>
                 </a>
               </div>

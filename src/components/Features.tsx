@@ -94,11 +94,8 @@ export function Features({ isAdmin, onEdit }: FeaturesProps) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.07, duration: 0.45 }}
-                    className="bg-white border border-gray-100 shadow-sm rounded-2xl p-6 hover:shadow-md hover:border-gray-200 transition-all duration-300 flex flex-col relative overflow-hidden group"
+                    className="bg-gradient-to-b from-white to-slate-50/50 border border-slate-200/80 shadow-sm hover:shadow-md rounded-3xl p-6 transition-all duration-300 flex flex-col relative overflow-hidden group"
                   >
-                    {/* Brand Accent Line */}
-                    <div className="absolute top-0 left-0 w-full h-[3px] bg-primary/10 group-hover:bg-primary transition-colors duration-300" />
-                    
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="text-base font-bold text-navy pr-4">{feature.title}</h3>
                       <span className="text-sm font-mono font-bold text-primary/40 group-hover:text-primary transition-colors duration-300">
