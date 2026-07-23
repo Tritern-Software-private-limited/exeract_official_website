@@ -240,11 +240,9 @@ function HeroVerifier() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-Public-Site-Key': 'd16802ec51763325348ad337ee04252d9d3e3badfdadbf214988ffab0d9a4d93',
         },
-        body: JSON.stringify({
-          email: email.trim(),
-          site_key: 'd16802ec51763325348ad337ee04252d9d3e3badfdadbf214988ffab0d9a4d93',
-        }),
+        body: JSON.stringify({ email: email.trim() }),
       });
       if (!res.ok) throw new Error(`Server returned ${res.status}`);
       const data: VerifyResponse = await res.json();
