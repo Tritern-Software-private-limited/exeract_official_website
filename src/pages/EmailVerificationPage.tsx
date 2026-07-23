@@ -240,17 +240,23 @@ function HeroVerifier() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Origin': 'https://www.exeract.com',
-          'X-Public-Site-Key': 'd16802ec51763325348ad337ee04252d9d3e3badfdadbf214988ffab0d9a4d93',
         },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({
+          email: email.trim(),
+          site_key: 'd16802ec51763325348ad337ee04252d9d3e3badfdadbf214988ffab0d9a4d93',
+        }),
       });
       if (!res.ok) throw new Error(`Server returned ${res.status}`);
       const data: VerifyResponse = await res.json();
       setResult(data);
       setStatus('success');
     } catch (err: unknown) {
-      setErrorMsg(err instanceof Error ? err.message : 'Unexpected error');
+      const msg = err instanceof Error ? err.message : 'Unexpected error';
+      const isCors = msg === 'Failed to fetch' || msg.includes('NetworkError') || msg.includes('network');
+      setErrorMsg(isCors
+        ? 'Unable to reach the verification server. Please try again or check your connection.'
+        : msg
+      );
       setStatus('error');
     }
   };
