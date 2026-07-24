@@ -18,18 +18,29 @@ type EmailResult = 'valid' | 'invalid' | 'catch-all' | 'unknown';
 interface VerifyResponse {
   email?: string;
   result?: EmailResult;
-  status?: EmailResult;
+  status?: string;
   reason?: string;
-  is_disposable?: boolean;
-  is_role_based?: boolean;
-  mx_found?: boolean;
-  smtp_check?: boolean;
-  score?: number;
+  freeProvider?: boolean;
+  roleBased?: boolean;
+  catchAll?: boolean;
+  dnsbl?: {
+    mxResults?: any[];
+  };
+  smtp?: {
+    available?: boolean;
+    status?: string;
+  };
   [key: string]: unknown;
 }
 
 function getResult(data: VerifyResponse): EmailResult {
-  return (data.result ?? data.status ?? 'unknown') as EmailResult;
+  const raw = String(data.result ?? data.status ?? 'unknown').toLowerCase();
+  
+  if (raw === 'valid' || raw === 'deliverable') return 'valid';
+  if (raw === 'invalid' || raw === 'undeliverable') return 'invalid';
+  if (raw === 'catch-all' || raw === 'accept-all' || raw === 'risky') return 'catch-all';
+
+  return 'unknown';
 }
 
 function isValidEmailFormat(email: string): boolean {
@@ -113,7 +124,16 @@ function CheckRow({
     : value
     ? String(value)
     : '—';
-  const color = isFalse ? 'text-red-500' : isTrue ? 'text-primary' : 'text-gray-500';
+  
+  // Custom coloring for specific string values
+  let color = 'text-gray-500';
+  if (isFalse || String(value).toLowerCase() === 'invalid' || String(value).toLowerCase() === 'not found') {
+    color = 'text-red-500';
+  } else if (isTrue || String(value).toLowerCase() === 'valid' || String(value).toLowerCase() === 'found') {
+    color = 'text-primary';
+  } else if (String(value).toLowerCase() === 'yes' || String(value).toLowerCase() === 'no') {
+    color = 'text-primary'; // Treat Yes/No as primary info text
+  }
 
   return (
     <div className="flex items-center justify-between py-2.5 border-b border-gray-100 last:border-0">
@@ -179,13 +199,13 @@ function ResultPanel({
       {/* Detail checks */}
       <div className="px-6 py-1">
         {data.reason && <CheckRow label="Reason" value={data.reason} />}
-        {data.mx_found !== undefined && <CheckRow label="MX Records" value={data.mx_found ? 'Found' : 'Not found'} />}
-        {data.smtp_check !== undefined && <CheckRow label="SMTP Check" value={data.smtp_check ? 'Valid' : 'Invalid'} />}
-        {data.is_disposable !== undefined && <CheckRow label="Disposable Address" value={data.is_disposable ? 'Yes' : 'No'} />}
-        {data.is_role_based !== undefined && <CheckRow label="Role-Based Address" value={data.is_role_based ? 'Yes' : 'No'} />}
+        {data.dnsbl !== undefined && <CheckRow label="MX Records" value={(data.dnsbl.mxResults && data.dnsbl.mxResults.length > 0) ? 'Found' : 'Not found'} />}
+        {data.smtp !== undefined && <CheckRow label="SMTP Check" value={data.smtp.status === 'VALID' ? 'Valid' : 'Invalid'} />}
+        {data.freeProvider !== undefined && <CheckRow label="Free Provider" value={data.freeProvider ? 'Yes' : 'No'} />}
+        {data.roleBased !== undefined && <CheckRow label="Role-Based Address" value={data.roleBased ? 'Yes' : 'No'} />}
         {result === 'catch-all' && <CheckRow label="Risk Level" value={null} locked />}
         {/* Show default rows if API doesn't return detail fields */}
-        {data.mx_found === undefined && data.smtp_check === undefined && (
+        {data.dnsbl === undefined && data.smtp === undefined && (
           <>
             <CheckRow label="Format" value="Valid" />
             <CheckRow label="Domain" value="Checked" />

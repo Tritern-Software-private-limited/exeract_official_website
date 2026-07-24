@@ -31,7 +31,7 @@ export function App() {
 
   const renderContent = () => {
     // Simple routing logic
-    if (currentPath === '/how-it-works') {
+    if (currentPath === '/icp-qualification') {
       return <HowItWorksPage />;
     }
     if (currentPath === '/pricing') {

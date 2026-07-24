@@ -18,7 +18,7 @@ export function Navbar() {
     {
       name: 'Features',
       items: [
-        { name: 'Company ICP validation', href: '/how-it-works' },
+        { name: 'Company ICP validation', href: '/icp-qualification' },
         { name: 'Email verification', href: '/email-verification' }
       ]
     },

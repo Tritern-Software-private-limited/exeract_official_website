@@ -64,7 +64,7 @@ const ICP_TOOL: ICPToolConfig = {
   cardBg: 'bg-gradient-to-b from-white via-slate-50/50 to-white',
   border: 'border-slate-200/80',
   badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200/80',
-  ctaHref: '/how-it-works',
+  ctaHref: '/icp-qualification',
   ctaLabel: 'Explore ICP Validation',
   ctaBtnClass:
     'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md hover:shadow-lg hover:opacity-95 active:scale-[0.98]',
