@@ -244,7 +244,12 @@ function HeroVerifier() {
         },
         body: JSON.stringify({ email: email.trim() }),
       });
-      if (!res.ok) throw new Error(`Server returned ${res.status}`);
+      if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error('Too many requests. Please try again later.');
+        }
+        throw new Error(`Server returned ${res.status}`);
+      }
       const data: VerifyResponse = await res.json();
       setResult(data);
       setStatus('success');
