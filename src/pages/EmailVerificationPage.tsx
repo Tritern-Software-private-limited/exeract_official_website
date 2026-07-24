@@ -23,13 +23,30 @@ interface VerifyResponse {
   freeProvider?: boolean;
   roleBased?: boolean;
   catchAll?: boolean;
+  domainType?: string;
+  typoSuggestion?: string | null;
   dnsbl?: {
     mxResults?: any[];
+    listed?: boolean;
+    listedCount?: number;
   };
   smtp?: {
     available?: boolean;
     status?: string;
+    exchanges?: { response?: string; smtpCode?: number }[];
   };
+  spf?: {
+    present?: boolean;
+    result?: string;
+  };
+  dkim?: {
+    supported?: boolean;
+  };
+  dmarc?: {
+    present?: boolean;
+    record?: { policy?: string };
+  };
+  ptrResult?: { forwardConfirmed?: boolean }[];
   [key: string]: unknown;
 }
 
@@ -107,9 +124,9 @@ function CheckRow({
 }) {
   if (locked) {
     return (
-      <div className="flex items-center justify-between py-2.5 border-b border-gray-100 last:border-0">
-        <span className="text-sm text-gray-600">{label}</span>
-        <span className="flex items-center gap-1 text-xs font-semibold text-gray-400 bg-gray-100 border border-gray-200 px-2 py-0.5 rounded-full">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-gray-100 last:border-0 gap-1 sm:gap-4">
+        <span className="text-sm text-gray-500 flex-shrink-0">{label}</span>
+        <span className="flex items-center gap-1 text-xs font-semibold text-gray-400 bg-gray-100 border border-gray-200 px-2 py-0.5 rounded-full w-fit">
           <Lock className="h-3 w-3" /> Pro
         </span>
       </div>
@@ -126,19 +143,21 @@ function CheckRow({
     : '—';
   
   // Custom coloring for specific string values
-  let color = 'text-gray-500';
-  if (isFalse || String(value).toLowerCase() === 'invalid' || String(value).toLowerCase() === 'not found') {
+  const textLower = String(text).toLowerCase();
+  let color = 'text-gray-700';
+  
+  if (isFalse || textLower.includes('invalid') || textLower.includes('not found') || textLower.includes('not configured') || textLower === 'missing/mismatch' || textLower.includes('fail') || textLower.includes('listed (')) {
     color = 'text-red-500';
-  } else if (isTrue || String(value).toLowerCase() === 'valid' || String(value).toLowerCase() === 'found') {
-    color = 'text-primary';
-  } else if (String(value).toLowerCase() === 'yes' || String(value).toLowerCase() === 'no') {
-    color = 'text-primary'; // Treat Yes/No as primary info text
+  } else if (isTrue || textLower === 'valid' || textLower === 'found' || textLower === 'configured' || textLower === 'clean' || textLower === 'pass') {
+    color = 'text-emerald-600';
+  } else if (textLower === 'yes' || textLower === 'no' || textLower === 'business' || textLower === 'quarantine' || textLower === 'reject' || textLower === 'none' || textLower === 'softfail') {
+    color = 'text-navy font-medium'; // Neutral / Info
   }
 
   return (
-    <div className="flex items-center justify-between py-2.5 border-b border-gray-100 last:border-0">
-      <span className="text-sm text-gray-600">{label}</span>
-      <span className={`text-sm font-semibold ${color}`}>{text}</span>
+    <div className="flex flex-col sm:flex-row sm:items-start justify-between py-2 border-b border-gray-100 last:border-0 gap-1 sm:gap-4">
+      <span className="text-sm text-gray-500 flex-shrink-0">{label}</span>
+      <span className={`text-sm font-semibold sm:text-right break-all sm:break-normal ${color}`}>{text}</span>
     </div>
   );
 }
@@ -164,7 +183,7 @@ function ResultPanel({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={`mt-3 bg-white rounded-2xl border ${cfg.borderColor} shadow-lg overflow-hidden`}
+      className={`mt-3 bg-white rounded-2xl border ${cfg.borderColor} shadow-lg overflow-hidden text-left`}
     >
       {/* Status header */}
       <div className="px-6 pt-5 pb-4 border-b border-gray-100">
@@ -174,13 +193,13 @@ function ResultPanel({
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 22 }}
-              className={`w-9 h-9 rounded-full ${cfg.iconBg} flex items-center justify-center`}
+              className={`w-9 h-9 rounded-full ${cfg.iconBg} flex items-center justify-center flex-shrink-0`}
             >
               <Icon className={`h-5 w-5 ${cfg.iconColor}`} />
             </motion.div>
             <div>
               <p className="text-base font-bold text-navy">
-                <span className="font-mono text-navy/70">{email}</span>{' '}
+                <span className="font-mono text-navy/70 break-all">{email}</span>{' '}
                 <span>{cfg.headline}</span>
               </p>
               <p className="text-sm text-gray-500">{cfg.sub}</p>
@@ -196,21 +215,40 @@ function ResultPanel({
         </div>
       </div>
 
-      {/* Detail checks */}
-      <div className="px-6 py-1">
-        {data.reason && <CheckRow label="Reason" value={data.reason} />}
-        {data.dnsbl !== undefined && <CheckRow label="MX Records" value={(data.dnsbl.mxResults && data.dnsbl.mxResults.length > 0) ? 'Found' : 'Not found'} />}
-        {data.smtp !== undefined && <CheckRow label="SMTP Check" value={data.smtp.status === 'VALID' ? 'Valid' : 'Invalid'} />}
-        {data.freeProvider !== undefined && <CheckRow label="Free Provider" value={data.freeProvider ? 'Yes' : 'No'} />}
-        {data.roleBased !== undefined && <CheckRow label="Role-Based Address" value={data.roleBased ? 'Yes' : 'No'} />}
-        {result === 'catch-all' && <CheckRow label="Risk Level" value={null} locked />}
-        {/* Show default rows if API doesn't return detail fields */}
-        {data.dnsbl === undefined && data.smtp === undefined && (
-          <>
-            <CheckRow label="Format" value="Valid" />
-            <CheckRow label="Domain" value="Checked" />
-          </>
-        )}
+      {/* Address Details */}
+      <div className="px-6 py-2 border-b border-gray-100 bg-gray-50/50">
+        <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 mt-1">Address Details</p>
+        <div className="space-y-0">
+          {data.reason && <CheckRow label="Reason" value={data.reason} />}
+          {data.domainType !== undefined && <CheckRow label="Domain Type" value={data.domainType} />}
+          {data.freeProvider !== undefined && <CheckRow label="Free Provider" value={data.freeProvider ? 'Yes' : 'No'} />}
+          {data.roleBased !== undefined && <CheckRow label="Role-Based" value={data.roleBased ? 'Yes' : 'No'} />}
+          {data.typoSuggestion && <CheckRow label="Typo Suggestion" value={data.typoSuggestion} />}
+          {result === 'catch-all' && <CheckRow label="Risk Level" value={null} locked />}
+        </div>
+      </div>
+
+      {/* Deliverability Insights */}
+      <div className="px-6 py-2">
+        <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 mt-1">Deliverability Insights</p>
+        <div className="space-y-0">
+          {data.dnsbl !== undefined && <CheckRow label="MX Records" value={(data.dnsbl.mxResults && data.dnsbl.mxResults.length > 0) ? 'Found' : 'Not found'} />}
+          {data.smtp !== undefined && <CheckRow label="SMTP Check" value={data.smtp.status === 'VALID' ? 'Valid' : 'Invalid'} />}
+          {data.smtp?.exchanges?.[0]?.response && <CheckRow label="SMTP Response" value={data.smtp.exchanges[0].response} />}
+          {data.spf !== undefined && <CheckRow label="SPF Record" value={data.spf.present ? (data.spf.result || 'Present') : 'Not Configured'} />}
+          {data.dkim !== undefined && <CheckRow label="DKIM Record" value={data.dkim.supported ? 'Configured' : 'Not Configured'} />}
+          {data.dmarc !== undefined && <CheckRow label="DMARC Policy" value={data.dmarc.present && data.dmarc.record ? data.dmarc.record.policy : 'None'} />}
+          {data.dnsbl !== undefined && <CheckRow label="Blocklists (DNSBL)" value={data.dnsbl.listed ? `Listed (${data.dnsbl.listedCount})` : 'Clean'} />}
+          {data.ptrResult !== undefined && <CheckRow label="Reverse DNS (PTR)" value={(data.ptrResult.length > 0 && data.ptrResult.every((p: any) => p.forwardConfirmed)) ? 'Valid' : 'Missing/Mismatch'} />}
+          
+          {/* Show default rows if API doesn't return detail fields */}
+          {data.dnsbl === undefined && data.smtp === undefined && (
+            <>
+              <CheckRow label="Format" value="Valid" />
+              <CheckRow label="Domain" value="Checked" />
+            </>
+          )}
+        </div>
       </div>
 
       {/* Catch-all upsell */}
