@@ -6,7 +6,7 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://exeract.com/how-it-works</loc>
+    <loc>https://exeract.com/icp-qualification</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -26,7 +26,27 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://exeract.com/product-access</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://exeract.com/email-verification</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://exeract.com/outbound-user-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://exeract.com/blog/outbound-tech-stack-for-founders-and-lean-teams</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://exeract.com/blog/how-to-qualify-target-companies-faster-inside-apollo-and-clay</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
