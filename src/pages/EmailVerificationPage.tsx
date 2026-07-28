@@ -528,6 +528,14 @@ export function EmailVerificationPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = 'Email Verification Tool | Catch Catch-All Risk Before You Send';
+    const descEl = document.querySelector('meta[name="description"]');
+    if (descEl) {
+      descEl.setAttribute(
+        'content',
+        'Exeract checks each address for catch-all and invalid risk in real time, keeping your outbound list clean and your deliverability protected.'
+      );
+    }
   }, []);
 
   return (

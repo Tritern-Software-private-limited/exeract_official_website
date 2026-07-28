@@ -2,7 +2,7 @@ export const INITIAL_CONTENT = {
   hero: {
     headline: 'Qualify Target Companies & Verify Email IDs at Scale',
     subheadline:
-      'Exeract overlays instant ICP match results as you browse Apollo.io, Prospeo, or your CRM, while verifying email addresses with catch-all risk detection. Qualify companies & clean email lists using live data, not AI assumption.',
+      'Set your exact ICP criteria, the keywords and business models that actually qualify a company. Exeract checks it in real time, scoring the fit and flagging every email\'s catch-all risk. Real signals, not AI guesses.',
     primaryCta: 'Get Started',
     secondaryCta: 'See How It Works',
     trustBadges: [

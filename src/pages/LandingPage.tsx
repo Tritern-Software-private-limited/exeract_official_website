@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { HowItWorks } from '../components/HowItWorks';
@@ -10,6 +10,14 @@ import { useCTARedirect } from '../utils/useCTARedirect';
 
 export function LandingPage() {
   const { handleCTAClick, loadingState } = useCTARedirect();
+
+  useEffect(() => {
+    document.title = 'Qualify ICP Fit & Verify Emails for Outbound | Exeract';
+    const descEl = document.querySelector('meta[name="description"]');
+    if (descEl) {
+      descEl.setAttribute('content', "Set your exact ICP criteria and let Exeract check every company's fit in real time, plus catch-all email verification. Built for outbound teams.");
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-white font-sans text-navy selection:bg-primary/20 selection:text-navy overflow-x-hidden">
       <Navbar />
