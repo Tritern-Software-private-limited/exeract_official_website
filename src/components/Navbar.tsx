@@ -19,7 +19,8 @@ export function Navbar() {
       name: 'Features',
       items: [
         { name: 'Company ICP validation', href: '/icp-qualification' },
-        { name: 'Email verification', href: '/email-verification' }
+        { name: 'Email verification', href: '/email-verification' },
+        { name: 'Chrome Extension', href: '/chrome-extension' }
       ]
     },
     {

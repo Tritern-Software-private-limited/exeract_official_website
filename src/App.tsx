@@ -9,6 +9,7 @@ const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage').then(
 const TrafficFallbackPage = lazy(() => import('./pages/TrafficFallbackPage').then(module => ({ default: module.TrafficFallbackPage })));
 const EmailVerificationPage = lazy(() => import('./pages/EmailVerificationPage').then(module => ({ default: module.EmailVerificationPage })));
 const OutboundUserGuidePage = lazy(() => import('./pages/OutboundUserGuidePage').then(module => ({ default: module.OutboundUserGuidePage })));
+const ChromeExtensionPage = lazy(() => import('./pages/ChromeExtensionPage').then(module => ({ default: module.ChromeExtensionPage })));
 
 function PageLoader() {
   return (
@@ -54,6 +55,9 @@ export function App() {
     }
     if (currentPath === '/outbound-user-guide') {
       return <OutboundUserGuidePage />;
+    }
+    if (currentPath === '/chrome-extension') {
+      return <ChromeExtensionPage />;
     }
     // Default to landing page
     return <LandingPage />;
