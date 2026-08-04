@@ -1,28 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, Calendar, User } from 'lucide-react';
+import { ArrowRight, Calendar, User } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { blog, BlogPost } from '../utils/blog';
 import { motion } from 'framer-motion';
-
-// Inject blog index SEO meta on mount
-function useBlogIndexMeta() {
-  useEffect(() => {
-    const prevTitle = document.title;
-    const prevDesc = document.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
-    document.title = 'Outbound Sales & Lead Qualification Blog | Exeract';
-    const descEl = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-    if (descEl) descEl.setAttribute('content', 'Practical guides, strategy, and insights on outbound sales, lead qualification, and building lean outbound stacks, from the Exeract team.');
-    return () => {
-      document.title = prevTitle;
-      const el = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-      if (el) el.setAttribute('content', prevDesc);
-    };
-  }, []);
-}
+import { usePageMeta } from '../utils/usePageMeta';
 
 export function BlogIndexPage() {
-  useBlogIndexMeta();
+  usePageMeta();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');

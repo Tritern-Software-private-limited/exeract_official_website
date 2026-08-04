@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Loader2, CheckCircle } from 'lucide-react';
+import { usePageMeta } from '../utils/usePageMeta';
 
 // REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZyGgcW4aOIty4lvfSrzF0MKYerX6-DhUmNTJ9bxXCxkR29ZnnzjizWOpsQDNGlcQ2/exec';
 
 export function TrafficFallbackPage() {
+  usePageMeta();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 

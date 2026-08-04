@@ -9,6 +9,7 @@ import {
   Target, Eye, Clock,
   CheckCircle2, XCircle, Info, Send, UserCheck, Loader2, Activity
 } from 'lucide-react';
+import { usePageMeta } from '../utils/usePageMeta';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Section {
@@ -631,18 +632,11 @@ function EmailCopyAnalyzer() {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export function OutboundUserGuidePage() {
+  usePageMeta();
   const [activeSection, setActiveSection] = useState('domain');
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Outbound User Guide: Cold Email Setup to LinkedIn';
-    const descEl = document.querySelector('meta[name="description"]');
-    if (descEl) {
-      descEl.setAttribute(
-        'content',
-        'A step-by-step guide to cold outreach, covering domain setup, warm-up, send volume, deliverability, data quality, and LinkedIn outreach.'
-      );
-    }
   }, []);
 
   useEffect(() => {

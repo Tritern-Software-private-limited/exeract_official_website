@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Pricing } from '../components/Pricing';
+import { usePageMeta } from '../utils/usePageMeta';
 
 export function PricingPage() {
+  usePageMeta();
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Pricing | Exeract';
   }, []);
 
   return (

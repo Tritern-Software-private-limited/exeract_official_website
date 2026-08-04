@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import {
   Chrome, Zap, Target, ArrowRight, CheckCircle2,
-  Filter, Send, BarChart3, Globe, Users, Shield, ExternalLink, Check,
+  Send, BarChart3, Globe, Users, Shield, ExternalLink, Check,
   SlidersHorizontal, Building2, MonitorPlay, Loader2, Database
 } from 'lucide-react';
 import { useCTARedirect } from '../utils/useCTARedirect';
+import { usePageMeta } from '../utils/usePageMeta';
 
 // ─── Floating Workflow Cards (Zig.ai Style) ──────────────────────────────────
 function FloatingWorkflowCards() {
@@ -134,26 +135,9 @@ const FEATURES = [
 
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 export function ChromeExtensionPage() {
+  usePageMeta();
   const { handleCTAClick, loadingState } = useCTARedirect();
   const [activeHowStep, setActiveHowStep] = useState(0);
-
-  // ─── Page meta tags ──────────────────────────────────────────────────────────
-  useEffect(() => {
-    const prevTitle = document.title;
-    document.title = 'Chrome Extension for Apollo & Prospeo | Push Leads to Exeract in One Click';
-
-    const metaDesc = document.querySelector('meta[name="description"]');
-    const prevDesc = metaDesc?.getAttribute('content') ?? '';
-    metaDesc?.setAttribute(
-      'content',
-      'The Exeract Chrome extension adds one-click push buttons inside Apollo.io and Prospeo. Send individual companies or full pages of leads straight to your Exeract dashboard for ICP qualification — no tab switching required.'
-    );
-
-    return () => {
-      document.title = prevTitle;
-      metaDesc?.setAttribute('content', prevDesc);
-    };
-  }, []);
   // Scroll spy for how-it-works steps based on scroll track
   useEffect(() => {
     const handleScroll = () => {

@@ -1,22 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
+import { usePageMeta } from '../utils/usePageMeta';
 
 export function TermsOfServicePage() {
-  useEffect(() => {
-    // Inject page SEO metadata
-    const prevTitle = document.title;
-    const prevDesc = document.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
-    document.title = 'Terms of Service | Exeract';
-    const descEl = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-    if (descEl) descEl.setAttribute('content', 'Review the official terms of service, legal agreements, and usage conditions for Tritern Software Private Limited and the Exeract platform.');
-
-    return () => {
-      document.title = prevTitle;
-      const el = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-      if (el) el.setAttribute('content', prevDesc);
-    };
-  }, []);
+  usePageMeta();
 
   return (
     <div className="min-h-screen bg-white font-sans text-navy selection:bg-primary/20 selection:text-navy overflow-x-hidden">

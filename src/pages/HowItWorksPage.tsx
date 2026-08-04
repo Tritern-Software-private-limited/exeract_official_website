@@ -8,6 +8,7 @@ import {
   BarChart3, FileDown, CheckCircle2, XCircle, HelpCircle, Loader2
 } from 'lucide-react';
 import { useCTARedirect } from '../utils/useCTARedirect';
+import { usePageMeta } from '../utils/usePageMeta';
 
 // ─── Interactive Workflow Demo ────────────────────────────────────────────────
 const DEMO_KEYWORDS = ['SaaS', 'B2B', 'HR Tech', 'Recruiting', 'ATS'];
@@ -341,18 +342,11 @@ function WorkflowDemo() {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export function HowItWorksPage() {
+  usePageMeta();
   const { handleCTAClick, loadingState } = useCTARedirect();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'ICP Qualification Tool | Match Companies to Your Criteria';
-    const descEl = document.querySelector('meta[name="description"]');
-    if (descEl) {
-      descEl.setAttribute(
-        'content',
-        'Set the exact keywords and business models that define your ICP. Exeract checks every company website live and returns Yes, Consider, or No.'
-      );
-    }
   }, []);
 
   return (

@@ -10,6 +10,7 @@ import {
   Upload, FileSpreadsheet, Code2, Sparkles
 } from 'lucide-react';
 import { useCTARedirect } from '../utils/useCTARedirect';
+import { usePageMeta } from '../utils/usePageMeta';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type VerifyStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -524,18 +525,11 @@ const FAQ_ITEMS = [
 
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 export function EmailVerificationPage() {
+  usePageMeta();
   const { handleCTAClick, loadingState } = useCTARedirect();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Email Verification Tool | Catch Catch-All Risk Before You Send';
-    const descEl = document.querySelector('meta[name="description"]');
-    if (descEl) {
-      descEl.setAttribute(
-        'content',
-        'Exeract checks each address for catch-all and invalid risk in real time, keeping your outbound list clean and your deliverability protected.'
-      );
-    }
   }, []);
 
   return (
