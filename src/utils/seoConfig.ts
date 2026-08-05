@@ -186,6 +186,7 @@ export const STATIC_ROUTES_SEO: Record<string, RouteSEO> = {
 };
 
 export function getSEOForPath(pathname: string): RouteSEO {
-  const normalized = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
+  const normalized = (pathname.replace(/\/+$/, '') || '/').toLowerCase();
   return STATIC_ROUTES_SEO[normalized] || STATIC_ROUTES_SEO['/'];
 }
+

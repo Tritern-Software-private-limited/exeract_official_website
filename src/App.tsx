@@ -19,44 +19,92 @@ function PageLoader() {
   );
 }
 
+function normalizePath(pathname: string): string {
+  const clean = pathname.replace(/\/+$/, '') || '/';
+  return clean.toLowerCase();
+}
+
 export function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [currentPath, setCurrentPath] = useState(() => normalizePath(window.location.pathname));
 
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname);
+      setCurrentPath(normalizePath(window.location.pathname));
+      window.scrollTo(0, 0);
     };
+
+    const handleLinkClick = (e: MouseEvent) => {
+      // Find closest anchor element
+      const target = (e.target as HTMLElement)?.closest('a');
+      if (!target) return;
+
+      const href = target.getAttribute('href');
+      // Ignore anchors with no href, hash anchors, mailto, tel, or javascript:
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) {
+        return;
+      }
+
+      // Ignore external tabs, downloads, or non-primary clicks / modified clicks
+      if (target.getAttribute('target') === '_blank' || target.hasAttribute('download')) return;
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      try {
+        const url = new URL(href, window.location.origin);
+        // Only handle internal links to the same origin
+        if (url.origin === window.location.origin) {
+          e.preventDefault();
+          const targetNormalized = normalizePath(url.pathname);
+          const currentNormalized = normalizePath(window.location.pathname);
+
+          if (targetNormalized !== currentNormalized || url.search !== window.location.search) {
+            window.history.pushState({}, '', href);
+            setCurrentPath(targetNormalized);
+            window.scrollTo(0, 0);
+          }
+        }
+      } catch {
+        // Fallback to default browser behavior if URL parsing fails
+      }
+    };
+
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    document.addEventListener('click', handleLinkClick);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      document.removeEventListener('click', handleLinkClick);
+    };
   }, []);
 
   const renderContent = () => {
-    // Simple routing logic
-    if (currentPath === '/icp-qualification') {
+    const normalized = normalizePath(currentPath);
+
+    // Simple routing logic with normalized path
+    if (normalized === '/icp-qualification') {
       return <HowItWorksPage />;
     }
-    if (currentPath === '/pricing') {
+    if (normalized === '/pricing') {
       return <PricingPage />;
     }
-    if (currentPath === '/terms-of-service' || currentPath === '/terms') {
+    if (normalized === '/terms-of-service' || normalized === '/terms') {
       return <TermsOfServicePage />;
     }
-    if (currentPath === '/blog') {
+    if (normalized === '/blog') {
       return <BlogIndexPage />;
     }
-    if (currentPath.startsWith('/blog/')) {
+    if (normalized.startsWith('/blog/')) {
       return <BlogPostPage />;
     }
-    if (currentPath === '/product-access') {
+    if (normalized === '/product-access') {
       return <TrafficFallbackPage />;
     }
-    if (currentPath === '/email-verification') {
+    if (normalized === '/email-verification') {
       return <EmailVerificationPage />;
     }
-    if (currentPath === '/outbound-user-guide') {
+    if (normalized === '/outbound-user-guide') {
       return <OutboundUserGuidePage />;
     }
-    if (currentPath === '/chrome-extension') {
+    if (normalized === '/chrome-extension') {
       return <ChromeExtensionPage />;
     }
     // Default to landing page

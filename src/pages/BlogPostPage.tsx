@@ -108,14 +108,14 @@ export function BlogPostPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back link */}
           <motion.a
-            href="/"
+            href="/blog"
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
             className="inline-flex items-center text-sm font-bold text-primary hover:text-primary-dark transition-colors gap-1"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Home
+            Back to Blog
           </motion.a>
 
           {/* Loading state */}
@@ -130,8 +130,8 @@ export function BlogPostPage() {
             >
               <h1 className="text-2xl font-bold text-navy mb-2">Post not found</h1>
               <p className="text-gray-500 mb-6">The blog post you are looking for does not exist.</p>
-              <a href="/" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
-                Return home
+              <a href="/blog" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
+                Return to Blog
               </a>
             </motion.div>
           )}
