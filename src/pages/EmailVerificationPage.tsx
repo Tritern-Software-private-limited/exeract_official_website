@@ -70,13 +70,13 @@ const RESULT_CFG = {
   valid: {
     label: 'Valid',
     icon: CheckCircle2,
-    iconColor: 'text-emerald-500',
-    iconBg: 'bg-emerald-50',
-    badgeColor: 'text-emerald-700 bg-emerald-50 border-emerald-200',
-    borderColor: 'border-emerald-100',
+    iconColor: 'text-[#008B6D]',
+    iconBg: 'bg-[#E6FDF8]',
+    badgeColor: 'text-[#008B6D] bg-[#E6FDF8] border-[#01EFBB]/40',
+    borderColor: 'border-[#01EFBB]/30',
     headline: 'is valid',
     sub: 'This email can be used safely.',
-    dot: 'bg-emerald-500',
+    dot: 'bg-[#01EFBB]',
   },
   invalid: {
     label: 'Invalid',
@@ -150,7 +150,7 @@ function CheckRow({
   if (isFalse || textLower.includes('invalid') || textLower.includes('not found') || textLower.includes('not configured') || textLower === 'missing/mismatch' || textLower.includes('fail') || textLower.includes('listed (')) {
     color = 'text-red-500';
   } else if (isTrue || textLower === 'valid' || textLower === 'found' || textLower === 'configured' || textLower === 'clean' || textLower === 'pass') {
-    color = 'text-emerald-600';
+    color = 'text-[#008B6D] font-bold';
   } else if (textLower === 'yes' || textLower === 'no' || textLower === 'business' || textLower === 'quarantine' || textLower === 'reject' || textLower === 'none' || textLower === 'softfail') {
     color = 'text-navy font-medium'; // Neutral / Info
   }
@@ -334,7 +334,7 @@ function HeroVerifier() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       {/* Search bar */}
-      <div className="flex bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary transition-all">
+      <div className="flex bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden focus-within:ring-2 focus-within:ring-[#01EFBB]/30 focus-within:border-[#01EFBB] transition-all">
         <div className="relative flex-1">
           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-300 pointer-events-none" />
           <input
@@ -355,10 +355,10 @@ function HeroVerifier() {
           id="verify-email-btn"
           onClick={handleVerify}
           disabled={!canVerify || status === 'loading'}
-          className="m-1.5 px-6 py-3 rounded-lg bg-primary hover:bg-primary-dark text-white font-semibold text-sm transition-all duration-200 flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap shadow-sm"
+          className="m-1.5 px-6 py-3 rounded-lg bg-[#00C49A] hover:bg-[#00B28C] text-navy font-extrabold text-sm transition-all duration-200 flex items-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed whitespace-nowrap shadow-sm hover:shadow-md active:scale-[0.98]"
         >
           {status === 'loading' ? (
-            <><Loader2 className="h-4 w-4 animate-spin" /> Verifying…</>
+            <><Loader2 className="h-4 w-4 animate-spin text-navy" /> Verifying…</>
           ) : (
             <>Verify email</>
           )}
@@ -366,9 +366,9 @@ function HeroVerifier() {
       </div>
 
       <p className="text-sm text-gray-500 mt-2.5 text-center">
-        Verify and spot incorrect emails for free — no signup needed!{' '}
+        Verify and spot incorrect emails for free!{' '}
         <button
-          className="text-primary hover:underline font-medium"
+          className="text-[#008B6D] hover:underline font-semibold"
           onClick={() => { setEmail('hello@exeract.com'); }}
         >
           Try it with hello@exeract.com
@@ -564,11 +564,11 @@ export function EmailVerificationPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55 }}
             >
-              <p className="text-sm font-semibold text-navy/50 uppercase tracking-wider mb-4">
+              <p className="text-xs font-bold text-[#00C49A] uppercase tracking-wider mb-4">
                 Email Verifier
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-navy leading-tight mb-5 tracking-tight">
-                <span className="text-primary">Verify any email address</span>{' '}
+                <span className="text-[#00C49A]">Verify any email address</span>{' '}
                 with the most complete email checker.
               </h1>
               <p className="text-base sm:text-lg text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
@@ -585,20 +585,7 @@ export function EmailVerificationPage() {
             </motion.div>
           </div>
 
-          {/* Trusted by logos */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16"
-          >
-            <p className="text-sm text-gray-400 mb-6">Trusted by leading teams.</p>
-            <div className="flex items-center justify-center flex-wrap gap-8 sm:gap-12 opacity-50 grayscale">
-              {['Semrush', 'Canva', 'Vimeo', 'Cisco', 'Customer.io'].map(name => (
-                <span key={name} className="text-base font-bold text-gray-500 tracking-wide">{name}</span>
-              ))}
-            </div>
-          </motion.div>
+
         </section>
 
         {/* ── Features Accordion + Static Result ── */}
@@ -645,11 +632,11 @@ export function EmailVerificationPage() {
                     href="/product-access?redirect=https://app.exeract.com/signup"
                     onClick={(e) => handleCTAClick(e, 'https://app.exeract.com/signup', 'features-signup')}
                   >
-                    <button className="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors text-sm flex items-center gap-2">
+                    <button className="px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg transition-all duration-200 text-sm flex items-center gap-2 shadow-md hover:opacity-90">
                       {loadingState === 'features-signup' ? (
-                        <><Loader2 className="h-4 w-4 animate-spin" /> Loading…</>
+                        <><Loader2 className="h-4 w-4 animate-spin text-white" /> Loading…</>
                       ) : (
-                        <>Get started for free <ArrowRight className="h-4 w-4" /></>
+                        <>Get started for free <ArrowRight className="h-4 w-4 text-white" /></>
                       )}
                     </button>
                   </a>
@@ -671,42 +658,7 @@ export function EmailVerificationPage() {
           </div>
         </section>
 
-        {/* ── Social Proof Bar ── */}
-        <section className="py-10 bg-gray-50 border-y border-gray-100">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center">
-              <div>
-                <p className="text-2xl font-extrabold text-navy">7M+</p>
-                <p className="text-sm text-gray-500">users worldwide</p>
-              </div>
-              <div className="hidden sm:block h-10 w-px bg-gray-200" />
-              <div>
-                <p className="text-2xl font-extrabold text-navy">99.9%</p>
-                <p className="text-sm text-gray-500">uptime SLA</p>
-              </div>
-              <div className="hidden sm:block h-10 w-px bg-gray-200" />
-              <div className="flex items-center gap-3">
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-1 mb-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className={`h-4 w-4 ${i < 4 ? 'text-amber-400 fill-amber-400' : 'text-amber-300 fill-amber-300'}`} viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-500"><strong className="text-navy">4.6</strong> on Capterra</p>
-                </div>
-                <div className="h-8 w-px bg-gray-200" />
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-1 mb-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className={`h-4 w-4 ${i < 4 ? 'text-amber-400 fill-amber-400' : 'text-amber-300 fill-amber-300'}`} viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-500"><strong className="text-navy">4.4</strong> on G2</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+
 
         {/* ── Why You Need It ── */}
         <section className="py-20 sm:py-28 bg-white">
@@ -978,13 +930,12 @@ export function EmailVerificationPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-xs font-semibold px-4 py-1.5 rounded-full mb-7">
-                <Sparkles className="h-3.5 w-3.5" />
-                Bulk verification available
-              </div>
+
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-navy mb-5 leading-tight tracking-tight">
                 Clean your list,{' '}
-                <span className="text-primary">boost deliverability.</span>
+                <span className="text-[#00C49A]">
+                  <br />boost deliverability.
+                </span>
               </h2>
               <p className="text-base sm:text-lg text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
                 Join thousands of growth teams verifying their email lists with Exeract before every campaign.
@@ -997,12 +948,12 @@ export function EmailVerificationPage() {
                 >
                   <button
                     id="email-cta-signup-btn"
-                    className="w-full sm:w-auto px-8 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold text-base transition-all duration-200 flex items-center justify-center gap-2 shadow-md shadow-primary/20"
+                    className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-xl text-base transition-all duration-200 flex items-center justify-center gap-2 shadow-md hover:opacity-90"
                   >
                     {loadingState === 'bottom-signup' ? (
-                      <><Loader2 className="animate-spin h-5 w-5" /> Loading…</>
+                      <><Loader2 className="animate-spin h-5 w-5 text-white" /> Loading…</>
                     ) : (
-                      <>Get started for free <ArrowRight className="h-5 w-5" /></>
+                      <>Get started for free <ArrowRight className="h-5 w-5 text-white" /></>
                     )}
                   </button>
                 </a>

@@ -58,16 +58,16 @@ const ICP_TOOL: ICPToolConfig = {
   id: 'icp',
   icon: Target,
   badgeText: 'Real-time Qualification',
-  accentGradient: 'from-emerald-500 to-teal-600',
+  accentGradient: 'from-[#0393F7] to-[#0277C6]',
   cardShadow: 'shadow-md hover:shadow-lg',
   iconShadow: 'shadow-sm',
   cardBg: 'bg-gradient-to-b from-white via-slate-50/50 to-white',
   border: 'border-slate-200/80',
-  badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200/80',
+  badgeBg: 'bg-[#EBF6FE] text-[#0277C6] border-[#BAE1FC]',
   ctaHref: '/icp-qualification',
   ctaLabel: 'Explore ICP Validation',
   ctaBtnClass:
-    'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md hover:shadow-lg hover:opacity-95 active:scale-[0.98]',
+    'bg-gradient-to-r from-[#0393F7] to-[#0277C6] text-white shadow-md hover:shadow-lg hover:opacity-95 active:scale-[0.98]',
   keywords: [
     'Custom Software Development',
     'LLM Development',
@@ -84,16 +84,16 @@ const EMAIL_TOOL: EmailToolConfig = {
   id: 'email',
   icon: MailCheck,
   badgeText: 'Catch-All Deliverability Engine',
-  accentGradient: 'from-violet-500 to-indigo-600',
+  accentGradient: 'from-[#01EFBB] to-[#00C49A]',
   cardShadow: 'shadow-md hover:shadow-lg',
   iconShadow: 'shadow-sm',
   cardBg: 'bg-gradient-to-b from-white via-slate-50/50 to-white',
   border: 'border-slate-200/80',
-  badgeBg: 'bg-violet-50 text-violet-700 border-violet-200/80',
+  badgeBg: 'bg-[#E6FDF8] text-[#008B6D] border-[#01EFBB]/40',
   ctaHref: '/email-verification',
   ctaLabel: 'Explore Email Verification',
   ctaBtnClass:
-    'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md hover:shadow-lg hover:opacity-95 active:scale-[0.98]',
+    'bg-gradient-to-r from-primary to-secondary text-white shadow-md hover:shadow-lg hover:opacity-95 active:scale-[0.98]',
   mockLines: [
     { email: 'john@acme-corp.com', status: 'Valid' },
     { email: 'info@techflow.io', status: 'Catch-all' },
@@ -111,9 +111,9 @@ function ICPPreview({ cfg }: { cfg: ICPToolConfig }) {
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80 shadow-2xs" />
           <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80 shadow-2xs" />
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80 shadow-2xs" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#0393F7]/80 shadow-2xs" />
           <span className="ml-2 text-[11px] font-mono text-slate-500 flex items-center gap-1">
-            <Layers className="h-3 w-3 text-emerald-500" />
+            <Layers className="h-3 w-3 text-[#0393F7]" />
             https://app.exeract.com/
           </span>
         </div>
@@ -133,10 +133,10 @@ function ICPPreview({ cfg }: { cfg: ICPToolConfig }) {
           {cfg.keywords.map((kw, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50/80 border border-emerald-200/60 text-emerald-800 text-[11px] font-medium shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#EBF6FE] border border-[#BAE1FC] text-[#0277C6] text-[11px] font-medium shadow-2xs"
             >
               {kw}
-              <X size={10} className="text-emerald-500 cursor-pointer" />
+              <X size={10} className="text-[#0393F7] cursor-pointer" />
             </span>
           ))}
         </div>
@@ -160,15 +160,15 @@ function ICPPreview({ cfg }: { cfg: ICPToolConfig }) {
                     {row.domain}
                   </span>
                 </div>
-                <div className="text-[10px] text-emerald-600 font-medium">
+                <div className="text-[10px] text-[#0277C6] font-medium">
                   {row.match}
                 </div>
               </div>
             </div>
             <div>
               {row.status === 'yes' && (
-                <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 shadow-2xs">
-                  <CheckCircle2 size={11} className="text-emerald-500" /> Yes
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#EBF6FE] border border-[#BAE1FC] text-[#0277C6] shadow-2xs">
+                  <CheckCircle2 size={11} className="text-[#0393F7]" /> Yes
                 </span>
               )}
               {row.status === 'consider' && (
@@ -198,9 +198,9 @@ function EmailPreview({ cfg }: { cfg: EmailToolConfig }) {
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80 shadow-2xs" />
           <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80 shadow-2xs" />
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80 shadow-2xs" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#01EFBB] shadow-2xs" />
           <span className="ml-2 text-[11px] font-mono text-slate-500 flex items-center gap-1">
-            <Zap className="h-3 w-3 text-violet-500" />
+            <Zap className="h-3 w-3 text-[#00C49A]" />
             https://app.exeract.com/tools/email-verifier
           </span>
         </div>
@@ -216,7 +216,7 @@ function EmailPreview({ cfg }: { cfg: EmailToolConfig }) {
             <div className="flex items-center gap-2.5">
               <span
                 className={`w-2 h-2 rounded-full flex-shrink-0 ${row.status === 'Valid'
-                  ? 'bg-teal-500 shadow-[0_0_8px_rgba(20,184,166,0.6)]'
+                  ? 'bg-[#01EFBB] shadow-[0_0_8px_rgba(1,239,187,0.6)]'
                   : row.status === 'Invalid'
                     ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]'
                     : 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]'
@@ -225,8 +225,8 @@ function EmailPreview({ cfg }: { cfg: EmailToolConfig }) {
               <span className="text-xs font-mono text-slate-700 font-medium">{row.email}</span>
             </div>
             {row.status === 'Valid' ? (
-              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200/80 text-teal-700 shadow-2xs">
-                <BadgeCheck size={11} className="text-teal-500" /> Valid
+              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#E6FDF8] border border-[#01EFBB]/40 text-[#008B6D] shadow-2xs">
+                <BadgeCheck size={11} className="text-[#00C49A]" /> Valid
               </span>
             ) : row.status === 'Invalid' ? (
               <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200/80 text-rose-700 shadow-2xs">

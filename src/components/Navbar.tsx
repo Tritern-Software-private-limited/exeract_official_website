@@ -66,12 +66,12 @@ export function Navbar() {
                       <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
                     </button>
                     <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                      <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-2 min-w-[240px] flex flex-col">
+                      <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-2 min-w-[220px] flex flex-col">
                         {link.items.map((item) => (
                           <a
                             key={item.name}
                             href={item.href}
-                            className="block px-4 py-3 text-sm font-medium text-navy/80 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                            className="px-4 py-2.5 text-sm font-medium text-navy/80 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
                           >
                             {item.name}
                           </a>
@@ -104,7 +104,7 @@ export function Navbar() {
                 {loadingState === "nav-login" ? <><Loader2 className="animate-spin mr-2 h-4 w-4" /> Logging in...</> : "Log In"}
               </a>
               <a 
-                href="/product-access?redirect=https://app.exeract.com/signup"
+                href="/product-access?redirect=https://app.exeract.com/signup" 
                 onClick={(e) => handleCTAClick(e, "https://app.exeract.com/signup", "nav-signup")}
               >
                 <button className="bg-gradient-to-r from-primary to-secondary text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm xl:text-base whitespace-nowrap flex items-center">

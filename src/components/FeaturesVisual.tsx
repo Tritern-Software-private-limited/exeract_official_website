@@ -19,7 +19,7 @@ interface EmailRow {
 }
 
 const LEADS: Lead[] = [
-  { id: 1, name: 'Tritern', domain: 'tritern.com', status: 'yes', color: '#00D4AA' },
+  { id: 1, name: 'Tritern', domain: 'tritern.com', status: 'yes', color: '#0393F7' },
   { id: 2, name: 'Globex', domain: 'globex.com', status: 'consider', color: '#fbbf24' },
   { id: 3, name: 'Demantri', domain: 'demantri.com', status: 'no', color: '#f87171' },
 ];
@@ -31,7 +31,7 @@ const EMAILS: EmailRow[] = [
 ];
 
 const STATUS_CONFIG = {
-  valid:     { color: '#00D4AA', label: 'Valid ✓',    textClass: 'text-primary' },
+  valid:     { color: '#01EFBB', label: 'Valid ✓',    textClass: 'text-[#01EFBB]' },
   'catch-all': { color: '#fbbf24', label: 'Catch-all ⚠', textClass: 'text-amber-400' },
   invalid:   { color: '#f87171', label: 'Invalid ✗',  textClass: 'text-red-400' },
 };
@@ -77,7 +77,7 @@ function LeadRow({ lead, delay }: { lead: Lead; delay: number }) {
       </div>
       <div>
         {lead.status === 'yes' && (
-          <span className="text-[9px] bg-green-500/10 border border-green-500/20 text-green-400 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+          <span className="text-[9px] bg-[#0393F7]/15 border border-[#0393F7]/30 text-[#62B8FA] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
             <CheckCircle2 size={10} /> YES
           </span>
         )}
@@ -172,8 +172,8 @@ export function FeaturesVisual() {
     >
       {/* glow blobs */}
       <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-        <div className="absolute -top-8 -right-8 w-48 h-48 rounded-full blur-3xl opacity-25" style={{ background: '#00D4AA' }} />
-        <div className="absolute -bottom-8 -left-8 w-48 h-48 rounded-full blur-3xl opacity-20" style={{ background: '#8b5cf6' }} />
+        <div className="absolute -top-8 -right-8 w-48 h-48 rounded-full blur-3xl opacity-25" style={{ background: '#0393F7' }} />
+        <div className="absolute -bottom-8 -left-8 w-48 h-48 rounded-full blur-3xl opacity-20" style={{ background: '#01EFBB' }} />
       </div>
 
       {/* ── 3-D tilt card ── */}
@@ -189,7 +189,7 @@ export function FeaturesVisual() {
           {/* header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
             <div className="flex gap-1.5">
-              {['#f87171','#fbbf24','#34d399'].map(c => (
+              {['#f87171','#fbbf24','#01EFBB'].map(c => (
                 <div key={c} className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />
               ))}
             </div>
@@ -197,7 +197,7 @@ export function FeaturesVisual() {
             <motion.div
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4 }}
-              className="w-2 h-2 rounded-full bg-primary"
+              className="w-2 h-2 rounded-full bg-[#01EFBB]"
             />
           </div>
 
@@ -207,8 +207,8 @@ export function FeaturesVisual() {
             <div>
               {/* section label */}
               <div className="flex items-center gap-2 mb-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-[10px] font-bold text-primary uppercase tracking-widest">ICP Validation</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0393F7] animate-pulse" />
+                <span className="text-[10px] font-bold text-[#0393F7] uppercase tracking-widest">ICP Validation</span>
                 <div className="flex-1 h-px bg-white/5" />
                 <span className="text-[10px] text-gray-500 font-mono">{icpCount.toLocaleString()} scanned</span>
               </div>
@@ -230,8 +230,8 @@ export function FeaturesVisual() {
                     />
                     <defs>
                       <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#00D4AA" />
-                        <stop offset="100%" stopColor="#0099FF" />
+                        <stop offset="0%" stopColor="#0393F7" />
+                        <stop offset="100%" stopColor="#62B8FA" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -245,17 +245,17 @@ export function FeaturesVisual() {
                   <div>
                     <div className="flex justify-between text-[10px] mb-1">
                       <span className="text-gray-400">Matched</span>
-                      <span className="text-primary font-bold">3,890</span>
+                      <span className="text-[#0393F7] font-bold">3,890</span>
                     </div>
                     <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
-                      <motion.div className="h-full rounded-full bg-gradient-to-r from-primary to-secondary"
+                      <motion.div className="h-full rounded-full bg-gradient-to-r from-[#0393F7] to-[#62B8FA]"
                         initial={{ width: 0 }} animate={{ width: '78%' }}
                         transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }} />
                     </div>
                   </div>
                   <div className="flex gap-3">
                     <div className="flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0393F7]" />
                       <span className="text-[9px] text-gray-400">3,890 matched</span>
                     </div>
                     <div className="flex items-center gap-1">
@@ -273,7 +273,7 @@ export function FeaturesVisual() {
                     initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.5 + i * 0.08 }}
                     className="px-1.5 py-0.5 rounded-full text-[9px] font-semibold border"
-                    style={{ background: 'rgba(0,212,170,0.08)', borderColor: 'rgba(0,212,170,0.25)', color: '#a7f3d0' }}
+                    style={{ background: 'rgba(3,147,247,0.12)', borderColor: 'rgba(3,147,247,0.3)', color: '#62B8FA' }}
                   >
                     #{kw}
                   </motion.span>
@@ -292,8 +292,8 @@ export function FeaturesVisual() {
             {/* ── Email Verification block ── */}
             <div>
               <div className="flex items-center gap-2 mb-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-                <span className="text-[10px] font-bold text-violet-400 uppercase tracking-widest">Email Verification</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#01EFBB] animate-pulse" />
+                <span className="text-[10px] font-bold text-[#01EFBB] uppercase tracking-widest">Email Verification</span>
                 <div className="flex-1 h-px bg-white/5" />
                 <span className="text-[10px] text-gray-500 font-mono">{emailCount.toLocaleString()} checked</span>
               </div>
@@ -301,7 +301,7 @@ export function FeaturesVisual() {
               {/* email stats */}
               <div className="grid grid-cols-3 gap-2 mb-3">
                 {[
-                  { label: 'Valid', value: '94%', color: '#00D4AA' },
+                  { label: 'Valid', value: '94%', color: '#01EFBB' },
                   { label: 'Catch-all', value: '4%', color: '#fbbf24' },
                   { label: 'Invalid', value: '2%', color: '#f87171' },
                 ].map(stat => (
@@ -325,9 +325,9 @@ export function FeaturesVisual() {
         </div>
 
         {/* ── floating stat badges ── */}
-        <StatBadge value="10x"  label="faster"        color="#00D4AA" x="-30%" y="6%"  layerZ={10} />
-        <StatBadge value="95%"  label="ICP accuracy"  color="#0099FF" x="80%"  y="16%" layerZ={12} />
-        <StatBadge value="6K"   label="emails/batch"  color="#8b5cf6" x="-24%" y="70%" layerZ={11} />
+        <StatBadge value="10x"  label="faster"        color="#01EFBB" x="-30%" y="6%"  layerZ={10} />
+        <StatBadge value="95%"  label="ICP accuracy"  color="#0393F7" x="80%"  y="16%" layerZ={12} />
+        <StatBadge value="6K"   label="emails/batch"  color="#01EFBB" x="-24%" y="70%" layerZ={11} />
         <StatBadge value="✓"    label="catch-all safe" color="#fbbf24" x="78%"  y="78%" layerZ={9}  />
       </motion.div>
     </div>

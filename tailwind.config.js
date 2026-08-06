@@ -8,15 +8,32 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Email Verification Theme (#01EFBB)
+        email: {
+          DEFAULT: '#01EFBB',
+          light: '#65F7D7',
+          lighter: '#E6FDF8',
+          dark: '#00C49A',
+          darker: '#008B6D',
+        },
+        // ICP Validation Theme (#0393F7)
+        icp: {
+          DEFAULT: '#0393F7',
+          light: '#62B8FA',
+          lighter: '#EBF6FE',
+          dark: '#0277C6',
+          darker: '#015793',
+        },
+        // Semantic Brand Mapping
         primary: {
-          DEFAULT: '#00D4AA',
-          dark: '#00B894',
-          light: '#00FFD1'
+          DEFAULT: '#01EFBB',
+          dark: '#00C49A',
+          light: '#65F7D7',
         },
         secondary: {
-          DEFAULT: '#0099FF',
-          dark: '#0077CC',
-          light: '#33AAFF'
+          DEFAULT: '#0393F7',
+          dark: '#0277C6',
+          light: '#62B8FA',
         },
         navy: {
           DEFAULT: '#0F172A',

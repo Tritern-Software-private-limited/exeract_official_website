@@ -131,7 +131,7 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                 {/* ICP Qualification Row */}
                 <div className="flex flex-wrap items-center justify-between sm:justify-start gap-3">
                   <div className="flex items-center gap-3 min-w-[170px]">
-                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white flex items-center justify-center shadow-sm flex-shrink-0">
+                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#0393F7] to-[#0277C6] text-white flex items-center justify-center shadow-sm flex-shrink-0">
                       <Target className="h-4.5 w-4.5 text-white" />
                     </div>
                     <div>
@@ -162,8 +162,8 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                 {/* Catch-All Email Verification Row */}
                 <div className="flex flex-wrap items-center justify-between sm:justify-start gap-3">
                   <div className="flex items-center gap-3 min-w-[170px]">
-                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white flex items-center justify-center shadow-sm flex-shrink-0">
-                      <MailCheck className="h-4.5 w-4.5 text-white" />
+                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#01EFBB] to-[#00C49A] text-navy flex items-center justify-center shadow-sm flex-shrink-0">
+                      <MailCheck className="h-4.5 w-4.5 text-navy" />
                     </div>
                     <div>
                       <div className="text-sm font-semibold text-navy leading-tight">
@@ -176,8 +176,8 @@ export function Hero({ isAdmin, onEdit }: HeroProps) {
                   </div>
 
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs bg-teal-50 border border-teal-200/80 text-teal-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
-                      <BadgeCheck className="h-3.5 w-3.5 text-teal-500" /> Valid
+                    <span className="text-xs bg-[#EBF6FE] border border-[#01EFBB]/40 text-[#008B6D] font-semibold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
+                      <BadgeCheck className="h-3.5 w-3.5 text-[#00C49A]" /> Valid
                     </span>
                     <span className="text-xs bg-amber-50 border border-amber-200/80 text-amber-700 font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
                       <ShieldAlert className="h-3.5 w-3.5 text-amber-500" /> Catch-all
